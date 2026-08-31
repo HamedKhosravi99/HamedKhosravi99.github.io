@@ -185,6 +185,27 @@ p { margin: 0 0 1.05rem; }
   font-size: 0.965rem;
 }
 
+/* --- Academic service --- */
+.service-line {
+  display: grid;
+  grid-template-columns: 7.6rem 1fr;
+  gap: 0.95rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.945rem;
+  line-height: 1.6;
+}
+
+.service-line:last-child { margin-bottom: 0; }
+
+.service-label {
+  color: var(--faint);
+  font-size: 0.83rem;
+  letter-spacing: 0.01em;
+}
+
+/* Single child so inline <em>/<strong> don't each become grid items. */
+.service-body { line-height: 1.6; }
+
 /* --- News --- */
 .news { list-style: none; margin: 0; padding: 0; font-size: 0.945rem; }
 
@@ -250,6 +271,15 @@ p { margin: 0 0 1.05rem; }
   color: var(--faint);
   font-style: italic;
 }
+
+.pubs .eqnote {
+  display: block;
+  font-size: 0.815rem;
+  color: var(--faint);
+  margin-top: 0.1rem;
+}
+
+.pubs .authors sup { font-size: 0.72em; }
 
 .pubs .tags { display: block; margin-top: 0.38rem; }
 
@@ -335,8 +365,10 @@ footer p { margin: 0; }
   body { font-size: 16px; }
 
   .news li,
-  .timeline li { grid-template-columns: 1fr; gap: 0.1rem; }
+  .timeline li,
+  .service-line { grid-template-columns: 1fr; gap: 0.1rem; }
   .news li { margin-bottom: 0.85rem; }
+  .service-line { margin-bottom: 0.85rem; }
   .timeline .detail { grid-column: 1; }
 }
 
