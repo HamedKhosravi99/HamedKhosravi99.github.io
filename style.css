@@ -389,6 +389,20 @@ p { margin: 0 0 1.05rem; }
   line-height: 1.6;
 }
 
+/* Bulleted detail (e.g. role highlights). Nested li must not inherit the row grid. */
+.timeline ul.detail {
+  list-style: disc;
+  margin-bottom: 0;
+  padding-left: 1.1rem;
+}
+
+.timeline .detail li {
+  display: list-item;
+  margin-bottom: 0.3rem;
+}
+
+.timeline .detail li:last-child { margin-bottom: 0; }
+
 /* --- Footer --- */
 footer {
   margin-top: 3.5rem;
