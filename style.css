@@ -292,22 +292,11 @@ p { margin: 0 0 1.05rem; }
 }
 
 /* --- Publications --- */
-/* Counter lives on the section so numbering runs across both groups. */
-#publications { counter-reset: pub; }
-
-.pubgroup {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text);
-  margin: 1.5rem 0 0.85rem;
-}
-
-.pubgroup:first-of-type { margin-top: 0; }
-
 .pubs {
   list-style: none;
   margin: 0;
   padding: 0;
+  counter-reset: pub;
 }
 
 .pubs li {
