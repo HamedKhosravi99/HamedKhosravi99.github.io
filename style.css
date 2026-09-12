@@ -60,7 +60,18 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   align-items: start;
 }
 
-.sidebar { position: sticky; top: 3rem; text-align: center; }
+.sidebar {
+  position: sticky;
+  top: 2rem;
+  text-align: center;
+  /* On short viewports the nav can extend past the fold; let it scroll
+     without showing a scrollbar so nothing becomes unreachable. */
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar { display: none; }
 
 /* --- avatar --- */
 .avatar {
@@ -111,7 +122,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 .links {
   list-style: none;
   margin: 0;
-  padding: 1.2rem 0 0;
+  padding: 1rem 0 0;
   border-top: 1px solid var(--rule);
   font-size: 0.875rem;
   text-align: left;
@@ -140,13 +151,39 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 .links a { color: var(--text); }
 .links a:hover { color: var(--accent); }
 
+/* --- section nav --- */
+.toc {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  text-align: left;
+  font-size: 0.845rem;
+}
+
+.toc a {
+  color: var(--muted);
+  padding: 0.1rem 0 0.1rem 0.7rem;
+  border-left: 2px solid transparent;
+  line-height: 1.5;
+}
+
+.toc a:hover { color: var(--text); text-decoration: none; }
+
+.toc a.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
 /* ------------------------------------------------------------
    Content
    ------------------------------------------------------------ */
 
 .content { min-width: 0; max-width: 44rem; }
 
-section { margin-bottom: 2.9rem; }
+section { margin-bottom: 2.9rem; scroll-margin-top: 2rem; }
 
 h2 {
   font-size: 0.795rem;
@@ -180,9 +217,22 @@ p { margin: 0 0 1.05rem; }
 }
 
 .interests {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.interests li {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding: 0.22rem 0.64rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--surface);
   color: var(--text);
-  margin-bottom: 0;
-  font-size: 0.965rem;
 }
 
 /* --- Academic service --- */
@@ -218,6 +268,22 @@ p { margin: 0 0 1.05rem; }
 
 .news .item { line-height: 1.6; }
 
+.news li.older { display: none; }
+.news.expanded li.older { display: grid; }
+
+.news-toggle {
+  margin-top: 0.15rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.845rem;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.news-toggle:hover { text-decoration: underline; text-underline-offset: 2px; }
+
 .date {
   color: var(--faint);
   font-variant-numeric: tabular-nums;
@@ -226,11 +292,22 @@ p { margin: 0 0 1.05rem; }
 }
 
 /* --- Publications --- */
+/* Counter lives on the section so numbering runs across both groups. */
+#publications { counter-reset: pub; }
+
+.pubgroup {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 1.5rem 0 0.85rem;
+}
+
+.pubgroup:first-of-type { margin-top: 0; }
+
 .pubs {
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: pub;
 }
 
 .pubs li {
@@ -345,7 +422,7 @@ footer p { margin: 0; }
     padding: 2.5rem 1.35rem 2.5rem;
   }
 
-  .sidebar { position: static; max-width: 25rem; margin: 0 auto; }
+  .sidebar { position: static; max-width: 25rem; margin: 0 auto; max-height: none; overflow: visible; }
 
   .avatar { width: 132px; height: 132px; }
   .avatar-fallback { font-size: 2.6rem; }
@@ -357,6 +434,19 @@ footer p { margin: 0; }
     gap: 0.35rem 1.15rem;
   }
   .links li { margin-bottom: 0; }
+
+  .toc {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.15rem 0.95rem;
+  }
+  .toc a {
+    padding: 0.1rem 0;
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+  }
+  .toc a.active { border-bottom-color: var(--accent); }
 
   .content { max-width: none; }
 }
@@ -380,5 +470,6 @@ footer p { margin: 0; }
   .layout { display: block; max-width: none; padding: 0; }
   .sidebar { text-align: left; margin-bottom: 1.5rem; }
   a { color: inherit; text-decoration: none; }
-  .cta { display: none; }
+  .cta, .toc, .news-toggle { display: none; }
+  .news li.older { display: grid; }
 }

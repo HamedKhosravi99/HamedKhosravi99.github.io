@@ -58,6 +58,16 @@
         <a href="https://www.isye.gatech.edu/users/hamed-khosravi">Georgia Tech Profile</a>
       </li>
     </ul>
+
+    <nav class="toc" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#awards">Awards</a>
+      <a href="#service">Service</a>
+    </nav>
   </aside>
 
   <!-- ================= MAIN ================= -->
@@ -92,14 +102,19 @@
     <!-- ---------- RESEARCH INTERESTS ---------- -->
     <section id="research">
       <h2>Research Interests</h2>
-      <p class="interests">
-        Statistical machine learning · Reinforcement learning · LLM evaluation and risk
-        control · Reinforcement learning with verifiable rewards (RLVR) for LLMs ·
-        Human–AI teaming · Statistical evaluation of AI systems · Multi-armed and
-        contextual bandits · Non-stationary and online learning · Sequential decision
-        making · Conformal prediction and uncertainty quantification · Causal inference
-        and experimental design
-      </p>
+      <ul class="interests">
+        <li>Statistical machine learning</li>
+        <li>Reinforcement learning</li>
+        <li>LLM evaluation and risk control</li>
+        <li>Reinforcement learning with verifiable rewards (RLVR) for LLMs</li>
+        <li>Human–AI teaming</li>
+        <li>Statistical evaluation of AI systems</li>
+        <li>Multi-armed and contextual bandits</li>
+        <li>Non-stationary and online learning</li>
+        <li>Sequential decision making</li>
+        <li>Conformal prediction and uncertainty quantification</li>
+        <li>Causal inference and experimental design</li>
+      </ul>
     </section>
 
     <!-- ---------- NEWS ---------- -->
@@ -111,10 +126,11 @@
         <li><span class="date">2026</span><span class="item"><em>TEAM-Audit: A Two-Endpoint Audit of Margins</em> accepted at <strong>HAT 2026</strong> (HCOMP/CI).</span></li>
         <li><span class="date">2026</span><span class="item">Received the <strong>Most Innovative Approach Award</strong>, NSF Future Manufacturing Data Challenge.</span></li>
         <li><span class="date">2026</span><span class="item">Awarded the <strong>John Morris Fellowship</strong>.</span></li>
-        <li><span class="date">2026</span><span class="item">Two new preprints on non-stationary low-rank bandits and anytime-valid risk control for RLVR-trained LLMs.</span></li>
-        <li><span class="date">2025</span><span class="item">Started the Machine Learning Ph.D. at <strong>Georgia Tech</strong> with <a href="https://sites.gatech.edu/xiaoming-huo/">Prof. Xiaoming Huo</a>.</span></li>
-        <li><span class="date">2025</span><span class="item">Completed a Machine Learning Engineer internship at <strong>Tesla</strong> (Cell Engineering, Analytics &amp; Software).</span></li>
+        <li class="older"><span class="date">2026</span><span class="item">Two new preprints on non-stationary low-rank bandits and anytime-valid risk control for RLVR-trained LLMs.</span></li>
+        <li class="older"><span class="date">2025</span><span class="item">Started the Machine Learning Ph.D. at <strong>Georgia Tech</strong> with <a href="https://sites.gatech.edu/xiaoming-huo/">Prof. Xiaoming Huo</a>.</span></li>
+        <li class="older"><span class="date">2025</span><span class="item">Completed a Machine Learning Engineer internship at <strong>Tesla</strong> (Cell Engineering, Analytics &amp; Software).</span></li>
       </ul>
+      <button class="news-toggle" type="button" aria-expanded="false">Show older news</button>
     </section>
 
     <!-- ---------- PUBLICATIONS ---------- -->
@@ -124,6 +140,7 @@
         Full list on <a href="https://scholar.google.com/citations?user=-zCPqEkAAAAJ&amp;hl=en">Google Scholar</a>.
       </p>
 
+      <h3 class="pubgroup">Preprints</h3>
       <ol class="pubs">
 
         <li>
@@ -182,6 +199,11 @@
           <span class="venue">arXiv preprint arXiv:2503.00387, 2025</span>
           <span class="tags"><a href="https://arxiv.org/abs/2503.00387">Paper</a></span>
         </li>
+
+      </ol>
+
+      <h3 class="pubgroup">Journal Articles</h3>
+      <ol class="pubs">
 
         <li>
           <span class="title">KANGURA: Kolmogorov–Arnold Network-Based Geometry-Aware Learning with Unified Representation Attention for 3D Modeling of Complex Structures</span>
@@ -280,6 +302,52 @@
   </main>
 </div>
 
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Older-news toggle.
+(function () {
+  var btn = document.querySelector('.news-toggle');
+  var list = document.querySelector('.news');
+  if (!btn || !list) return;
+  btn.addEventListener('click', function () {
+    var open = list.classList.toggle('expanded');
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? 'Show fewer' : 'Show older news';
+  });
+})();
+
+// Highlight the sidebar nav entry for the section currently in view.
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var ids = links.map(function (a) { return a.getAttribute('href').slice(1); });
+  var visible = {};
+  function atBottom() {
+    return window.scrollY > 0 &&
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  }
+  function update() {
+    var current = null;
+    if (atBottom()) {
+      // The last section is too short to reach the band; at page end it wins.
+      current = ids[ids.length - 1];
+    } else {
+      // Several sections can sit in the band at once; the topmost one wins.
+      for (var i = 0; i < ids.length; i++) { if (visible[ids[i]]) { current = ids[i]; break; } }
+    }
+    links.forEach(function (a, i) { a.classList.toggle('active', ids[i] === current); });
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+    update();
+  }, { rootMargin: '-15% 0px -70% 0px' });
+  ids.forEach(function (id) {
+    var s = document.getElementById(id);
+    if (s) io.observe(s);
+  });
+  window.addEventListener('scroll', update, { passive: true });
+})();
+</script>
 </body>
 </html>
