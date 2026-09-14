@@ -534,17 +534,24 @@ p { margin: 0 0 1.05rem; }
   line-height: 1.6;
 }
 
-/* Bulleted detail (e.g. role highlights). Nested li must not inherit the row grid. */
+/* Bulleted detail (role highlights): these are the substance of the entry,
+   so they read in body colour, a little larger, with clear space between
+   bullets. Nested li must not inherit the row grid. */
 .timeline ul.detail {
   list-style: disc;
-  margin-bottom: 0;
-  padding-left: 1.1rem;
+  margin: 0.35rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--text);
+  font-size: 0.925rem;
 }
 
 .timeline .detail li {
   display: list-item;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.7rem;
+  padding-left: 0.15rem;
 }
+
+.timeline .detail li::marker { color: var(--accent); }
 
 .timeline .detail li:last-child { margin-bottom: 0; }
 
