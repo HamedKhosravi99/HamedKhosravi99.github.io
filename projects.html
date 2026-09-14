@@ -123,10 +123,16 @@
       <article class="project">
         <h3>Data and Model Quality Improvement in Smart Manufacturing</h3>
         <p class="project-meta">Sep 2022 – Aug 2025 · West Virginia University</p>
-        <figure class="project-figure">
-          <img class="project-fig" loading="lazy" src="assets/projects/manufacturing-kangura-framework.jpg" alt="KANGURA framework: a point cloud is turned into a graph, its Laplacian separates high- and low-frequency geometry, a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features are output">
-          <figcaption>The KANGURA pipeline. A point cloud becomes a graph whose Laplacian separates high- and low-frequency geometry; a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features form the output representation.</figcaption>
-        </figure>
+        <div class="project-figs">
+          <figure class="project-figure">
+            <img class="project-fig" loading="lazy" src="assets/projects/manufacturing-mobosl-loop.jpg" alt="Sequential learning loop: select initial data, fit a Gaussian-process surrogate, propose the next point with qParEGO, take the nearest real sample from the dataset, update the surrogate, repeat until the Pareto front is reached">
+            <figcaption>The sequential learning loop. From a small initial sample, a Gaussian-process surrogate is fitted; qParEGO proposes the next point, the closest real candidate in the dataset is evaluated, the surrogate is updated, and the loop repeats until the Pareto front of the competing objectives is reached.</figcaption>
+          </figure>
+          <figure class="project-figure">
+            <img class="project-fig" loading="lazy" src="assets/projects/manufacturing-kangura-framework.jpg" alt="KANGURA framework: a point cloud is turned into a graph, its Laplacian separates high- and low-frequency geometry, a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features are output">
+            <figcaption>The KANGURA pipeline. A point cloud becomes a graph whose Laplacian separates high- and low-frequency geometry; a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features form the output representation.</figcaption>
+          </figure>
+        </div>
         <div class="project-rows">
           <span class="plabel">Problem</span>
           <p>Manufacturing decisions involve expensive experiments, competing objectives, and scarce examples of the failures that matter most.</p>
