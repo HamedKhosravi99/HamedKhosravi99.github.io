@@ -159,12 +159,12 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 /* --- section nav --- */
 .toc {
-  margin-top: 0.9rem;
-  padding-top: 0.9rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
   border-top: 1px solid var(--rule);
   display: flex;
   flex-direction: column;
-  gap: 0.18rem;
+  gap: 0.06rem;
   text-align: left;
   font-size: 0.845rem;
 }
@@ -402,7 +402,7 @@ p { margin: 0 0 1.05rem; }
 .timeline li {
   display: grid;
   grid-template-columns: 7.6rem 1fr;
-  gap: 0.95rem;
+  gap: 0.15rem 0.95rem;   /* tight row gap so a .detail line sits under its .what */
   margin-bottom: 0.85rem;
 }
 
@@ -412,9 +412,12 @@ p { margin: 0 0 1.05rem; }
   grid-column: 2;
   font-size: 0.885rem;
   color: var(--muted);
-  margin-top: 0.22rem;
   line-height: 1.6;
 }
+
+/* Presentations: two-line entries need a little more air between them. */
+.talks li { margin-bottom: 1.1rem; }
+.talks li:last-child { margin-bottom: 0; }
 
 /* Bulleted detail (e.g. role highlights). Nested li must not inherit the row grid. */
 .timeline ul.detail {
