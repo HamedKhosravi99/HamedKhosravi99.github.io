@@ -307,12 +307,22 @@ p { margin: 0 0 1.05rem; }
 
 .project-figs .project-fig { margin: 0 auto; width: 88%; max-height: none; }
 
-.project p { font-size: 0.945rem; line-height: 1.62; margin: 0 0 0.55rem; }
+/* Under the figure: Problem / Approach / Papers as label + body rows,
+   the same shape as the Academic Service section. */
+.project-rows {
+  display: grid;
+  grid-template-columns: 5.4rem 1fr;
+  gap: 0.45rem 0.9rem;
+  align-items: baseline;
+}
 
-.project .project-papers {
+.project-rows .plabel { margin: 0; padding-top: 0.2rem; }
+
+.project-rows p { font-size: 0.945rem; line-height: 1.62; margin: 0; }
+
+.project-rows .project-papers {
   font-size: 0.875rem;
   color: var(--muted);
-  margin-bottom: 0;
   counter-reset: pp;
 }
 
@@ -582,7 +592,9 @@ footer p { margin: 0; }
 
   .news li,
   .timeline li,
-  .service-line { grid-template-columns: 1fr; gap: 0.1rem; }
+  .service-line,
+  .project-rows { grid-template-columns: 1fr; gap: 0.1rem; }
+  .project-rows p { margin-bottom: 0.5rem; }
   .news li { margin-bottom: 0.85rem; }
   .service-line { margin-bottom: 0.85rem; }
   .timeline .detail { grid-column: 1; }
