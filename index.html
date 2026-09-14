@@ -18,7 +18,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
 <!-- Bump ?v= whenever style.css changes: Pages caches for 10 min, and a visitor who
      gets new HTML with an old cached stylesheet sees an unstyled page. -->
-<link rel="stylesheet" href="style.css?v=20260914d">
+<link rel="stylesheet" href="style.css?v=20260914e">
 </head>
 <body>
 
@@ -123,7 +123,7 @@
     </section>
 
     <!-- ---------- PROJECTS ---------- -->
-    <section id="projects">
+    <section id="projects" class="foldable">
       <h2>Projects</h2>
 
       <h3 class="group-label">Current</h3>
@@ -166,8 +166,8 @@
 
       </div>
 
-      <h3 class="group-label">Past</h3>
-      <div class="projects">
+      <h3 class="group-label older">Past</h3>
+      <div class="projects older">
 
         <article class="project">
           <h3>Data and Model Quality Improvement in Smart Manufacturing</h3>
@@ -205,12 +205,13 @@
         </article>
 
       </div>
+      <button class="fold-toggle" type="button" aria-expanded="false" data-target="#projects" data-less="Show fewer">Show past projects</button>
     </section>
 
     <!-- ---------- NEWS ---------- -->
     <section id="news">
       <h2>Latest News</h2>
-      <ul class="news">
+      <ul class="news foldable">
         <li><span class="date">Sep 2026</span><span class="item">New work on how to evaluate human–AI agent teams, decide when they truly add value, and determine which comparisons are most informative is now available on <a href="https://arxiv.org/abs/2609.05527">arXiv</a>. Also see the discussion on <a href="https://www.linkedin.com/feed/update/urn:li:activity:7503606749980196864/">LinkedIn</a>.</span></li>
         <li><span class="date">Aug 2026</span><span class="item">New paper preprint on choosing which LLM to use for which task when quality estimates are uncertain is now on <a href="https://arxiv.org/abs/2608.29560">arXiv</a>.</span></li>
         <li><span class="date">Aug 2026</span><span class="item">Received conference travel support from Georgia Tech's <strong>College of Engineering</strong> and the <strong>Student Government Association</strong> Conference Fund.</span></li>
@@ -230,7 +231,7 @@
         <li class="older"><span class="date">Aug 2023</span><span class="item">Awarded the <strong>Benjamin M. Statler College of Engineering and Mineral Resources Fellowship</strong> at West Virginia University.</span></li>
         <li class="older"><span class="date">Feb 2022</span><span class="item">Graduated with a B.S. in Industrial Engineering from Iran University of Science and Technology, recognized as a <strong>Distinguished Student</strong>.</span></li>
       </ul>
-      <button class="news-toggle" type="button" aria-expanded="false">Show older news</button>
+      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".news" data-less="Show fewer">Show older news</button>
     </section>
 
     <!-- ---------- PUBLICATIONS ---------- -->
@@ -240,7 +241,7 @@
         Full list on <a href="https://scholar.google.com/citations?user=-zCPqEkAAAAJ&amp;hl=en">Google Scholar</a>.
       </p>
 
-      <ol class="pubs">
+      <ol class="pubs foldable">
 
         <li>
           <span class="title">Beyond “AI Helps Humans”: Decision-Targeted Evaluation Design for Human–Agent Teams in the Agentic Era</span>
@@ -292,14 +293,14 @@
           </span>
         </li>
 
-        <li>
+        <li class="older">
           <span class="title">LNUCB-TA: Linear–Nonlinear Hybrid Bandit Learning with Temporal Attention</span>
           <span class="authors"><strong>Hamed Khosravi</strong>, Mohammad Reza Shafie, Ahmed Shoyeb Raihan, Srinjoy Das, Imtiaz Ahmed</span>
           <span class="venue">arXiv preprint arXiv:2503.00387, 2025</span>
           <span class="tags"><a href="https://arxiv.org/abs/2503.00387">Paper</a></span>
         </li>
 
-        <li>
+        <li class="older">
           <span class="title">KANGURA: Kolmogorov–Arnold Network-Based Geometry-Aware Learning with Unified Representation Attention for 3D Modeling of Complex Structures</span>
           <span class="authors">Mohammad Reza Shafie<sup>*</sup>, Morteza Hajiabadi<sup>*</sup>, <strong>Hamed Khosravi<sup>*</sup></strong>, Mobina Noori, Imtiaz Ahmed</span>
           <span class="venue">Manufacturing Letters, 2026</span>
@@ -307,14 +308,14 @@
           <span class="tags"><a href="https://arxiv.org/abs/2511.13798">Paper</a></span>
         </li>
 
-        <li>
+        <li class="older">
           <span class="title">A Data-Driven Sequential Learning Framework to Accelerate and Optimize Multi-Objective Manufacturing Decisions</span>
           <span class="authors"><strong>Hamed Khosravi</strong>, Taofeeq Olajire, Ahmed Shoyeb Raihan, Imtiaz Ahmed</span>
           <span class="venue">Journal of Intelligent Manufacturing, vol. 35(8), 2024</span>
           <span class="tags"><a href="https://link.springer.com/article/10.1007/s10845-024-02337-y">Paper</a></span>
         </li>
 
-        <li>
+        <li class="older">
           <span class="title">An Improved Group Teaching Optimization Algorithm Based on Local Search and Chaotic Map for Feature Selection in High-Dimensional Data</span>
           <span class="authors"><strong>Hamed Khosravi</strong>, Babak Amiri, Navid Yazdanjue, Vahide Babaiyan</span>
           <span class="venue">Expert Systems with Applications, vol. 204, 2022</span>
@@ -322,12 +323,13 @@
         </li>
 
       </ol>
+      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".pubs" data-less="Show fewer">Show all publications</button>
     </section>
 
     <!-- ---------- PRESENTATIONS ---------- -->
     <section id="presentations">
       <h2>Presentations</h2>
-      <ul class="timeline talks">
+      <ul class="timeline talks foldable">
         <li>
           <span class="date">2024</span>
           <span class="what">Attention Meets Geometry: Advancing 3D Object Learning with Balanced Local and Global Enhancements</span>
@@ -353,47 +355,48 @@
           <span class="what">Binary Gaussian Copula Synthesis: A Novel Data Augmentation Technique to Advance Machine Learning Prediction of Dialysis among CKD Patients</span>
           <span class="detail">Poster · INFORMS Poster Competition · <strong>3rd place</strong></span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2024</span>
           <span class="what">Strategic Data Augmentation with CTGAN for Smart Manufacturing: Enhancing Machine Learning Predictions of Paper Breaks in Pulp-and-Paper Production</span>
           <span class="detail">Talk · North American Manufacturing Research Conference (NAMRC) · NSF Travel Award</span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2024</span>
           <span class="what">Artificial Intelligence in Chronic Kidney Disease: Uncovering Patient Phenotypes</span>
           <span class="detail">Talk · Healthcare Systems Process Improvement Conference (HSPI)</span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2024</span>
           <span class="what">Early Prediction of Dialysis among Chronic Kidney Disease Patients Using Advanced Machine Learning Models with Data Augmentation</span>
           <span class="detail">Poster · WVU Statler College</span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2023</span>
           <span class="what">A Data-Driven Sequential Learning Framework to Accelerate and Optimize Multi-Objective Manufacturing Decisions</span>
           <span class="detail">Talk · INFORMS Annual Meeting</span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2023</span>
           <span class="what">Efficient Frontier: Introducing an Active Learning Bayesian Framework for Cost-Effective Multi-Objective Manufacturing Optimization</span>
           <span class="detail">Poster · INFORMS Annual Meeting</span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2023</span>
           <span class="what">From Automation to Autonomy in Smart Manufacturing Using Sequential Learning</span>
           <span class="detail">Poster · WVU Statler College</span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2023</span>
           <span class="what">Inclusive AI in Chronic Kidney Disease: Generative Adversarial Networks on Patient Care</span>
           <span class="detail">Poster · All Voices as One!, WVU Statler College</span>
         </li>
-        <li>
+        <li class="older">
           <span class="date">2023</span>
           <span class="what">AI-Driven Innovations: Transforming Healthcare and Manufacturing</span>
           <span class="detail">Invited talk · DSCI 101, Introduction to Data Science, West Virginia University</span>
         </li>
       </ul>
+      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".talks" data-less="Show fewer">Show all presentations</button>
     </section>
 
     <!-- ---------- EDUCATION ---------- -->
@@ -437,20 +440,21 @@
     <!-- ---------- AWARDS ---------- -->
     <section id="awards">
       <h2>Honors &amp; Awards</h2>
-      <ul class="timeline">
+      <ul class="timeline awards-list foldable">
         <li><span class="date">Aug 2026</span><span class="what">Student Government Association (SGA) Conference Fund Travel Award, Georgia Institute of Technology</span></li>
         <li><span class="date">Aug 2026</span><span class="what">College of Engineering (COE) Travel Award, Georgia Institute of Technology</span></li>
         <li><span class="date">Jul 2026</span><span class="what">Most Innovative Approach Award — NSF Future Manufacturing Data Challenge</span></li>
         <li><span class="date">Aug 2025<br>Jan 2026</span><span class="what">John Morris Fellowship, Georgia Institute of Technology</span></li>
         <li><span class="date">May 2025</span><span class="what"><strong>Finalist</strong>, PG&amp;E Energy Analytics Challenge Competition, IISE</span></li>
-        <li><span class="date">Apr 2025</span><span class="what">NSF Travel Award to attend the IISE Annual Conference</span></li>
-        <li><span class="date">Nov 2024</span><span class="what">Excellence in Research Award, West Virginia University</span></li>
-        <li><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Manufacturing AI Competition, INFORMS QSR Section</span></li>
-        <li><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Poster Competition (100+ posters), INFORMS</span></li>
-        <li><span class="date">May 2024</span><span class="what">NSF Travel Award to attend the NAMRC 53 Conference</span></li>
-        <li><span class="date">Aug 2023</span><span class="what">Benjamin M. Statler College of Engineering and Mineral Resources Fellowship, West Virginia University</span></li>
-        <li><span class="date">Feb 2022</span><span class="what">Distinguished Student, B.Sc. degree, Iran University of Science and Technology</span></li>
+        <li class="older"><span class="date">Apr 2025</span><span class="what">NSF Travel Award to attend the IISE Annual Conference</span></li>
+        <li class="older"><span class="date">Nov 2024</span><span class="what">Excellence in Research Award, West Virginia University</span></li>
+        <li class="older"><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Manufacturing AI Competition, INFORMS QSR Section</span></li>
+        <li class="older"><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Poster Competition (100+ posters), INFORMS</span></li>
+        <li class="older"><span class="date">May 2024</span><span class="what">NSF Travel Award to attend the NAMRC 53 Conference</span></li>
+        <li class="older"><span class="date">Aug 2023</span><span class="what">Benjamin M. Statler College of Engineering and Mineral Resources Fellowship, West Virginia University</span></li>
+        <li class="older"><span class="date">Feb 2022</span><span class="what">Distinguished Student, B.Sc. degree, Iran University of Science and Technology</span></li>
       </ul>
+      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".awards-list" data-less="Show fewer">Show all awards</button>
     </section>
 
     <!-- ---------- TEACHING ----------
@@ -500,15 +504,19 @@
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Older-news toggle.
+// "Show all / Show fewer" toggles. A .foldable container hides its .older
+// children until it gains .expanded; each button names its container.
 (function () {
-  var btn = document.querySelector('.news-toggle');
-  var list = document.querySelector('.news');
-  if (!btn || !list) return;
-  btn.addEventListener('click', function () {
-    var open = list.classList.toggle('expanded');
-    btn.setAttribute('aria-expanded', String(open));
-    btn.textContent = open ? 'Show fewer' : 'Show older news';
+  var toggles = document.querySelectorAll('.fold-toggle');
+  Array.prototype.forEach.call(toggles, function (btn) {
+    var target = document.querySelector(btn.getAttribute('data-target'));
+    if (!target) return;
+    var more = btn.textContent, less = btn.getAttribute('data-less') || 'Show fewer';
+    btn.addEventListener('click', function () {
+      var open = target.classList.toggle('expanded');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? less : more;
+    });
   });
 })();
 
