@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Hamed Khosravi</title>
+<meta name="description" content="Research projects of Hamed Khosravi: LLM and agent evaluation, reinforcement learning with LLMs, bandits, smart manufacturing, healthcare ML, and optimization.">
+<meta name="author" content="Hamed Khosravi">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Projects — Hamed Khosravi">
+<meta property="og:description" content="Research projects of Hamed Khosravi: LLM and agent evaluation, reinforcement learning with LLMs, bandits, smart manufacturing, healthcare ML, and optimization.">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/projects.html">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/profile.jpg">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<!-- Bump ?v= whenever style.css changes (in every page): Pages caches for 10 min, and a
+     visitor who gets new HTML with an old cached stylesheet sees an unstyled page. -->
+<link rel="stylesheet" href="style.css?v=20260915a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all six together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="publications.html">Publications</a>
+      <a href="news.html">News</a>
+      <a href="presentations.html">Presentations</a>
+      <a href="awards.html">Awards &amp; Service</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <h1 class="page-title">Projects</h1>
+  <section>
+    <h3 class="group-label">Current</h3>
+    <div class="projects">
+
+      <article class="project">
+        <h3>Statistical Evaluation &amp; Deployment of LLMs and AI Agents</h3>
+        <p class="project-meta">Mar 2026 – present · Georgia Tech</p>
+        <img class="project-fig" src="assets/projects/llm-allocation-table.jpg" alt="Quality table of three LLMs across four workloads, with the budget-optimal assignment highlighted">
+        <div class="project-rows">
+          <span class="plabel">Problem</span>
+          <p>Organizations must decide which LLM or AI agent handles which task — and whether a human–AI team beats either alone — with limited evaluation data and budget.</p>
+          <span class="plabel">Approach</span>
+          <p>This thread develops decision-targeted evaluation methods that direct testing toward the comparisons that could actually change the deployment choice.</p>
+          <span class="plabel">Papers</span>
+          <p class="project-papers">
+            <span class="pp"><a href="https://arxiv.org/abs/2609.05527">Beyond “AI Helps Humans”</a></span>
+            <span class="pp"><a href="https://arxiv.org/abs/2608.29560">Which LLM for Which Work?</a></span>
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <h3>Reinforcement Learning × LLMs for Reliable and Adaptive AI Systems</h3>
+        <p class="project-meta">Nov 2025 – present · Georgia Tech</p>
+        <div class="project-figs">
+          <img class="project-fig" src="assets/projects/rl-maintenance-arch.jpg" alt="Architecture of LLM-observed multi-agent maintenance: an offline count-MDP oracle trains a policy deployed fleet-wide, which observes the fleet through an LLM reader of logs">
+          <img class="project-fig" src="assets/projects/rlvr-csa-flow.jpg" alt="Conformal Selective Acting pipeline: verifier feedback updates an anytime-valid test that certifies a threshold, and the model acts or abstains">
+        </div>
+        <div class="project-rows">
+          <span class="plabel">Problem</span>
+          <p>Language models that keep learning from online feedback must stay reliable under uncertainty and distribution shift.</p>
+          <span class="plabel">Approach</span>
+          <p>This thread develops anytime-valid risk control for RLVR-trained LLMs, and an LLM-observed multi-agent reinforcement learning framework that reads operational evidence to decide when deployed models should be maintained, retrained, or updated.</p>
+          <span class="plabel">Papers</span>
+          <p class="project-papers">
+            <span class="pp"><a href="https://arxiv.org/abs/2605.20270">Conformal Selective Acting</a></span>
+            <span class="pp"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7260698">LLM-Observed Multi-Agent Maintenance</a></span>
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <h3>Adaptive Personalization Under Changing User Preferences</h3>
+        <p class="project-meta">Oct 2025 – present · Georgia Tech</p>
+        <img class="project-fig" src="assets/projects/bandits-spsc-overview.jpg" alt="Overview of SPSC: the reward subspace drifts between change points and only scalar rewards are observed; the method probes, identifies the moving subspace, then projects to exploit">
+        <div class="project-rows">
+          <span class="plabel">Problem</span>
+          <p>Recommendation and ranking systems learn from sequential feedback while the preferences they are learning drift.</p>
+          <span class="plabel">Approach</span>
+          <p>This thread develops contextual bandit methods that balance exploring new options against exploiting known ones, with low-rank structure that tracks an evolving latent preference space under non-stationarity.</p>
+          <span class="plabel">Papers</span>
+          <p class="project-papers">
+            <span class="pp"><a href="https://arxiv.org/abs/2605.20269">Catching a Moving Subspace</a></span>
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <h3 class="group-label">Past</h3>
+    <div class="projects">
+
+      <article class="project">
+        <h3>Data and Model Quality Improvement in Smart Manufacturing</h3>
+        <p class="project-meta">Sep 2022 – Aug 2025 · West Virginia University</p>
+        <img class="project-fig" src="assets/projects/manufacturing-kangura-framework.jpg" alt="KANGURA framework: a point cloud is turned into a graph, its Laplacian separates high- and low-frequency geometry, a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features are output">
+        <div class="project-rows">
+          <span class="plabel">Problem</span>
+          <p>Manufacturing decisions involve expensive experiments, competing objectives, and scarce examples of the failures that matter most.</p>
+          <span class="plabel">Approach</span>
+          <p>This thread introduced a sequential learning framework and evaluation metric for multi-objective optimization, a data augmentation approach for quality control and maintenance, and KANGURA, a geometry-aware model for 3D structure prediction.</p>
+          <span class="plabel">Papers</span>
+          <p class="project-papers">
+            <span class="pp"><a href="https://arxiv.org/abs/2511.13798">KANGURA</a></span>
+            <span class="pp"><a href="https://doi.org/10.1016/j.mfglet.2024.09.158">Strategic Data Augmentation with CTGAN</a></span>
+            <span class="pp"><a href="https://link.springer.com/article/10.1007/s10845-024-02337-y">Data-Driven Sequential Learning for Manufacturing</a></span>
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <h3>Machine Learning in Healthcare</h3>
+        <p class="project-meta">May 2023 – Aug 2025 · West Virginia University</p>
+        <img class="project-fig" src="assets/projects/healthcare-cdss-pipeline.jpg" alt="Clinical decision-support pipeline: database, preprocessing and feature engineering; imbalance assessment and data augmentation; four machine learning models on real and augmented data; augmentation assessment; interpretable AI feeding decision-making for a new patient">
+        <div class="project-rows">
+          <span class="plabel">Problem</span>
+          <p>Clinical datasets are small, imbalanced, and largely binary, which limits what standard models can learn from them.</p>
+          <span class="plabel">Approach</span>
+          <p>This thread built a decision-support system for early dialysis prediction in chronic kidney disease, a data augmentation method designed for binary medical data, and predictive models for adolescent suicide risk and complications in assisted reproduction.</p>
+          <span class="plabel">Papers</span>
+          <p class="project-papers">
+            <span class="pp"><a href="https://arxiv.org/abs/2403.00965">Binary Gaussian Copula Synthesis</a></span>
+            <span class="pp"><a href="https://doi.org/10.3390/healthcare12131262">Predicting Suicidal Ideation among U.S. Adolescents</a></span>
+            <span class="pp"><a href="https://doi.org/10.1101/2024.04.17.24305980">Predicting Complicated OHSS in Assisted Reproduction</a></span>
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
+        <h3>Optimization Algorithm Development</h3>
+        <p class="project-meta">Sep 2021 – Sep 2023</p>
+        <img class="project-fig" src="assets/projects/optimization-bgtoa-flow.jpg" alt="Flowchart of the binary group teaching optimization algorithm: chaotic-map initialization, teacher selection, then the population splits into an outstanding group and an average group that each run teacher and student phases before a new population is formed">
+        <div class="project-rows">
+          <span class="plabel">Problem</span>
+          <p>Feature selection in high-dimensional data is a combinatorial search where standard metaheuristics stall in local optima.</p>
+          <span class="plabel">Approach</span>
+          <p>This thread developed a binary group teaching optimization algorithm with local search and chaotic maps, and applied optimized neural networks with data augmentation to predicting employee turnover.</p>
+          <span class="plabel">Papers</span>
+          <p class="project-papers">
+            <span class="pp"><a href="https://www.sciencedirect.com/science/article/pii/S0957417422008223">Improved Group Teaching Optimization for Feature Selection</a></span>
+            <span class="pp"><a href="https://doi.org/10.1016/j.dajour.2024.100461">Cluster-Based HR Analytics for Employee Turnover</a></span>
+          </p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© <span id="year">2026</span> Hamed Khosravi · Atlanta, GA</p>
+  </footer>
+</main>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -10,599 +10,214 @@
 <!-- Open Graph / social preview -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hamed Khosravi">
-<meta property="og:description" content="Machine Learning Ph.D. student at Georgia Tech — statistical machine learning, reinforcement learning, bandits, and evaluation of AI systems.">
+<meta property="og:description" content="Hamed Khosravi — Machine Learning Ph.D. student at Georgia Tech working on statistical machine learning, reinforcement learning, bandits, and the statistical evaluation of AI systems.">
 <meta property="og:url" content="https://hamedkhosravi99.github.io/">
 <meta property="og:image" content="https://hamedkhosravi99.github.io/assets/profile.jpg">
 <meta name="twitter:card" content="summary">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
-<!-- Bump ?v= whenever style.css changes: Pages caches for 10 min, and a visitor who
-     gets new HTML with an old cached stylesheet sees an unstyled page. -->
-<link rel="stylesheet" href="style.css?v=20260914i">
+<!-- Bump ?v= whenever style.css changes (in every page): Pages caches for 10 min, and a
+     visitor who gets new HTML with an old cached stylesheet sees an unstyled page. -->
+<link rel="stylesheet" href="style.css?v=20260915a">
 </head>
 <body>
 
-<div class="layout">
+<!-- The top bar is repeated verbatim in every page; edit all six together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="index.html" class="active">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="publications.html">Publications</a>
+      <a href="news.html">News</a>
+      <a href="presentations.html">Presentations</a>
+      <a href="awards.html">Awards &amp; Service</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- ================= SIDEBAR ================= -->
-  <aside class="sidebar">
+<main class="page">
+  <!-- ---------- IDENTITY ---------- -->
+  <section class="hero">
     <img class="avatar" src="assets/profile.jpg" alt="Hamed Khosravi"
          onerror="this.outerHTML='&lt;div class=&quot;avatar avatar-fallback&quot;&gt;HK&lt;/div&gt;'">
+    <div class="hero-text">
+      <h1 class="name">Hamed Khosravi</h1>
+      <p class="role">Ph.D. Student, Machine Learning</p>
+      <p class="affil">H. Milton Stewart School of Industrial &amp; Systems Engineering,
+        <a href="https://www.gatech.edu/">Georgia Institute of Technology</a></p>
+      <ul class="links">
+        <li>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
+          <a href="mailto:hkhosravi7@gatech.edu">hkhosravi7@gatech.edu</a>
+        </li>
+        <li>
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+          <a href="https://scholar.google.com/citations?user=-zCPqEkAAAAJ&amp;hl=en">Google Scholar</a>
+        </li>
+        <li>
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          <a href="https://github.com/HamedKhosravi99">GitHub</a>
+        </li>
+        <li>
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+          <a href="https://www.linkedin.com/in/hamed-khosravi1999/">LinkedIn</a>
+        </li>
+        <li>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.6 12h18.8M12 2.5c2.5 2.6 3.8 5.9 3.8 9.5s-1.3 6.9-3.8 9.5c-2.5-2.6-3.8-5.9-3.8-9.5S9.5 5.1 12 2.5z"/></svg>
+          <a href="https://www.isye.gatech.edu/users/hamed-khosravi">Georgia Tech Profile</a>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-    <h1 class="name">Hamed Khosravi</h1>
-    <p class="role">Ph.D. Student, Machine Learning</p>
-
-    <p class="affil">
-      H. Milton Stewart School of<br>
-      Industrial &amp; Systems Engineering<br>
-      <a href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+  <!-- ---------- ABOUT ---------- -->
+  <section id="about">
+    <p class="lede">
+      I am a Machine Learning Ph.D. student at
+      <a href="https://www.isye.gatech.edu/">Georgia Tech</a>, fortunate to be advised by
+      <a href="https://sites.gatech.edu/xiaoming-huo/">Prof. Xiaoming Huo</a>.
+      Before Georgia Tech I completed an M.S. in Industrial Engineering (Data Science) at
+      West Virginia University and a B.S. in Industrial Engineering at Iran University of
+      Science and Technology, Tehran, Iran.
     </p>
 
-    <ul class="links">
+    <p>
+      My research focuses on developing statistical machine learning and reinforcement
+      learning methods for evaluating, understanding, and improving AI systems, with an
+      emphasis on large language models and sequential decision-making systems.
+      I also spent 2025 at
+      <strong>Tesla</strong> building production ML pipelines for large-scale modeling
+      and evaluation.
+    </p>
+
+    <p class="cta">
+      I am always glad to talk about research or possible collaborations — feel free to
+      <a href="mailto:hkhosravi7@gatech.edu">reach out</a>.
+    </p>
+  </section>
+
+  <!-- ---------- RESEARCH INTERESTS ---------- -->
+  <section id="research">
+    <h2>Research Interests</h2>
+    <ul class="interests">
+      <li>Statistical machine learning</li>
+      <li>Reinforcement learning</li>
+      <li>LLM evaluation and risk control</li>
+      <li>Reinforcement learning with verifiable rewards (RLVR) for LLMs</li>
+      <li>Human–AI teaming</li>
+      <li>Statistical evaluation of AI systems</li>
+      <li>Multi-armed and contextual bandits</li>
+      <li>Non-stationary and online learning</li>
+      <li>Sequential decision making</li>
+      <li>Conformal prediction and uncertainty quantification</li>
+      <li>Causal inference and experimental design</li>
+    </ul>
+  </section>
+
+  <!-- ---------- SELECTED PUBLICATIONS ---------- -->
+  <section id="publications">
+    <h2>Selected Publications</h2>
+    <p class="note">Five recent papers — <a href="publications.html">all publications →</a></p>
+    <ol class="pubs">
+
       <li>
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
-        <a href="mailto:hkhosravi7@gatech.edu">hkhosravi7@gatech.edu</a>
+        <span class="title">Beyond “AI Helps Humans”: Decision-Targeted Evaluation Design for Human–Agent Teams in the Agentic Era</span>
+        <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
+        <span class="venue">arXiv preprint arXiv:2609.05527, 2026</span>
+        <span class="tags">
+          <a href="https://arxiv.org/abs/2609.05527">Paper</a>
+          <a href="https://github.com/HamedKhosravi99/team-design-code">Code</a>
+        </span>
       </li>
+
       <li>
-        <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
-        <a href="https://scholar.google.com/citations?user=-zCPqEkAAAAJ&amp;hl=en">Google Scholar</a>
+        <span class="title">Which LLM for Which Work? Budgeted Model Allocation under Uncertain Evaluation</span>
+        <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
+        <span class="venue">arXiv preprint arXiv:2608.29560, 2026</span>
+        <span class="tags">
+          <a href="https://arxiv.org/abs/2608.29560">Paper</a>
+          <a href="https://github.com/HamedKhosravi99/logged-llm-comparison-audit">Code</a>
+        </span>
       </li>
+
       <li>
-        <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-        <a href="https://github.com/HamedKhosravi99">GitHub</a>
+        <span class="title">Catching a Moving Subspace: Low-Rank Bandits Beyond Stationarity</span>
+        <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
+        <span class="venue">arXiv preprint arXiv:2605.20269, 2026</span>
+        <span class="tags">
+          <a href="https://arxiv.org/abs/2605.20269">Paper</a>
+          <a href="https://github.com/HamedKhosravi99/spsc-code">Code</a>
+        </span>
       </li>
+
       <li>
-        <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
-        <a href="https://www.linkedin.com/in/hamed-khosravi1999/">LinkedIn</a>
+        <span class="title">Conformal Selective Acting: Anytime-Valid Risk Control for RLVR-Trained LLMs</span>
+        <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
+        <span class="venue">arXiv preprint arXiv:2605.20270, 2026</span>
+        <span class="tags">
+          <a href="https://arxiv.org/abs/2605.20270">Paper</a>
+          <a href="https://github.com/HamedKhosravi99/CSA-RLVR">Code</a>
+        </span>
       </li>
+
       <li>
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.6 12h18.8M12 2.5c2.5 2.6 3.8 5.9 3.8 9.5s-1.3 6.9-3.8 9.5c-2.5-2.6-3.8-5.9-3.8-9.5S9.5 5.1 12 2.5z"/></svg>
-        <a href="https://www.isye.gatech.edu/users/hamed-khosravi">Georgia Tech Profile</a>
+        <span class="title">LLM-Observed Multi-Agent Maintenance with Amortized Reinforcement Learning Policies</span>
+        <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
+        <span class="venue">SSRN preprint, 2026</span>
+        <span class="tags">
+          <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7260698">Paper</a>
+          <a href="https://github.com/HamedKhosravi99/multi-agent-maintenance-rl-oracle">Code</a>
+        </span>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- ---------- EXPERIENCE ---------- -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <ul class="timeline">
+      <li>
+        <span class="date">Jan – Aug 2025</span>
+        <span class="what"><strong>Machine Learning Engineer Intern</strong>, Tesla — Cell Engineering, Analytics &amp; Software</span>
+        <ul class="detail">
+          <li>Developed a modular Python library for automated machine learning workflows, integrating data preprocessing, model selection, interpretability, and reporting. Built to scale within the analytical ecosystem for fully automated classification, regression, and time series modeling.</li>
+          <li>Designed and deployed ML pipelines on Kubeflow, using its Kubernetes-based infrastructure to run and manage containerized steps for scalable, reliable model training and evaluation.</li>
+          <li>Integrated conformal prediction and contrastive learning into analytics workflows to improve anomaly scoring reliability and decision support.</li>
+          <li>Applied machine learning to real-world manufacturing data, collaborating with software and quality teams to balance model performance, interpretability, and practical constraints.</li>
+        </ul>
       </li>
     </ul>
+  </section>
 
-    <nav class="toc" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#research">Research Interests</a>
-      <a href="#projects">Projects</a>
-      <a href="#news">News</a>
-      <a href="#publications">Publications</a>
-      <a href="#presentations">Presentations</a>
-      <a href="#education">Education</a>
-      <a href="#experience">Experience</a>
-      <a href="#awards">Awards</a>
-      <a href="#service">Service</a>
-    </nav>
-  </aside>
+  <!-- ---------- EDUCATION ---------- -->
+  <section id="education">
+    <h2>Education</h2>
+    <ul class="timeline">
+      <li>
+        <span class="date">2025 – present</span>
+        <span class="what"><strong>Ph.D. in Machine Learning</strong>, Georgia Institute of Technology</span>
+        <span class="detail">GPA 4.0/4.0 · Advisor: <a href="https://sites.gatech.edu/xiaoming-huo/">Prof. Xiaoming Huo</a> · H. Milton Stewart School of Industrial &amp; Systems Engineering</span>
+      </li>
+      <li>
+        <span class="date">2025</span>
+        <span class="what"><strong>M.S. in Industrial Engineering (Data Science)</strong>, West Virginia University</span>
+        <span class="detail">GPA 4.0/4.0 · Advisor: <a href="https://directory.statler.wvu.edu/faculty-staff-directory/imtiaz-ahmed">Dr. Imtiaz Ahmed</a> · Co-advisor: <a href="https://mathanddata.wvu.edu/directory/faculty/srinjoy-das">Dr. Srinjoy Das</a> · Department of Industrial and Management Systems Engineering</span>
+      </li>
+      <li>
+        <span class="date">2022</span>
+        <span class="what"><strong>B.S. in Industrial Engineering</strong>, Iran University of Science and Technology, Tehran, Iran</span>
+      </li>
+    </ul>
+  </section>
 
-  <!-- ================= MAIN ================= -->
-  <main class="content">
+  <footer>
+    <p>© <span id="year">2026</span> Hamed Khosravi · Atlanta, GA</p>
+  </footer>
+</main>
 
-    <!-- ---------- ABOUT ---------- -->
-    <section id="about">
-      <p class="lede">
-        I am a Machine Learning Ph.D. student at
-        <a href="https://www.isye.gatech.edu/">Georgia Tech</a>, fortunate to be advised by
-        <a href="https://sites.gatech.edu/xiaoming-huo/">Prof. Xiaoming Huo</a>.
-        Before Georgia Tech I completed an M.S. in Industrial Engineering (Data Science) at
-        West Virginia University and a B.S. in Industrial Engineering at Iran University of
-        Science and Technology, Tehran, Iran.
-      </p>
-
-      <p>
-        My research focuses on developing statistical machine learning and reinforcement
-        learning methods for evaluating, understanding, and improving AI systems, with an
-        emphasis on large language models and sequential decision-making systems.
-        I also spent 2025 at
-        <strong>Tesla</strong> building production ML pipelines for large-scale modeling
-        and evaluation.
-      </p>
-
-      <p class="cta">
-        I am always glad to talk about research or possible collaborations — feel free to
-        <a href="mailto:hkhosravi7@gatech.edu">reach out</a>.
-      </p>
-    </section>
-
-    <!-- ---------- RESEARCH INTERESTS ---------- -->
-    <section id="research">
-      <h2>Research Interests</h2>
-      <ul class="interests">
-        <li>Statistical machine learning</li>
-        <li>Reinforcement learning</li>
-        <li>LLM evaluation and risk control</li>
-        <li>Reinforcement learning with verifiable rewards (RLVR) for LLMs</li>
-        <li>Human–AI teaming</li>
-        <li>Statistical evaluation of AI systems</li>
-        <li>Multi-armed and contextual bandits</li>
-        <li>Non-stationary and online learning</li>
-        <li>Sequential decision making</li>
-        <li>Conformal prediction and uncertainty quantification</li>
-        <li>Causal inference and experimental design</li>
-      </ul>
-    </section>
-
-    <!-- ---------- PROJECTS ---------- -->
-    <section id="projects" class="foldable">
-      <h2>Projects</h2>
-
-      <h3 class="group-label">Current</h3>
-      <div class="projects">
-
-        <article class="project">
-          <h3>Statistical Evaluation &amp; Deployment of LLMs and AI Agents</h3>
-          <p class="project-meta">Mar 2026 – present · Georgia Tech</p>
-          <img class="project-fig" src="assets/projects/llm-allocation-table.jpg" alt="Quality table of three LLMs across four workloads, with the budget-optimal assignment highlighted">
-          <div class="project-rows">
-            <span class="plabel">Problem</span>
-            <p>Organizations must decide which LLM or AI agent handles which task — and whether a human–AI team beats either alone — with limited evaluation data and budget.</p>
-            <span class="plabel">Approach</span>
-            <p>This thread develops decision-targeted evaluation methods that direct testing toward the comparisons that could actually change the deployment choice.</p>
-            <span class="plabel">Papers</span>
-            <p class="project-papers">
-              <span class="pp"><a href="https://arxiv.org/abs/2609.05527">Beyond “AI Helps Humans”</a></span>
-              <span class="pp"><a href="https://arxiv.org/abs/2608.29560">Which LLM for Which Work?</a></span>
-            </p>
-          </div>
-        </article>
-
-        <article class="project">
-          <h3>Reinforcement Learning × LLMs for Reliable and Adaptive AI Systems</h3>
-          <p class="project-meta">Nov 2025 – present · Georgia Tech</p>
-          <div class="project-figs">
-            <img class="project-fig" src="assets/projects/rl-maintenance-arch.jpg" alt="Architecture of LLM-observed multi-agent maintenance: an offline count-MDP oracle trains a policy deployed fleet-wide, which observes the fleet through an LLM reader of logs">
-            <img class="project-fig" src="assets/projects/rlvr-csa-flow.jpg" alt="Conformal Selective Acting pipeline: verifier feedback updates an anytime-valid test that certifies a threshold, and the model acts or abstains">
-          </div>
-          <div class="project-rows">
-            <span class="plabel">Problem</span>
-            <p>Language models that keep learning from online feedback must stay reliable under uncertainty and distribution shift.</p>
-            <span class="plabel">Approach</span>
-            <p>This thread develops anytime-valid risk control for RLVR-trained LLMs, and an LLM-observed multi-agent reinforcement learning framework that reads operational evidence to decide when deployed models should be maintained, retrained, or updated.</p>
-            <span class="plabel">Papers</span>
-            <p class="project-papers">
-              <span class="pp"><a href="https://arxiv.org/abs/2605.20270">Conformal Selective Acting</a></span>
-              <span class="pp"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7260698">LLM-Observed Multi-Agent Maintenance</a></span>
-            </p>
-          </div>
-        </article>
-
-        <article class="project">
-          <h3>Adaptive Personalization Under Changing User Preferences</h3>
-          <p class="project-meta">Oct 2025 – present · Georgia Tech</p>
-          <img class="project-fig" src="assets/projects/bandits-spsc-overview.jpg" alt="Overview of SPSC: the reward subspace drifts between change points and only scalar rewards are observed; the method probes, identifies the moving subspace, then projects to exploit">
-          <div class="project-rows">
-            <span class="plabel">Problem</span>
-            <p>Recommendation and ranking systems learn from sequential feedback while the preferences they are learning drift.</p>
-            <span class="plabel">Approach</span>
-            <p>This thread develops contextual bandit methods that balance exploring new options against exploiting known ones, with low-rank structure that tracks an evolving latent preference space under non-stationarity.</p>
-            <span class="plabel">Papers</span>
-            <p class="project-papers">
-              <span class="pp"><a href="https://arxiv.org/abs/2605.20269">Catching a Moving Subspace</a></span>
-            </p>
-          </div>
-        </article>
-
-      </div>
-
-      <h3 class="group-label older">Past</h3>
-      <div class="projects older">
-
-        <article class="project">
-          <h3>Data and Model Quality Improvement in Smart Manufacturing</h3>
-          <p class="project-meta">Sep 2022 – Aug 2025 · West Virginia University</p>
-          <img class="project-fig" src="assets/projects/manufacturing-kangura-framework.jpg" alt="KANGURA framework: a point cloud is turned into a graph, its Laplacian separates high- and low-frequency geometry, a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features are output">
-          <div class="project-rows">
-            <span class="plabel">Problem</span>
-            <p>Manufacturing decisions involve expensive experiments, competing objectives, and scarce examples of the failures that matter most.</p>
-            <span class="plabel">Approach</span>
-            <p>This thread introduced a sequential learning framework and evaluation metric for multi-objective optimization, a data augmentation approach for quality control and maintenance, and KANGURA, a geometry-aware model for 3D structure prediction.</p>
-            <span class="plabel">Papers</span>
-            <p class="project-papers">
-              <span class="pp"><a href="https://arxiv.org/abs/2511.13798">KANGURA</a></span>
-              <span class="pp"><a href="https://doi.org/10.1016/j.mfglet.2024.09.158">Strategic Data Augmentation with CTGAN</a></span>
-              <span class="pp"><a href="https://link.springer.com/article/10.1007/s10845-024-02337-y">Data-Driven Sequential Learning for Manufacturing</a></span>
-            </p>
-          </div>
-        </article>
-
-        <article class="project">
-          <h3>Machine Learning in Healthcare</h3>
-          <p class="project-meta">May 2023 – Aug 2025 · West Virginia University</p>
-          <img class="project-fig" src="assets/projects/healthcare-cdss-pipeline.jpg" alt="Clinical decision-support pipeline: database, preprocessing and feature engineering; imbalance assessment and data augmentation; four machine learning models on real and augmented data; augmentation assessment; interpretable AI feeding decision-making for a new patient">
-          <div class="project-rows">
-            <span class="plabel">Problem</span>
-            <p>Clinical datasets are small, imbalanced, and largely binary, which limits what standard models can learn from them.</p>
-            <span class="plabel">Approach</span>
-            <p>This thread built a decision-support system for early dialysis prediction in chronic kidney disease, a data augmentation method designed for binary medical data, and predictive models for adolescent suicide risk and complications in assisted reproduction.</p>
-            <span class="plabel">Papers</span>
-            <p class="project-papers">
-              <span class="pp"><a href="https://arxiv.org/abs/2403.00965">Binary Gaussian Copula Synthesis</a></span>
-              <span class="pp"><a href="https://doi.org/10.3390/healthcare12131262">Predicting Suicidal Ideation among U.S. Adolescents</a></span>
-              <span class="pp"><a href="https://doi.org/10.1101/2024.04.17.24305980">Predicting Complicated OHSS in Assisted Reproduction</a></span>
-            </p>
-          </div>
-        </article>
-
-        <article class="project">
-          <h3>Optimization Algorithm Development</h3>
-          <p class="project-meta">Sep 2021 – Sep 2023</p>
-          <img class="project-fig" src="assets/projects/optimization-bgtoa-flow.jpg" alt="Flowchart of the binary group teaching optimization algorithm: chaotic-map initialization, teacher selection, then the population splits into an outstanding group and an average group that each run teacher and student phases before a new population is formed">
-          <div class="project-rows">
-            <span class="plabel">Problem</span>
-            <p>Feature selection in high-dimensional data is a combinatorial search where standard metaheuristics stall in local optima.</p>
-            <span class="plabel">Approach</span>
-            <p>This thread developed a binary group teaching optimization algorithm with local search and chaotic maps, and applied optimized neural networks with data augmentation to predicting employee turnover.</p>
-            <span class="plabel">Papers</span>
-            <p class="project-papers">
-              <span class="pp"><a href="https://www.sciencedirect.com/science/article/pii/S0957417422008223">Improved Group Teaching Optimization for Feature Selection</a></span>
-              <span class="pp"><a href="https://doi.org/10.1016/j.dajour.2024.100461">Cluster-Based HR Analytics for Employee Turnover</a></span>
-            </p>
-          </div>
-        </article>
-
-      </div>
-      <button class="fold-toggle" type="button" aria-expanded="false" data-target="#projects" data-less="Show fewer">Show past projects</button>
-    </section>
-
-    <!-- ---------- NEWS ---------- -->
-    <section id="news">
-      <h2>Latest News</h2>
-      <ul class="news foldable">
-        <li><span class="date">Sep 2026</span><span class="item">New work on how to evaluate human–AI agent teams, decide when they truly add value, and determine which comparisons are most informative is now available on <a href="https://arxiv.org/abs/2609.05527">arXiv</a>. Also see the discussion on <a href="https://www.linkedin.com/feed/update/urn:li:activity:7503606749980196864/">LinkedIn</a>.</span></li>
-        <li><span class="date">Aug 2026</span><span class="item">New paper preprint on choosing which LLM to use for which task when quality estimates are uncertain is now on <a href="https://arxiv.org/abs/2608.29560">arXiv</a>.</span></li>
-        <li><span class="date">Aug 2026</span><span class="item">Received conference travel support from Georgia Tech's <strong>College of Engineering</strong> and the <strong>Student Government Association</strong> Conference Fund.</span></li>
-        <li><span class="date">Jul 2026</span><span class="item"><em>TEAM-Audit: A Two-Endpoint Audit of Margins</em> accepted at <strong>HAT 2026</strong> (HCOMP/CI).</span></li>
-        <li><span class="date">Jul 2026</span><span class="item">Received the <strong>Most Innovative Approach Award</strong>, NSF Future Manufacturing Data Challenge.</span></li>
-        <li class="older"><span class="date">May 2026</span><span class="item">Two new preprints on non-stationary low-rank bandits and anytime-valid risk control for RLVR-trained LLMs.</span></li>
-        <li class="older"><span class="date">Jan 2026</span><span class="item">Awarded the <strong>John Morris Fellowship</strong>.</span></li>
-        <li class="older"><span class="date">Aug 2025</span><span class="item">Started the Machine Learning Ph.D. at <strong>Georgia Tech</strong> with <a href="https://sites.gatech.edu/xiaoming-huo/">Prof. Xiaoming Huo</a>.</span></li>
-        <li class="older"><span class="date">Aug 2025</span><span class="item">Completed the M.S. in Industrial Engineering (Data Science) at <strong>West Virginia University</strong>, advised by <a href="https://directory.statler.wvu.edu/faculty-staff-directory/imtiaz-ahmed">Prof. Imtiaz Ahmed</a>.</span></li>
-        <li class="older"><span class="date">Aug 2025</span><span class="item">Completed a Machine Learning Engineer internship at <strong>Tesla</strong> (Cell Engineering, Analytics &amp; Software).</span></li>
-        <li class="older"><span class="date">May 2025</span><span class="item">Named a <strong>Finalist</strong> in the PG&amp;E Energy Analytics Challenge at the IISE Annual Conference.</span></li>
-        <li class="older"><span class="date">Apr 2025</span><span class="item">Received an NSF travel award to present at the IISE Annual Conference.</span></li>
-        <li class="older"><span class="date">Jan 2025</span><span class="item">Started as a Machine Learning Engineer Intern at <strong>Tesla</strong>, Cell Engineering, Analytics &amp; Software.</span></li>
-        <li class="older"><span class="date">Nov 2024</span><span class="item">Received the <strong>Excellence in Research Award</strong> from West Virginia University.</span></li>
-        <li class="older"><span class="date">Oct 2024</span><span class="item">Two <strong>3rd-place</strong> finishes at INFORMS 2024 — the QSR Section Manufacturing AI Competition and the Poster Competition (100+ posters).</span></li>
-        <li class="older"><span class="date">May 2024</span><span class="item">Received an NSF travel award to attend NAMRC 52.</span></li>
-        <li class="older"><span class="date">Aug 2023</span><span class="item">Awarded the <strong>Benjamin M. Statler College of Engineering and Mineral Resources Fellowship</strong> at West Virginia University.</span></li>
-        <li class="older"><span class="date">Feb 2022</span><span class="item">Graduated with a B.S. in Industrial Engineering from Iran University of Science and Technology, recognized as a <strong>Distinguished Student</strong>.</span></li>
-      </ul>
-      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".news" data-less="Show fewer">Show older news</button>
-    </section>
-
-    <!-- ---------- PUBLICATIONS ---------- -->
-    <section id="publications">
-      <h2>Selected Publications</h2>
-      <p class="note">
-        Full list on <a href="https://scholar.google.com/citations?user=-zCPqEkAAAAJ&amp;hl=en">Google Scholar</a>.
-      </p>
-
-      <ol class="pubs foldable">
-
-        <li>
-          <span class="title">Beyond “AI Helps Humans”: Decision-Targeted Evaluation Design for Human–Agent Teams in the Agentic Era</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
-          <span class="venue">arXiv preprint arXiv:2609.05527, 2026</span>
-          <span class="tags">
-            <a href="https://arxiv.org/abs/2609.05527">Paper</a>
-            <a href="https://github.com/HamedKhosravi99/team-design-code">Code</a>
-          </span>
-        </li>
-
-        <li>
-          <span class="title">Which LLM for Which Work? Budgeted Model Allocation under Uncertain Evaluation</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
-          <span class="venue">arXiv preprint arXiv:2608.29560, 2026</span>
-          <span class="tags">
-            <a href="https://arxiv.org/abs/2608.29560">Paper</a>
-            <a href="https://github.com/HamedKhosravi99/logged-llm-comparison-audit">Code</a>
-          </span>
-        </li>
-
-        <li>
-          <span class="title">Catching a Moving Subspace: Low-Rank Bandits Beyond Stationarity</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
-          <span class="venue">arXiv preprint arXiv:2605.20269, 2026</span>
-          <span class="tags">
-            <a href="https://arxiv.org/abs/2605.20269">Paper</a>
-            <a href="https://github.com/HamedKhosravi99/spsc-code">Code</a>
-          </span>
-        </li>
-
-        <li>
-          <span class="title">Conformal Selective Acting: Anytime-Valid Risk Control for RLVR-Trained LLMs</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
-          <span class="venue">arXiv preprint arXiv:2605.20270, 2026</span>
-          <span class="tags">
-            <a href="https://arxiv.org/abs/2605.20270">Paper</a>
-            <a href="https://github.com/HamedKhosravi99/CSA-RLVR">Code</a>
-          </span>
-        </li>
-
-        <li>
-          <span class="title">LLM-Observed Multi-Agent Maintenance with Amortized Reinforcement Learning Policies</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</span>
-          <span class="venue">SSRN preprint, 2026</span>
-          <span class="tags">
-            <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7260698">Paper</a>
-            <a href="https://github.com/HamedKhosravi99/multi-agent-maintenance-rl-oracle">Code</a>
-          </span>
-        </li>
-
-        <li class="older">
-          <span class="title">LNUCB-TA: Linear–Nonlinear Hybrid Bandit Learning with Temporal Attention</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Mohammad Reza Shafie, Ahmed Shoyeb Raihan, Srinjoy Das, Imtiaz Ahmed</span>
-          <span class="venue">arXiv preprint arXiv:2503.00387, 2025</span>
-          <span class="tags"><a href="https://arxiv.org/abs/2503.00387">Paper</a></span>
-        </li>
-
-        <li class="older">
-          <span class="title">KANGURA: Kolmogorov–Arnold Network-Based Geometry-Aware Learning with Unified Representation Attention for 3D Modeling of Complex Structures</span>
-          <span class="authors">Mohammad Reza Shafie<sup>*</sup>, Morteza Hajiabadi<sup>*</sup>, <strong>Hamed Khosravi<sup>*</sup></strong>, Mobina Noori, Imtiaz Ahmed</span>
-          <span class="venue">Manufacturing Letters, 2026</span>
-          <span class="eqnote"><sup>*</sup> Equal contribution — co-first authors.</span>
-          <span class="tags"><a href="https://arxiv.org/abs/2511.13798">Paper</a></span>
-        </li>
-
-        <li class="older">
-          <span class="title">A Data-Driven Sequential Learning Framework to Accelerate and Optimize Multi-Objective Manufacturing Decisions</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Taofeeq Olajire, Ahmed Shoyeb Raihan, Imtiaz Ahmed</span>
-          <span class="venue">Journal of Intelligent Manufacturing, vol. 35(8), 2024</span>
-          <span class="tags"><a href="https://link.springer.com/article/10.1007/s10845-024-02337-y">Paper</a></span>
-        </li>
-
-        <li class="older">
-          <span class="title">An Improved Group Teaching Optimization Algorithm Based on Local Search and Chaotic Map for Feature Selection in High-Dimensional Data</span>
-          <span class="authors"><strong>Hamed Khosravi</strong>, Babak Amiri, Navid Yazdanjue, Vahide Babaiyan</span>
-          <span class="venue">Expert Systems with Applications, vol. 204, 2022</span>
-          <span class="tags"><a href="https://www.sciencedirect.com/science/article/pii/S0957417422008223">Paper</a></span>
-        </li>
-
-      </ol>
-      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".pubs" data-less="Show fewer">Show all publications</button>
-    </section>
-
-    <!-- ---------- PRESENTATIONS ---------- -->
-    <section id="presentations">
-      <h2>Presentations</h2>
-      <ul class="timeline talks foldable">
-        <li>
-          <span class="date">Feb 2026</span>
-          <span class="what">Bridging Misspecification Gaps in Linear Contextual Bandits</span>
-          <span class="detail">Talk · Ph.D. Research Seminar, Georgia Institute of Technology</span>
-        </li>
-        <li>
-          <span class="date">Oct 2024</span>
-          <span class="what">Attention Meets Geometry: Advancing 3D Object Learning with Balanced Local and Global Enhancements</span>
-          <span class="detail">Talk · INFORMS QSR Data Competition, INFORMS Annual Meeting (Finalist) · <strong>3rd place</strong></span>
-        </li>
-        <li>
-          <span class="date">Oct 2024</span>
-          <span class="what">LNUCB-TA: Linear–Nonlinear Hybrid Bandit Learning with Temporal Attention</span>
-          <span class="detail">Talk · INFORMS Annual Meeting, Seattle</span>
-        </li>
-        <li class="older">
-          <span class="date">Oct 2024</span>
-          <span class="what">Binary Gaussian Copula Synthesis: Pioneering Data Augmentation for Early Dialysis Intervention in CKD Patients</span>
-          <span class="detail">Talk · INFORMS Annual Meeting, Seattle</span>
-        </li>
-        <li class="older">
-          <span class="date">Oct 2024</span>
-          <span class="what">Attentive Optimism in the Face of Uncertainty: Balancing Exploration–Exploitation in Multi-Armed Bandits</span>
-          <span class="detail">Poster · INFORMS QSR Poster Competition, INFORMS Annual Meeting</span>
-        </li>
-        <li class="older">
-          <span class="date">Oct 2024</span>
-          <span class="what">Binary Gaussian Copula Synthesis: A Novel Data Augmentation Technique to Advance Machine Learning Prediction of Dialysis among CKD Patients</span>
-          <span class="detail">Poster · INFORMS Poster Competition, INFORMS Annual Meeting · <strong>3rd place</strong></span>
-        </li>
-        <li class="older">
-          <span class="date">Jun 2024</span>
-          <span class="what">Strategic Data Augmentation with CTGAN for Smart Manufacturing: Enhancing Machine Learning Predictions of Paper Breaks in Pulp-and-Paper Production</span>
-          <span class="detail">Talk · North American Manufacturing Research Conference (NAMRC 52), Knoxville · NSF Travel Award</span>
-        </li>
-        <li class="older">
-          <span class="date">May 2024</span>
-          <span class="what">AI-Driven Innovations: Transforming Healthcare and Manufacturing</span>
-          <span class="detail">Invited talk · DSCI 101, Introduction to Data Science, West Virginia University</span>
-        </li>
-        <li class="older">
-          <span class="date">Apr 2024</span>
-          <span class="what">Early Prediction of Dialysis among Chronic Kidney Disease Patients Using Advanced Machine Learning Models with Data Augmentation</span>
-          <span class="detail">Poster · Research Week Student Research Poster Symposium, WVU Statler College</span>
-        </li>
-        <li class="older">
-          <span class="date">Feb 2024</span>
-          <span class="what">Artificial Intelligence in Chronic Kidney Disease: Uncovering Patient Phenotypes</span>
-          <span class="detail">Talk · Healthcare Systems Process Improvement Conference (HSPI), Atlanta</span>
-        </li>
-        <li class="older">
-          <span class="date">Oct 2023</span>
-          <span class="what">A Data-Driven Sequential Learning Framework to Accelerate and Optimize Multi-Objective Manufacturing Decisions</span>
-          <span class="detail">Talk · INFORMS Annual Meeting, Phoenix</span>
-        </li>
-        <li class="older">
-          <span class="date">Oct 2023</span>
-          <span class="what">Efficient Frontier: Introducing an Active Learning Bayesian Framework for Cost-Effective Multi-Objective Manufacturing Optimization</span>
-          <span class="detail">Poster · INFORMS Annual Meeting, Phoenix</span>
-        </li>
-        <li class="older">
-          <span class="date">Sep 2023</span>
-          <span class="what">Inclusive AI in Chronic Kidney Disease: Generative Adversarial Networks on Patient Care</span>
-          <span class="detail">Poster · All Voices as One! conference, WVU Statler College</span>
-        </li>
-        <li class="older">
-          <span class="date">Mar 2023</span>
-          <span class="what">From Automation to Autonomy in Smart Manufacturing Using Sequential Learning</span>
-          <span class="detail">Poster · Graduate Student Research Symposium, WVU Statler College</span>
-        </li>
-      </ul>
-      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".talks" data-less="Show fewer">Show all presentations</button>
-    </section>
-
-    <!-- ---------- EDUCATION ---------- -->
-    <section id="education">
-      <h2>Education</h2>
-      <ul class="timeline">
-        <li>
-          <span class="date">2025 – present</span>
-          <span class="what"><strong>Ph.D. in Machine Learning</strong>, Georgia Institute of Technology</span>
-          <span class="detail">Advisor: <a href="https://sites.gatech.edu/xiaoming-huo/">Prof. Xiaoming Huo</a> · H. Milton Stewart School of Industrial &amp; Systems Engineering</span>
-        </li>
-        <li>
-          <span class="date">2025</span>
-          <span class="what"><strong>M.S. in Industrial Engineering (Data Science)</strong>, West Virginia University</span>
-          <span class="detail">Advisor: <a href="https://directory.statler.wvu.edu/faculty-staff-directory/imtiaz-ahmed">Dr. Imtiaz Ahmed</a> · Co-advisor: <a href="https://mathanddata.wvu.edu/directory/faculty/srinjoy-das">Dr. Srinjoy Das</a> · Department of Industrial and Management Systems Engineering</span>
-        </li>
-        <li>
-          <span class="date">2022</span>
-          <span class="what"><strong>B.S. in Industrial Engineering</strong>, Iran University of Science and Technology, Tehran, Iran</span>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ---------- EXPERIENCE ---------- -->
-    <section id="experience">
-      <h2>Experience</h2>
-      <ul class="timeline">
-        <li>
-          <span class="date">Jan – Aug 2025</span>
-          <span class="what"><strong>Machine Learning Engineer Intern</strong>, Tesla — Cell Engineering, Analytics &amp; Software</span>
-          <ul class="detail">
-            <li>Developed a modular Python library for automated machine learning workflows, integrating data preprocessing, model selection, interpretability, and reporting. Built to scale within the analytical ecosystem for fully automated classification, regression, and time series modeling.</li>
-            <li>Designed and deployed ML pipelines on Kubeflow, using its Kubernetes-based infrastructure to run and manage containerized steps for scalable, reliable model training and evaluation.</li>
-            <li>Integrated conformal prediction and contrastive learning into analytics workflows to improve anomaly scoring reliability and decision support.</li>
-            <li>Applied machine learning to real-world manufacturing data, collaborating with software and quality teams to balance model performance, interpretability, and practical constraints.</li>
-          </ul>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ---------- AWARDS ---------- -->
-    <section id="awards">
-      <h2>Honors &amp; Awards</h2>
-      <ul class="timeline awards-list foldable">
-        <li><span class="date">Aug 2026</span><span class="what">Student Government Association (SGA) Conference Fund Travel Award, Georgia Institute of Technology</span></li>
-        <li><span class="date">Aug 2026</span><span class="what">College of Engineering (COE) Travel Award, Georgia Institute of Technology</span></li>
-        <li><span class="date">Jul 2026</span><span class="what">Most Innovative Approach Award — NSF Future Manufacturing Data Challenge</span></li>
-        <li class="older"><span class="date">Aug 2025<br>Jan 2026</span><span class="what">John Morris Fellowship, Georgia Institute of Technology</span></li>
-        <li class="older"><span class="date">May 2025</span><span class="what"><strong>Finalist</strong>, PG&amp;E Energy Analytics Challenge Competition, IISE</span></li>
-        <li class="older"><span class="date">Apr 2025</span><span class="what">NSF Travel Award to attend the IISE Annual Conference</span></li>
-        <li class="older"><span class="date">Nov 2024</span><span class="what">Excellence in Research Award, West Virginia University</span></li>
-        <li class="older"><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Manufacturing AI Competition, INFORMS QSR Section</span></li>
-        <li class="older"><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Poster Competition (100+ posters), INFORMS</span></li>
-        <li class="older"><span class="date">May 2024</span><span class="what">NSF Travel Award to attend NAMRC 52</span></li>
-        <li class="older"><span class="date">Aug 2023</span><span class="what">Benjamin M. Statler College of Engineering and Mineral Resources Fellowship, West Virginia University</span></li>
-        <li class="older"><span class="date">Feb 2022</span><span class="what">Distinguished Student, B.Sc. degree, Iran University of Science and Technology</span></li>
-      </ul>
-      <button class="fold-toggle" type="button" aria-expanded="false" data-target=".awards-list" data-less="Show fewer">Show all awards</button>
-    </section>
-
-    <!-- ---------- TEACHING ----------
-         Commented out only because the entries below are placeholders — an empty
-         section would render as a bare heading. Replace the terms/courses with the
-         real ones and delete these two comment markers to publish it.
-
-    <section id="teaching">
-      <h2>Teaching</h2>
-      <ul class="timeline">
-        <li>
-          <span class="date">Fall 2026</span>
-          <span class="what">Teaching Assistant, <em>COURSE NUMBER — Course Title</em>, Georgia Tech</span>
-        </li>
-        <li>
-          <span class="date">Spring 2024</span>
-          <span class="what">Teaching Assistant, <em>COURSE NUMBER — Course Title</em>, West Virginia University</span>
-        </li>
-      </ul>
-    </section>
-    ---------- END TEACHING ---------- -->
-
-    <!-- ---------- ACADEMIC SERVICE ---------- -->
-    <section id="service">
-      <h2>Academic Service</h2>
-      <p class="service-line">
-        <span class="service-label">Conferences</span>
-        <span class="service-body">Reviewer, <strong>NeurIPS 2026</strong>.</span>
-      </p>
-      <p class="service-line">
-        <span class="service-label">Journals</span>
-        <span class="service-body">Reviewer for 10+ peer-reviewed journals, including
-        <em>Scientific Reports</em>, <em>Expert Systems with Applications</em>,
-        <em>Artificial Intelligence Review</em>, <em>Signal, Image and Video Processing</em>,
-        <em>Neural Processing Letters</em>, <em>Machine Learning Research</em>, and
-        <em>Machine Learning with Applications</em>.</span>
-      </p>
-    </section>
-
-    <footer>
-      <p>© <span id="year">2026</span> Hamed Khosravi · Atlanta, GA</p>
-    </footer>
-
-  </main>
-</div>
-
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// "Show all / Show fewer" toggles. A .foldable container hides its .older
-// children until it gains .expanded; each button names its container.
-(function () {
-  var toggles = document.querySelectorAll('.fold-toggle');
-  Array.prototype.forEach.call(toggles, function (btn) {
-    var target = document.querySelector(btn.getAttribute('data-target'));
-    if (!target) return;
-    var more = btn.textContent, less = btn.getAttribute('data-less') || 'Show fewer';
-    btn.addEventListener('click', function () {
-      var open = target.classList.toggle('expanded');
-      btn.setAttribute('aria-expanded', String(open));
-      btn.textContent = open ? less : more;
-    });
-  });
-})();
-
-// Highlight the sidebar nav entry for the section currently in view.
-(function () {
-  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
-  if (!links.length || !('IntersectionObserver' in window)) return;
-  var ids = links.map(function (a) { return a.getAttribute('href').slice(1); });
-  var visible = {};
-  // A clicked entry stays highlighted until the reader scrolls themselves;
-  // otherwise a short section near the page end can never be the active one.
-  var pinned = null;
-  links.forEach(function (a) {
-    a.addEventListener('click', function () { pinned = a.getAttribute('href').slice(1); update(); });
-  });
-  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
-    window.addEventListener(ev, function () { if (pinned) { pinned = null; update(); } }, { passive: true });
-  });
-  function atBottom() {
-    return window.scrollY > 0 &&
-      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-  }
-  function update() {
-    var current = null;
-    if (pinned) {
-      current = pinned;
-    } else if (atBottom()) {
-      // The last section is too short to reach the band; at page end it wins.
-      current = ids[ids.length - 1];
-    } else {
-      // Several sections can sit in the band at once; the topmost one wins.
-      for (var i = 0; i < ids.length; i++) { if (visible[ids[i]]) { current = ids[i]; break; } }
-    }
-    links.forEach(function (a, i) { a.classList.toggle('active', ids[i] === current); });
-  }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
-    update();
-  }, { rootMargin: '-15% 0px -70% 0px' });
-  ids.forEach(function (id) {
-    var s = document.getElementById(id);
-    if (s) io.observe(s);
-  });
-  window.addEventListener('scroll', update, { passive: true });
-})();
-</script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
