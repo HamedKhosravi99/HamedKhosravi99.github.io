@@ -288,8 +288,8 @@ p { margin: 0 0 1.05rem; }
    diagram doesn't dominate, and sit centred. */
 .project-fig {
   display: block;
-  max-width: 100%;
-  max-height: 560px;
+  max-width: 88%;      /* a little inside the column, not edge to edge */
+  max-height: 500px;
   width: auto;
   height: auto;
   margin: 0 auto 0.9rem;
@@ -305,7 +305,7 @@ p { margin: 0 0 1.05rem; }
   margin-bottom: 0.9rem;
 }
 
-.project-figs .project-fig { margin: 0; width: 100%; max-height: none; }
+.project-figs .project-fig { margin: 0 auto; width: 88%; max-height: none; }
 
 .project p { font-size: 0.945rem; line-height: 1.62; margin: 0 0 0.55rem; }
 
