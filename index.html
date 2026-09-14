@@ -18,7 +18,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
 <!-- Bump ?v= whenever style.css changes: Pages caches for 10 min, and a visitor who
      gets new HTML with an old cached stylesheet sees an unstyled page. -->
-<link rel="stylesheet" href="style.css?v=20260914h">
+<link rel="stylesheet" href="style.css?v=20260914i">
 </head>
 <body>
 
@@ -567,13 +567,24 @@ document.getElementById('year').textContent = new Date().getFullYear();
   if (!links.length || !('IntersectionObserver' in window)) return;
   var ids = links.map(function (a) { return a.getAttribute('href').slice(1); });
   var visible = {};
+  // A clicked entry stays highlighted until the reader scrolls themselves;
+  // otherwise a short section near the page end can never be the active one.
+  var pinned = null;
+  links.forEach(function (a) {
+    a.addEventListener('click', function () { pinned = a.getAttribute('href').slice(1); update(); });
+  });
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { if (pinned) { pinned = null; update(); } }, { passive: true });
+  });
   function atBottom() {
     return window.scrollY > 0 &&
       window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
   }
   function update() {
     var current = null;
-    if (atBottom()) {
+    if (pinned) {
+      current = pinned;
+    } else if (atBottom()) {
       // The last section is too short to reach the band; at page end it wins.
       current = ids[ids.length - 1];
     } else {

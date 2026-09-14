@@ -183,11 +183,24 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
   border-left-color: var(--accent);
 }
 
+/* On shorter laptop viewports the ten-entry sidebar overran the fold, so
+   the last links were unreachable: shrink the avatar and tighten spacing. */
+@media (min-width: 861px) and (max-height: 840px) {
+  .sidebar { top: 1rem; max-height: calc(100vh - 1rem); }
+  .avatar { width: 120px; height: 120px; margin-bottom: 0.85rem; }
+  .avatar-fallback { font-size: 2.3rem; }
+  .name { font-size: 1.45rem; }
+  .affil { margin-bottom: 0.95rem; }
+  .links { padding-top: 0.75rem; }
+  .links li { margin-bottom: 0.4rem; }
+  .toc { margin-top: 0.55rem; padding-top: 0.55rem; }
+}
+
 /* ------------------------------------------------------------
    Content
    ------------------------------------------------------------ */
 
-.content { min-width: 0; max-width: 44rem; }
+.content { min-width: 0; max-width: 44rem; padding-bottom: 3rem; }
 
 section { margin-bottom: 2.9rem; scroll-margin-top: 2rem; }
 
