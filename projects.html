@@ -18,7 +18,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
 <!-- Bump ?v= whenever style.css changes (in every page): Pages caches for 10 min, and a
      visitor who gets new HTML with an old cached stylesheet sees an unstyled page. -->
-<link rel="stylesheet" href="style.css?v=20260915a">
+<link rel="stylesheet" href="style.css?v=20260915b">
 </head>
 <body>
 
@@ -46,7 +46,10 @@
       <article class="project">
         <h3>Statistical Evaluation &amp; Deployment of LLMs and AI Agents</h3>
         <p class="project-meta">Mar 2026 – present · Georgia Tech</p>
-        <img class="project-fig" src="assets/projects/llm-allocation-table.jpg" alt="Quality table of three LLMs across four workloads, with the budget-optimal assignment highlighted">
+        <figure class="project-figure">
+          <img class="project-fig" src="assets/projects/llm-allocation-table.jpg" alt="Quality table of three LLMs across four workloads, with the budget-optimal assignment highlighted">
+          <figcaption>The observed quality table for three models across four workloads. Outlined cells are the assignment that maximises weighted quality within a $10,000 budget — the table itself is what has to be estimated.</figcaption>
+        </figure>
         <div class="project-rows">
           <span class="plabel">Problem</span>
           <p>Organizations must decide which LLM or AI agent handles which task — and whether a human–AI team beats either alone — with limited evaluation data and budget.</p>
@@ -64,8 +67,14 @@
         <h3>Reinforcement Learning × LLMs for Reliable and Adaptive AI Systems</h3>
         <p class="project-meta">Nov 2025 – present · Georgia Tech</p>
         <div class="project-figs">
-          <img class="project-fig" src="assets/projects/rl-maintenance-arch.jpg" alt="Architecture of LLM-observed multi-agent maintenance: an offline count-MDP oracle trains a policy deployed fleet-wide, which observes the fleet through an LLM reader of logs">
-          <img class="project-fig" src="assets/projects/rlvr-csa-flow.jpg" alt="Conformal Selective Acting pipeline: verifier feedback updates an anytime-valid test that certifies a threshold, and the model acts or abstains">
+          <figure class="project-figure">
+            <img class="project-fig" src="assets/projects/rl-maintenance-arch.jpg" alt="Architecture of LLM-observed multi-agent maintenance: an offline count-MDP oracle trains a policy deployed fleet-wide, which observes the fleet through an LLM reader of logs">
+            <figcaption>The maintenance framework. A count-MDP oracle is solved once offline and trains a policy deployed fleet-wide; an LLM reads work orders, logs, and transcripts into structured events, a tracker turns them into an estimate of the fleet's state, and the policy chooses which units to replace.</figcaption>
+          </figure>
+          <figure class="project-figure">
+            <img class="project-fig" src="assets/projects/rlvr-csa-flow.jpg" alt="Conformal Selective Acting pipeline: verifier feedback updates an anytime-valid test that certifies a threshold, and the model acts or abstains">
+            <figcaption>Conformal Selective Acting. Verifier feedback on each output updates an anytime-valid test that certifies a confidence threshold; the model acts when its score clears the threshold and abstains otherwise, with risk bounded at every time step.</figcaption>
+          </figure>
         </div>
         <div class="project-rows">
           <span class="plabel">Problem</span>
@@ -83,7 +92,10 @@
       <article class="project">
         <h3>Adaptive Personalization Under Changing User Preferences</h3>
         <p class="project-meta">Oct 2025 – present · Georgia Tech</p>
-        <img class="project-fig" src="assets/projects/bandits-spsc-overview.jpg" alt="Overview of SPSC: the reward subspace drifts between change points and only scalar rewards are observed; the method probes, identifies the moving subspace, then projects to exploit">
+        <figure class="project-figure">
+          <img class="project-fig" src="assets/projects/bandits-spsc-overview.jpg" alt="Overview of SPSC: the reward subspace drifts between change points and only scalar rewards are observed; the method probes, identifies the moving subspace, then projects to exploit">
+          <figcaption>(a) The reward subspace rotates at unknown change points while only scalar rewards are observed; red ticks mark priced probes. (b) SPSC probes, identifies the current subspace from the lifted scalar rewards, and exploits by projecting onto it; a two-window spectral detector resets the estimate when the subspace shifts.</figcaption>
+        </figure>
         <div class="project-rows">
           <span class="plabel">Problem</span>
           <p>Recommendation and ranking systems learn from sequential feedback while the preferences they are learning drift.</p>
@@ -104,7 +116,10 @@
       <article class="project">
         <h3>Data and Model Quality Improvement in Smart Manufacturing</h3>
         <p class="project-meta">Sep 2022 – Aug 2025 · West Virginia University</p>
-        <img class="project-fig" src="assets/projects/manufacturing-kangura-framework.jpg" alt="KANGURA framework: a point cloud is turned into a graph, its Laplacian separates high- and low-frequency geometry, a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features are output">
+        <figure class="project-figure">
+          <img class="project-fig" src="assets/projects/manufacturing-kangura-framework.jpg" alt="KANGURA framework: a point cloud is turned into a graph, its Laplacian separates high- and low-frequency geometry, a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features are output">
+          <figcaption>The KANGURA pipeline. A point cloud becomes a graph whose Laplacian separates high- and low-frequency geometry; a Kolmogorov–Arnold network approximates each, attention-based refinement weights them, and the fused features form the output representation.</figcaption>
+        </figure>
         <div class="project-rows">
           <span class="plabel">Problem</span>
           <p>Manufacturing decisions involve expensive experiments, competing objectives, and scarce examples of the failures that matter most.</p>
@@ -122,7 +137,10 @@
       <article class="project">
         <h3>Machine Learning in Healthcare</h3>
         <p class="project-meta">May 2023 – Aug 2025 · West Virginia University</p>
-        <img class="project-fig" src="assets/projects/healthcare-cdss-pipeline.jpg" alt="Clinical decision-support pipeline: database, preprocessing and feature engineering; imbalance assessment and data augmentation; four machine learning models on real and augmented data; augmentation assessment; interpretable AI feeding decision-making for a new patient">
+        <figure class="project-figure">
+          <img class="project-fig" src="assets/projects/healthcare-cdss-pipeline.jpg" alt="Clinical decision-support pipeline: database, preprocessing and feature engineering; imbalance assessment and data augmentation; four machine learning models on real and augmented data; augmentation assessment; interpretable AI feeding decision-making for a new patient">
+          <figcaption>The clinical decision-support pipeline. After preprocessing and feature engineering, class imbalance is assessed and corrected with data augmentation; four models are trained on real and augmented data, the augmentation is assessed, and an interpretable model supports the decision for a new patient.</figcaption>
+        </figure>
         <div class="project-rows">
           <span class="plabel">Problem</span>
           <p>Clinical datasets are small, imbalanced, and largely binary, which limits what standard models can learn from them.</p>
@@ -140,7 +158,10 @@
       <article class="project">
         <h3>Optimization Algorithm Development</h3>
         <p class="project-meta">Sep 2021 – Sep 2023</p>
-        <img class="project-fig" src="assets/projects/optimization-bgtoa-flow.jpg" alt="Flowchart of the binary group teaching optimization algorithm: chaotic-map initialization, teacher selection, then the population splits into an outstanding group and an average group that each run teacher and student phases before a new population is formed">
+        <figure class="project-figure">
+          <img class="project-fig" src="assets/projects/optimization-bgtoa-flow.jpg" alt="Flowchart of the binary group teaching optimization algorithm: chaotic-map initialization, teacher selection, then the population splits into an outstanding group and an average group that each run teacher and student phases before a new population is formed">
+          <figcaption>The algorithm's flow. A chaotic map initialises the binary population and a teacher is selected; the population splits into an outstanding group and an average group that each run teacher and student phases, and the merged population is re-evaluated until the stopping criterion is met.</figcaption>
+        </figure>
         <div class="project-rows">
           <span class="plabel">Problem</span>
           <p>Feature selection in high-dimensional data is a combinatorial search where standard metaheuristics stall in local optima.</p>
