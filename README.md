@@ -52,3 +52,8 @@ python3 -m http.server 8000
 ## Deploy
 
 Settings → Pages → Source: **Deploy from a branch** → Branch: `main`, folder `/ (root)`.
+
+**When you change `style.css`, also bump the `?v=` on the stylesheet link in
+`index.html`** (e.g. `style.css?v=20260914` → today's date). GitHub Pages caches
+files for 10 minutes; without the bump, a visitor can receive the new HTML with a
+stale cached stylesheet and see an unstyled page until the cache expires.
