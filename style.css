@@ -254,6 +254,62 @@ p { margin: 0 0 1.05rem; }
   color: var(--text);
 }
 
+/* --- Research projects: figure left, text right --- */
+.projects {
+  margin-top: 1.7rem;
+  display: grid;
+  gap: 1.7rem;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1.3rem;
+  align-items: start;
+}
+
+/* A card without a figure keeps the grid so its text aligns with the others. */
+.project.no-fig .project-body { grid-column: 2; }
+
+.project-fig {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: #fff;   /* figures are rendered on white; keep them so in dark mode */
+}
+
+.project h3 {
+  font-size: 1.02rem;
+  font-weight: 650;
+  line-height: 1.35;
+  margin: 0 0 0.15rem;
+}
+
+.project-meta {
+  font-size: 0.83rem;
+  color: var(--faint);
+  margin: 0 0 0.5rem;
+}
+
+.project-body p { font-size: 0.945rem; line-height: 1.62; margin: 0 0 0.55rem; }
+
+.project-body .project-papers {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+.plabel {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--faint);
+  margin-right: 0.35rem;
+}
+
 /* --- Academic service --- */
 .service-line {
   display: grid;
@@ -482,6 +538,12 @@ footer p { margin: 0; }
   .toc a.active { border-bottom-color: var(--accent); }
 
   .content { max-width: none; }
+}
+
+@media (max-width: 640px) {
+  .project { grid-template-columns: 1fr; gap: 0.8rem; }
+  .project.no-fig .project-body { grid-column: 1; }
+  .project-fig { max-width: 280px; }
 }
 
 @media (max-width: 520px) {
