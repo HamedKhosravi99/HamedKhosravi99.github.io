@@ -102,7 +102,8 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 /* --- identity block --- */
 .name {
   font-family: var(--serif);
-  font-size: 1.72rem;
+  /* 1.62rem keeps every fallback serif (Georgia is widest) inside the 232px sidebar. */
+  font-size: 1.62rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   margin: 0 0 0.3rem;
