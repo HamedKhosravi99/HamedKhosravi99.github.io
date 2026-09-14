@@ -13,6 +13,10 @@
   --accent:    #9c5221;   /* warm rust — reads as ink, not decoration */
   --accent-bg: #f4ece5;
   --maxw:      1080px;
+  /* Display face for the name and section headings only; body stays sans.
+     System serifs so nothing is downloaded. */
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter,
+           Georgia, "Times New Roman", serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -97,11 +101,12 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 /* --- identity block --- */
 .name {
-  font-size: 1.42rem;
-  font-weight: 650;
-  letter-spacing: -0.015em;
-  margin: 0 0 0.25rem;
-  line-height: 1.25;
+  font-family: var(--serif);
+  font-size: 1.72rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.3rem;
+  line-height: 1.2;
 }
 
 .role {
@@ -186,19 +191,32 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 section { margin-bottom: 2.9rem; scroll-margin-top: 2rem; }
 
 h2 {
-  font-size: 0.795rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.11em;
-  color: var(--muted);
-  margin: 0 0 1.05rem;
-  padding-bottom: 0.5rem;
+  font-family: var(--serif);
+  font-size: 1.22rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  margin: 0 0 1.15rem;
+  padding-bottom: 0.55rem;
   border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+/* Short accent bar at the left edge of each heading rule — gives every
+   section a visual anchor without a full-width coloured line. */
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 2.4rem;
+  height: 2px;
+  background: var(--accent);
 }
 
 p { margin: 0 0 1.05rem; }
 
-.lede { font-size: 1.05rem; }
+.lede { font-size: 1.08rem; }
 
 .cta {
   padding: 0.85rem 1.05rem;
@@ -301,9 +319,16 @@ p { margin: 0 0 1.05rem; }
 
 .pubs li {
   position: relative;
-  padding-left: 2.1rem;
-  margin-bottom: 1.4rem;
+  padding: 0 0 1.3rem 2.1rem;
+  margin-bottom: 1.3rem;
+  border-bottom: 1px solid var(--rule);
   counter-increment: pub;
+}
+
+.pubs li:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: 0;
 }
 
 .pubs li::before {
@@ -311,8 +336,9 @@ p { margin: 0 0 1.05rem; }
   position: absolute;
   left: 0;
   top: 0.06rem;
-  color: var(--faint);
+  color: var(--accent);
   font-size: 0.85rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
