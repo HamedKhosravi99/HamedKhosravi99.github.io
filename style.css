@@ -280,6 +280,9 @@ p { margin: 0 0 1.05rem; }
   background: #fff;   /* figures are rendered on white; keep them so in dark mode */
 }
 
+/* A card with two figures stacks them in the same 200px slot. */
+.project-figs { display: grid; gap: 0.5rem; }
+
 .project h3 {
   font-size: 1.02rem;
   font-weight: 650;
