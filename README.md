@@ -57,3 +57,7 @@ Settings → Pages → Source: **Deploy from a branch** → Branch: `main`, fold
 `index.html`** (e.g. `style.css?v=20260914` → today's date). GitHub Pages caches
 files for 10 minutes; without the bump, a visitor can receive the new HTML with a
 stale cached stylesheet and see an unstyled page until the cache expires.
+
+The same applies to images: **if you replace an image's content, give it a new
+filename** (and update the `src`). A browser that cached `assets/projects/foo.jpg`
+will keep showing the old picture for 10 minutes if the name doesn't change.
