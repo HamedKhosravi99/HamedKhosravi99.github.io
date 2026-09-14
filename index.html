@@ -18,7 +18,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
 <!-- Bump ?v= whenever style.css changes: Pages caches for 10 min, and a visitor who
      gets new HTML with an old cached stylesheet sees an unstyled page. -->
-<link rel="stylesheet" href="style.css?v=20260914e">
+<link rel="stylesheet" href="style.css?v=20260914f">
 </head>
 <body>
 
@@ -135,8 +135,8 @@
           <img class="project-fig" src="assets/projects/llm-allocation-table.jpg" alt="Quality table of three LLMs across four workloads, with the budget-optimal assignment highlighted">
           <p>Organizations must decide which LLM or AI agent handles which task — and whether a human–AI team beats either alone — with limited evaluation data and budget. This thread develops decision-targeted evaluation methods that direct testing toward the comparisons that could actually change the deployment choice.</p>
           <p class="project-papers"><span class="plabel">Papers</span>
-            <a href="https://arxiv.org/abs/2609.05527">Beyond “AI Helps Humans”</a> ·
-            <a href="https://arxiv.org/abs/2608.29560">Which LLM for Which Work?</a>
+            <span class="pp"><a href="https://arxiv.org/abs/2609.05527">Beyond “AI Helps Humans”</a></span>
+            <span class="pp"><a href="https://arxiv.org/abs/2608.29560">Which LLM for Which Work?</a></span>
           </p>
         </article>
 
@@ -149,8 +149,8 @@
           </div>
           <p>Language models that keep learning from online feedback must stay reliable under uncertainty and distribution shift. This thread develops anytime-valid risk control for RLVR-trained LLMs, and an LLM-observed multi-agent reinforcement learning framework that reads operational evidence to decide when deployed models should be maintained, retrained, or updated.</p>
           <p class="project-papers"><span class="plabel">Papers</span>
-            <a href="https://arxiv.org/abs/2605.20270">Conformal Selective Acting</a> ·
-            <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7260698">LLM-Observed Multi-Agent Maintenance</a>
+            <span class="pp"><a href="https://arxiv.org/abs/2605.20270">Conformal Selective Acting</a></span>
+            <span class="pp"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7260698">LLM-Observed Multi-Agent Maintenance</a></span>
           </p>
         </article>
 
@@ -160,7 +160,7 @@
           <img class="project-fig" src="assets/projects/bandits-spsc-overview.jpg" alt="Overview of SPSC: the reward subspace drifts between change points and only scalar rewards are observed; the method probes, identifies the moving subspace, then projects to exploit">
           <p>Recommendation and ranking systems learn from sequential feedback while the preferences they are learning drift. This thread develops contextual bandit methods that balance exploring new options against exploiting known ones, with low-rank structure that tracks an evolving latent preference space under non-stationarity.</p>
           <p class="project-papers"><span class="plabel">Papers</span>
-            <a href="https://arxiv.org/abs/2605.20269">Catching a Moving Subspace</a>
+            <span class="pp"><a href="https://arxiv.org/abs/2605.20269">Catching a Moving Subspace</a></span>
           </p>
         </article>
 
@@ -175,9 +175,9 @@
           <img class="project-fig" src="assets/projects/manufacturing-kangura.jpg" alt="Three complex 3D lattice structures modelled by KANGURA">
           <p>Manufacturing decisions involve expensive experiments, competing objectives, and scarce examples of the failures that matter most. This thread introduced a sequential learning framework and evaluation metric for multi-objective optimization, a data augmentation approach for quality control and maintenance, and KANGURA, a geometry-aware model for 3D structure prediction.</p>
           <p class="project-papers"><span class="plabel">Papers</span>
-            <a href="https://arxiv.org/abs/2511.13798">KANGURA</a> ·
-            <a href="https://doi.org/10.1016/j.mfglet.2024.09.158">Strategic Data Augmentation with CTGAN</a> ·
-            <a href="https://link.springer.com/article/10.1007/s10845-024-02337-y">Data-Driven Sequential Learning for Manufacturing</a>
+            <span class="pp"><a href="https://arxiv.org/abs/2511.13798">KANGURA</a></span>
+            <span class="pp"><a href="https://doi.org/10.1016/j.mfglet.2024.09.158">Strategic Data Augmentation with CTGAN</a></span>
+            <span class="pp"><a href="https://link.springer.com/article/10.1007/s10845-024-02337-y">Data-Driven Sequential Learning for Manufacturing</a></span>
           </p>
         </article>
 
@@ -187,9 +187,9 @@
           <img class="project-fig" src="assets/projects/healthcare-cdss-pipeline.jpg" alt="Clinical decision-support pipeline: database, preprocessing and feature engineering; imbalance assessment and data augmentation; four machine learning models on real and augmented data; augmentation assessment; interpretable AI feeding decision-making for a new patient">
           <p>Clinical datasets are small, imbalanced, and largely binary, which limits what standard models can learn from them. This thread built a decision-support system for early dialysis prediction in chronic kidney disease, a data augmentation method designed for binary medical data, and predictive models for adolescent suicide risk and complications in assisted reproduction.</p>
           <p class="project-papers"><span class="plabel">Papers</span>
-            <a href="https://arxiv.org/abs/2403.00965">Binary Gaussian Copula Synthesis</a> ·
-            <a href="https://doi.org/10.3390/healthcare12131262">Predicting Suicidal Ideation among U.S. Adolescents</a> ·
-            <a href="https://doi.org/10.1101/2024.04.17.24305980">Predicting Complicated OHSS in Assisted Reproduction</a>
+            <span class="pp"><a href="https://arxiv.org/abs/2403.00965">Binary Gaussian Copula Synthesis</a></span>
+            <span class="pp"><a href="https://doi.org/10.3390/healthcare12131262">Predicting Suicidal Ideation among U.S. Adolescents</a></span>
+            <span class="pp"><a href="https://doi.org/10.1101/2024.04.17.24305980">Predicting Complicated OHSS in Assisted Reproduction</a></span>
           </p>
         </article>
 
@@ -199,8 +199,8 @@
           <img class="project-fig" src="assets/projects/optimization-bgtoa-flow.jpg" alt="Flowchart of the binary group teaching optimization algorithm: chaotic-map initialization, teacher selection, then the population splits into an outstanding group and an average group that each run teacher and student phases before a new population is formed">
           <p>Feature selection in high-dimensional data is a combinatorial search where standard metaheuristics stall in local optima. This thread developed a binary group teaching optimization algorithm with local search and chaotic maps, and applied optimized neural networks with data augmentation to predicting employee turnover.</p>
           <p class="project-papers"><span class="plabel">Papers</span>
-            <a href="https://www.sciencedirect.com/science/article/pii/S0957417422008223">Improved Group Teaching Optimization for Feature Selection</a> ·
-            <a href="https://doi.org/10.1016/j.dajour.2024.100461">Cluster-Based HR Analytics for Employee Turnover</a>
+            <span class="pp"><a href="https://www.sciencedirect.com/science/article/pii/S0957417422008223">Improved Group Teaching Optimization for Feature Selection</a></span>
+            <span class="pp"><a href="https://doi.org/10.1016/j.dajour.2024.100461">Cluster-Based HR Analytics for Employee Turnover</a></span>
           </p>
         </article>
 
@@ -227,7 +227,7 @@
         <li class="older"><span class="date">Jan 2025</span><span class="item">Started as a Machine Learning Engineer Intern at <strong>Tesla</strong>, Cell Engineering, Analytics &amp; Software.</span></li>
         <li class="older"><span class="date">Nov 2024</span><span class="item">Received the <strong>Excellence in Research Award</strong> from West Virginia University.</span></li>
         <li class="older"><span class="date">Oct 2024</span><span class="item">Two <strong>3rd-place</strong> finishes at INFORMS 2024 — the QSR Section Manufacturing AI Competition and the Poster Competition (100+ posters).</span></li>
-        <li class="older"><span class="date">May 2024</span><span class="item">Received an NSF travel award to attend NAMRC 53.</span></li>
+        <li class="older"><span class="date">May 2024</span><span class="item">Received an NSF travel award to attend NAMRC 52.</span></li>
         <li class="older"><span class="date">Aug 2023</span><span class="item">Awarded the <strong>Benjamin M. Statler College of Engineering and Mineral Resources Fellowship</strong> at West Virginia University.</span></li>
         <li class="older"><span class="date">Feb 2022</span><span class="item">Graduated with a B.S. in Industrial Engineering from Iran University of Science and Technology, recognized as a <strong>Distinguished Student</strong>.</span></li>
       </ul>
@@ -331,64 +331,64 @@
       <h2>Presentations</h2>
       <ul class="timeline talks foldable">
         <li>
-          <span class="date">2024</span>
+          <span class="date">Oct 2024</span>
           <span class="what">Attention Meets Geometry: Advancing 3D Object Learning with Balanced Local and Global Enhancements</span>
-          <span class="detail">Talk · INFORMS QSR Data Competition (Finalist) · <strong>3rd place</strong></span>
+          <span class="detail">Talk · INFORMS QSR Data Competition, INFORMS Annual Meeting (Finalist) · <strong>3rd place</strong></span>
         </li>
         <li>
-          <span class="date">2024</span>
+          <span class="date">Oct 2024</span>
           <span class="what">LNUCB-TA: Linear–Nonlinear Hybrid Bandit Learning with Temporal Attention</span>
-          <span class="detail">Talk · INFORMS Annual Meeting</span>
+          <span class="detail">Talk · INFORMS Annual Meeting, Seattle</span>
         </li>
         <li>
-          <span class="date">2024</span>
+          <span class="date">Oct 2024</span>
           <span class="what">Binary Gaussian Copula Synthesis: Pioneering Data Augmentation for Early Dialysis Intervention in CKD Patients</span>
-          <span class="detail">Talk · INFORMS Annual Meeting</span>
+          <span class="detail">Talk · INFORMS Annual Meeting, Seattle</span>
         </li>
-        <li>
-          <span class="date">2024</span>
+        <li class="older">
+          <span class="date">Oct 2024</span>
           <span class="what">Attentive Optimism in the Face of Uncertainty: Balancing Exploration–Exploitation in Multi-Armed Bandits</span>
-          <span class="detail">Poster · INFORMS QSR Poster Competition</span>
+          <span class="detail">Poster · INFORMS QSR Poster Competition, INFORMS Annual Meeting</span>
         </li>
-        <li>
-          <span class="date">2024</span>
+        <li class="older">
+          <span class="date">Oct 2024</span>
           <span class="what">Binary Gaussian Copula Synthesis: A Novel Data Augmentation Technique to Advance Machine Learning Prediction of Dialysis among CKD Patients</span>
-          <span class="detail">Poster · INFORMS Poster Competition · <strong>3rd place</strong></span>
+          <span class="detail">Poster · INFORMS Poster Competition, INFORMS Annual Meeting · <strong>3rd place</strong></span>
         </li>
         <li class="older">
-          <span class="date">2024</span>
+          <span class="date">Jun 2024</span>
           <span class="what">Strategic Data Augmentation with CTGAN for Smart Manufacturing: Enhancing Machine Learning Predictions of Paper Breaks in Pulp-and-Paper Production</span>
-          <span class="detail">Talk · North American Manufacturing Research Conference (NAMRC) · NSF Travel Award</span>
+          <span class="detail">Talk · North American Manufacturing Research Conference (NAMRC 52), Knoxville · NSF Travel Award</span>
         </li>
         <li class="older">
-          <span class="date">2024</span>
-          <span class="what">Artificial Intelligence in Chronic Kidney Disease: Uncovering Patient Phenotypes</span>
-          <span class="detail">Talk · Healthcare Systems Process Improvement Conference (HSPI)</span>
-        </li>
-        <li class="older">
-          <span class="date">2024</span>
+          <span class="date">Apr 2024</span>
           <span class="what">Early Prediction of Dialysis among Chronic Kidney Disease Patients Using Advanced Machine Learning Models with Data Augmentation</span>
-          <span class="detail">Poster · WVU Statler College</span>
+          <span class="detail">Poster · Research Week Student Research Poster Symposium, WVU Statler College</span>
         </li>
         <li class="older">
-          <span class="date">2023</span>
+          <span class="date">Feb 2024</span>
+          <span class="what">Artificial Intelligence in Chronic Kidney Disease: Uncovering Patient Phenotypes</span>
+          <span class="detail">Talk · Healthcare Systems Process Improvement Conference (HSPI), Atlanta</span>
+        </li>
+        <li class="older">
+          <span class="date">Oct 2023</span>
           <span class="what">A Data-Driven Sequential Learning Framework to Accelerate and Optimize Multi-Objective Manufacturing Decisions</span>
-          <span class="detail">Talk · INFORMS Annual Meeting</span>
+          <span class="detail">Talk · INFORMS Annual Meeting, Phoenix</span>
         </li>
         <li class="older">
-          <span class="date">2023</span>
+          <span class="date">Oct 2023</span>
           <span class="what">Efficient Frontier: Introducing an Active Learning Bayesian Framework for Cost-Effective Multi-Objective Manufacturing Optimization</span>
-          <span class="detail">Poster · INFORMS Annual Meeting</span>
+          <span class="detail">Poster · INFORMS Annual Meeting, Phoenix</span>
         </li>
         <li class="older">
-          <span class="date">2023</span>
-          <span class="what">From Automation to Autonomy in Smart Manufacturing Using Sequential Learning</span>
-          <span class="detail">Poster · WVU Statler College</span>
-        </li>
-        <li class="older">
-          <span class="date">2023</span>
+          <span class="date">Sep 2023</span>
           <span class="what">Inclusive AI in Chronic Kidney Disease: Generative Adversarial Networks on Patient Care</span>
-          <span class="detail">Poster · All Voices as One!, WVU Statler College</span>
+          <span class="detail">Poster · All Voices as One! conference, WVU Statler College</span>
+        </li>
+        <li class="older">
+          <span class="date">Mar 2023</span>
+          <span class="what">From Automation to Autonomy in Smart Manufacturing Using Sequential Learning</span>
+          <span class="detail">Poster · Graduate Student Research Symposium, WVU Statler College</span>
         </li>
         <li class="older">
           <span class="date">2023</span>
@@ -444,13 +444,13 @@
         <li><span class="date">Aug 2026</span><span class="what">Student Government Association (SGA) Conference Fund Travel Award, Georgia Institute of Technology</span></li>
         <li><span class="date">Aug 2026</span><span class="what">College of Engineering (COE) Travel Award, Georgia Institute of Technology</span></li>
         <li><span class="date">Jul 2026</span><span class="what">Most Innovative Approach Award — NSF Future Manufacturing Data Challenge</span></li>
-        <li><span class="date">Aug 2025<br>Jan 2026</span><span class="what">John Morris Fellowship, Georgia Institute of Technology</span></li>
-        <li><span class="date">May 2025</span><span class="what"><strong>Finalist</strong>, PG&amp;E Energy Analytics Challenge Competition, IISE</span></li>
+        <li class="older"><span class="date">Aug 2025<br>Jan 2026</span><span class="what">John Morris Fellowship, Georgia Institute of Technology</span></li>
+        <li class="older"><span class="date">May 2025</span><span class="what"><strong>Finalist</strong>, PG&amp;E Energy Analytics Challenge Competition, IISE</span></li>
         <li class="older"><span class="date">Apr 2025</span><span class="what">NSF Travel Award to attend the IISE Annual Conference</span></li>
         <li class="older"><span class="date">Nov 2024</span><span class="what">Excellence in Research Award, West Virginia University</span></li>
         <li class="older"><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Manufacturing AI Competition, INFORMS QSR Section</span></li>
         <li class="older"><span class="date">Oct 2024</span><span class="what"><strong>3rd Place</strong>, Poster Competition (100+ posters), INFORMS</span></li>
-        <li class="older"><span class="date">May 2024</span><span class="what">NSF Travel Award to attend the NAMRC 53 Conference</span></li>
+        <li class="older"><span class="date">May 2024</span><span class="what">NSF Travel Award to attend NAMRC 52</span></li>
         <li class="older"><span class="date">Aug 2023</span><span class="what">Benjamin M. Statler College of Engineering and Mineral Resources Fellowship, West Virginia University</span></li>
         <li class="older"><span class="date">Feb 2022</span><span class="what">Distinguished Student, B.Sc. degree, Iran University of Science and Technology</span></li>
       </ul>

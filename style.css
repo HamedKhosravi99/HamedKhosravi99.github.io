@@ -313,6 +313,21 @@ p { margin: 0 0 1.05rem; }
   font-size: 0.875rem;
   color: var(--muted);
   margin-bottom: 0;
+  counter-reset: pp;
+}
+
+/* Each paper is numbered i, ii, iii and wraps as a unit. */
+.pp {
+  display: inline-block;
+  margin-right: 1.1rem;
+  counter-increment: pp;
+}
+
+.pp::before {
+  content: counter(pp, lower-roman) ".";
+  color: var(--faint);
+  margin-right: 0.3rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .plabel {
