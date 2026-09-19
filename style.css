@@ -340,6 +340,9 @@ p { margin: 0 0 1.05rem; }
 /* Figures are clickable; the lightbox shows one enlarged over a dimmed page. */
 .project-fig { cursor: zoom-in; }
 
+/* The hidden attribute must beat the display:flex below, or the overlay covers the page on load. */
+.lightbox[hidden] { display: none; }
+
 .lightbox {
   position: fixed;
   inset: 0;
