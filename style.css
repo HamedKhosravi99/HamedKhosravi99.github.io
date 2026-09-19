@@ -337,6 +337,42 @@ p { margin: 0 0 1.05rem; }
   color: var(--muted);
 }
 
+/* Figures are clickable; the lightbox shows one enlarged over a dimmed page. */
+.project-fig { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 2.5rem 1.5rem;
+  background: rgba(18, 20, 24, 0.86);
+  cursor: zoom-out;
+}
+
+.lightbox img {
+  max-width: min(96vw, 1400px);
+  max-height: 82vh;
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-caption {
+  max-width: 60rem;
+  margin: 0;
+  color: #d9dce0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
 /* Two figures stack, each at the same width so they match. */
 .project-figs {
   display: grid;

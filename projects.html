@@ -18,7 +18,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
 <!-- Bump ?v= whenever style.css changes (in every page): Pages caches for 10 min, and a
      visitor who gets new HTML with an old cached stylesheet sees an unstyled page. -->
-<link rel="stylesheet" href="style.css?v=20260915e">
+<link rel="stylesheet" href="style.css?v=20260919a">
 </head>
 <body>
 
@@ -196,6 +196,41 @@
   </footer>
 </main>
 
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<!-- Lightbox: click any project figure to view it enlarged; click, Esc, or Back closes it. -->
+<div class="lightbox" id="lightbox" hidden>
+  <img id="lightbox-img" alt="">
+  <p class="lightbox-caption" id="lightbox-caption"></p>
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+(function () {
+  var box = document.getElementById('lightbox');
+  var img = document.getElementById('lightbox-img');
+  var cap = document.getElementById('lightbox-caption');
+  function close() {
+    if (box.hidden) return;
+    box.hidden = true; img.src = ''; document.body.style.overflow = '';
+    if (location.hash === '#figure') history.back();
+  }
+  document.querySelectorAll('.project-fig').forEach(function (fig) {
+    fig.setAttribute('role', 'button'); fig.setAttribute('tabindex', '0');
+    fig.title = 'Click to enlarge';
+    function open() {
+      img.src = fig.src; img.alt = fig.alt;
+      var fc = fig.closest('figure'); var c = fc && fc.querySelector('figcaption');
+      cap.textContent = c ? c.textContent : '';
+      box.hidden = false; document.body.style.overflow = 'hidden';
+      history.pushState(null, '', '#figure');   // so the phone Back button closes it
+    }
+    fig.addEventListener('click', open);
+    fig.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  window.addEventListener('popstate', function () { if (!box.hidden) { box.hidden = true; img.src = ''; document.body.style.overflow = ''; } });
+})();
+</script>
 </body>
 </html>
