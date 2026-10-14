@@ -44,6 +44,32 @@
     <div class="projects">
 
       <article class="project">
+        <h3>Anytime-Valid Leaderboards for AI Evaluation</h3>
+        <p class="project-meta">Sep 2026 – present · Georgia Tech</p>
+        <div class="project-figs">
+          <figure class="project-figure">
+            <img class="project-fig" loading="lazy" src="assets/projects/leaderboards-peeking.jpg" alt="Probability that some reported ranking is wrong, against the number of looks at the leaderboard: fixed-sample tests climb steeply while the anytime-valid method stays flat at zero">
+            <figcaption>The cost of reading a leaderboard more than once. As the number of looks grows, fixed-sample tests report a wrong ranking ever more often, while the anytime-valid procedure makes no wrong report in any run — across tied models, tied pairs, and near ties.</figcaption>
+          </figure>
+          <figure class="project-figure">
+            <img class="project-fig" loading="lazy" src="assets/projects/leaderboards-corruption-budget.jpg" alt="Certified corruption tolerance per record and records needed to certify, plus tolerance measured on real Chatbot Arena votes for several model pairs">
+            <figcaption>The certified corruption budget published with each claim. Tolerance grows roughly linearly in the number of records, at close to the best rate any valid method allows; the right panel tracks it on 1.8 million real Chatbot Arena votes.</figcaption>
+          </figure>
+        </div>
+        <div class="project-rows">
+          <span class="plabel">Problem</span>
+          <p>Public AI leaderboards are read continuously and updated as votes arrive, so a ranking that looks settled at one glance can be wrong at the next. Because every standing is public, an adversary can watch each claim and rig votes, withhold private variants, or contaminate a benchmark to move it.</p>
+          <span class="plabel">Approach</span>
+          <p>Rank confidence sequences keep every pairwise claim valid at all times, however often the leaderboard is read. On top of them, each claim is published with a certified corruption budget: a tolerance such that the claim is correct unless more records than that were corrupted — a guarantee that holds against attackers who see every certificate and have no bounded budget of their own.</p>
+          <span class="plabel">Papers</span>
+          <p class="project-papers">
+            <span class="pp"><a href="https://arxiv.org/abs/2610.10597">Certified Corruption Budgets</a></span>
+            <span class="pp"><a href="https://arxiv.org/abs/2609.32211">Rank Confidence Sequences</a></span>
+          </p>
+        </div>
+      </article>
+
+      <article class="project">
         <h3>Statistical Evaluation &amp; Deployment of LLMs and AI Agents</h3>
         <p class="project-meta">Mar 2026 – present · Georgia Tech</p>
         <div class="project-figs">
@@ -60,13 +86,12 @@
           <span class="plabel">Problem</span>
           <p>Organizations must decide which LLM or AI agent handles which task — and whether a human–AI team beats either alone — with limited evaluation data and budget.</p>
           <span class="plabel">Approach</span>
-          <p>This thread develops decision-targeted evaluation methods that direct testing toward the comparisons that could actually change the deployment choice, including anytime-valid leaderboards for the online evaluation of LLMs, where rankings must stay valid as evidence accumulates.</p>
+          <p>This thread develops decision-targeted evaluation methods that direct testing toward the comparisons that could actually change the deployment choice.</p>
           <span class="plabel">Papers</span>
           <p class="project-papers">
             <span class="pp"><a href="https://arxiv.org/abs/2609.05527">Beyond “AI Helps Humans”</a></span>
             <span class="pp"><a href="https://arxiv.org/abs/2608.29560">Which LLM for Which Work?</a></span>
             <span class="pp"><a href="https://hcomp-ci2026-hat.github.io/2026/data/papers/khosravi-team-audit.pdf">TEAM-Audit</a></span>
-            <span class="pp"><a href="https://arxiv.org/abs/2609.32211">Rank Confidence Sequences</a></span>
           </p>
         </div>
       </article>
