@@ -395,7 +395,22 @@ p { margin: 0 0 1.05rem; }
   align-items: baseline;
 }
 
-.project-rows .plabel { margin: 0; padding-top: 0.2rem; }
+.project-rows /* The code repository for a paper, set quietly beside its title. */
+.pp-code {
+  font-size: 0.78rem;
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.pp-code::before {
+  content: "·";
+  margin: 0 0.3rem;
+  color: var(--rule);
+}
+
+.pp-code:hover { color: var(--accent); }
+
+.plabel { margin: 0; padding-top: 0.2rem; }
 
 .project-rows p { font-size: 0.945rem; line-height: 1.62; margin: 0; }
 
