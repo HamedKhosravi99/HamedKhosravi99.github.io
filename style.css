@@ -582,6 +582,52 @@ p { margin: 0 0 1.05rem; }
   text-decoration: none;
 }
 
+/* A publication thumbnail floats right, so a paper without a figure leaves the
+   text block exactly where it was — no ragged left edge down the list. */
+.pubs li { overflow: hidden; }
+
+.pub-thumb {
+  float: right;
+  display: block;          /* an <a> is inline: without this, width/height are ignored
+                              once the float is dropped at phone widths */
+  width: 136px;
+  height: 94px;
+  margin: 0.2rem 0 0.55rem 1.15rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--surface);
+  line-height: 0;
+}
+
+.pub-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.pub-thumb:hover { border-color: var(--accent); }
+.pub-thumb:hover img { transform: scale(1.04); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pub-thumb img { transition: none; }
+  .pub-thumb:hover img { transform: none; }
+}
+
+@media (max-width: 560px) {
+  /* A 136px float leaves too little room for a long title on a phone, so the
+     figure becomes a banner above the entry instead. */
+  .pub-thumb {
+    float: none;
+    width: 100%;
+    height: 104px;
+    margin: 0 0 0.6rem;
+  }
+}
+
 /* --- Timeline (education / experience / presentations / awards) --- */
 .timeline { list-style: none; margin: 0; padding: 0; font-size: 0.945rem; }
 
