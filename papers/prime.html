@@ -10,7 +10,40 @@
 <meta property="og:title" content="PRIME — Hamed Khosravi">
 <meta property="og:description" content="Precommitted evidence routes and a ledger that authorizes only the conclusions an LLM agent&#39;s checks actually support.">
 <meta property="og:url" content="https://hamedkhosravi99.github.io/papers/prime.html">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Google Scholar reads these; they are what lets this page be indexed as the paper. -->
+<meta name="citation_title" content="PRIME: Towards Verifiable Evidence-Grounded Reasoning in LLM Agents">
+<meta name="citation_author" content="Khosravi, Hamed">
+<meta name="citation_author" content="Huo, Xiaoming">
+<meta name="citation_publication_date" content="2026/10">
+<meta name="citation_arxiv_id" content="2610.22426">
+<meta name="citation_abstract_html_url" content="https://arxiv.org/abs/2610.22426">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2610.22426">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/social/prime.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "PRIME: Towards Verifiable Evidence-Grounded Reasoning in LLM Agents",
+  "name": "PRIME: Towards Verifiable Evidence-Grounded Reasoning in LLM Agents",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Hamed Khosravi",
+      "url": "https://hamedkhosravi99.github.io/"
+    },
+    {
+      "@type": "Person",
+      "name": "Xiaoming Huo"
+    }
+  ],
+  "datePublished": "2026-10",
+  "url": "https://hamedkhosravi99.github.io/papers/prime.html",
+  "sameAs": "https://arxiv.org/abs/2610.22426",
+  "image": "https://hamedkhosravi99.github.io/assets/social/prime.jpg"
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
 <link rel="stylesheet" href="../style.css?v=20261027a">
 </head>
@@ -167,6 +200,11 @@
   </article>
 </main>
 
+<div class="lightbox" id="lightbox" hidden>
+  <img id="lightbox-img" alt="">
+  <p class="lightbox-caption" id="lightbox-caption"></p>
+</div>
+
 <footer class="foot">
   <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
 </footer>
@@ -181,6 +219,35 @@ document.querySelectorAll('.bibcopy').forEach(function (b) {
     });
   });
 });
+</script>
+<script>
+(function () {
+  var box = document.getElementById('lightbox');
+  if (!box) return;
+  var img = document.getElementById('lightbox-img');
+  var cap = document.getElementById('lightbox-caption');
+  function close() {
+    if (box.hidden) return;
+    box.hidden = true; img.src = ''; document.body.style.overflow = '';
+    if (location.hash === '#figure') history.back();
+  }
+  document.querySelectorAll('.paper-fig').forEach(function (fig) {
+    fig.setAttribute('role', 'button'); fig.setAttribute('tabindex', '0');
+    fig.title = 'Click to enlarge';
+    function open() {
+      img.src = fig.src; img.alt = fig.alt;
+      var fc = fig.closest('figure'); var c = fc && fc.querySelector('figcaption');
+      cap.textContent = c ? c.textContent : '';
+      box.hidden = false; document.body.style.overflow = 'hidden';
+      history.pushState(null, '', '#figure');
+    }
+    fig.addEventListener('click', open);
+    fig.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  window.addEventListener('popstate', function () { if (!box.hidden) { box.hidden = true; img.src = ''; document.body.style.overflow = ''; } });
+})();
 </script>
 </body>
 </html>

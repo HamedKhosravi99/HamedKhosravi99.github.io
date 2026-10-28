@@ -10,7 +10,42 @@
 <meta property="og:title" content="Which LLM for Which Work? — Hamed Khosravi">
 <meta property="og:description" content="An organisation has several models and several kinds of work, and a budget. Picking an assignment is easy once the quality table is known. The table is not known: it has to be esti">
 <meta property="og:url" content="https://hamedkhosravi99.github.io/papers/which-llm-for-which-work.html">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Google Scholar reads these; they are what lets this page be indexed as the paper. -->
+<meta name="citation_title" content="Which LLM for Which Work? Budgeted Model Allocation under Uncertain Evaluation">
+<meta name="citation_author" content="Khosravi, Hamed">
+<meta name="citation_author" content="Huo, Xiaoming">
+<meta name="citation_publication_date" content="2026/08">
+<meta name="citation_conference_title" content="NeurIPS Workshop on Can We Trust AI Evaluation? (TAE)">
+<meta name="citation_arxiv_id" content="2608.29560">
+<meta name="citation_abstract_html_url" content="https://arxiv.org/abs/2608.29560">
+<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2608.29560">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/social/which-llm-for-which-work.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Which LLM for Which Work? Budgeted Model Allocation under Uncertain Evaluation",
+  "name": "Which LLM for Which Work? Budgeted Model Allocation under Uncertain Evaluation",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Hamed Khosravi",
+      "url": "https://hamedkhosravi99.github.io/"
+    },
+    {
+      "@type": "Person",
+      "name": "Xiaoming Huo"
+    }
+  ],
+  "datePublished": "2026-08",
+  "url": "https://hamedkhosravi99.github.io/papers/which-llm-for-which-work.html",
+  "sameAs": "https://arxiv.org/abs/2608.29560",
+  "image": "https://hamedkhosravi99.github.io/assets/social/which-llm-for-which-work.jpg",
+  "isPartOf": "NeurIPS Workshop on Can We Trust AI Evaluation? (TAE)"
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
 <link rel="stylesheet" href="../style.css?v=20261027a">
 </head>
@@ -70,6 +105,11 @@
   </article>
 </main>
 
+<div class="lightbox" id="lightbox" hidden>
+  <img id="lightbox-img" alt="">
+  <p class="lightbox-caption" id="lightbox-caption"></p>
+</div>
+
 <footer class="foot">
   <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
 </footer>
@@ -84,6 +124,35 @@ document.querySelectorAll('.bibcopy').forEach(function (b) {
     });
   });
 });
+</script>
+<script>
+(function () {
+  var box = document.getElementById('lightbox');
+  if (!box) return;
+  var img = document.getElementById('lightbox-img');
+  var cap = document.getElementById('lightbox-caption');
+  function close() {
+    if (box.hidden) return;
+    box.hidden = true; img.src = ''; document.body.style.overflow = '';
+    if (location.hash === '#figure') history.back();
+  }
+  document.querySelectorAll('.paper-fig').forEach(function (fig) {
+    fig.setAttribute('role', 'button'); fig.setAttribute('tabindex', '0');
+    fig.title = 'Click to enlarge';
+    function open() {
+      img.src = fig.src; img.alt = fig.alt;
+      var fc = fig.closest('figure'); var c = fc && fc.querySelector('figcaption');
+      cap.textContent = c ? c.textContent : '';
+      box.hidden = false; document.body.style.overflow = 'hidden';
+      history.pushState(null, '', '#figure');
+    }
+    fig.addEventListener('click', open);
+    fig.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  window.addEventListener('popstate', function () { if (!box.hidden) { box.hidden = true; img.src = ''; document.body.style.overflow = ''; } });
+})();
 </script>
 </body>
 </html>
