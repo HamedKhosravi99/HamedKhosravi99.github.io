@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When your users change their minds — Hamed Khosravi</title>
+<meta name="description" content="A recommender learns the direction your taste points in, then your taste moves and nobody tells it. An interactive note on non-stationary preferences.">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When your users change their minds — Hamed Khosravi">
+<meta property="og:description" content="A recommender learns the direction your taste points in, then your taste moves and nobody tells it. An interactive note on non-stationary preferences.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/notes/when-users-change-their-minds.html">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/social/note-drift.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261028a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../notes.html" class="active">Notes</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper note-post">
+    <a class="backlink" href="../notes.html">&larr; Notes &amp; tools</a>
+    <p class="note-kicker">Recommendation &middot; <time datetime="2026-10-28">28 October 2026</time></p>
+    <h1 class="paper-title">When your users change their minds</h1>
+    <p class="note-lede">A recommender works out the direction your taste points in. Then your taste
+    turns, and nobody sends it a memo.</p>
+
+    <p>Recommenders are, underneath, estimators of a direction. Watch a few hundred interactions,
+    work out roughly what a user is pointed at, then serve them things pointed the same way. It works,
+    and when it works it keeps working &mdash; right up until the user takes a new job, has a kid,
+    or gets into cycling.</p>
+
+    <p>Nothing announces that. There is no event, no flag, no retraining trigger. There is only a stream
+    of clicks that used to be predictable and is now a little worse than it was. And a model that fits
+    on <em>everything it has ever seen</em> is, by construction, still defending the old direction &mdash;
+    the longer ago the change, the more stale evidence it is averaging in.</p>
+
+    <p>Three recommenders, the same users, the same noise. Drag the slider.</p>
+
+    <div class="widget">
+      <div class="ctl">
+        <label for="shift">Users change their minds</label>
+        <input type="range" id="shift" min="0" max="7" value="4" step="1">
+        <output id="shiftOut">every 150 rounds</output>
+        <button id="rroll" type="button">New users</button>
+      </div>
+
+      <div class="readout three">
+        <div class="stat bad"><div class="n" id="sFix">&mdash;</div>
+          <div class="w"><strong>Never update</strong><br>fits once, early, and holds</div></div>
+        <div class="stat neutral"><div class="n" id="sAvg">&mdash;</div>
+          <div class="w"><strong>Average everything</strong><br>refits on all history, every time</div></div>
+        <div class="stat ok"><div class="n" id="sRes">&mdash;</div>
+          <div class="w"><strong>Detect and reset</strong><br>drops the past when its errors shift</div></div>
+      </div>
+
+      <svg id="rchart" viewBox="0 0 700 262" role="img"
+           aria-label="Cumulative regret over 600 rounds for three recommenders; detect-and-reset stays far below the other two once preferences start turning."></svg>
+      <p class="note" id="rcap"></p>
+    </div>
+
+
+    <p>Set the slider to <strong>never</strong> first. All three finish within a few points of each
+    other. This matters: the detector is not buying its advantage by being cleverer in general, and
+    it is not free money. When there is nothing to detect, detecting costs essentially nothing &mdash;
+    which is the property you actually want before you put a reset rule anywhere near production.</p>
+
+    <p>Now start moving it. Everything separates, and the interesting failure is the middle one.</p>
+
+    <h2>Averaging everything is not the safe option</h2>
+
+    <p>&ldquo;Never update&rdquo; fails in the way you expect: it is wrong from the first turn and stays
+    wrong. Nobody ships that. What people do ship is the cautious-looking one &mdash; refit on all the
+    data, all the time, because throwing data away feels reckless.</p>
+
+    <p>But look at the gap between the dashed line and the teal one. Refitting on everything does adapt;
+    it just adapts slowly, and it is dragged by exactly the history that is no longer true. Every stale
+    interaction is a vote for the direction the user has already left. Being cautious with data is the
+    thing that makes it slow to recover, and it never fully recovers before the next turn arrives.</p>
+
+    <p>Throwing history away is the aggressive-looking move and the correct one &mdash; provided you
+    only do it when something actually changed. That proviso is the whole problem, because the change
+    is not observed. All the model sees is its own errors getting worse, which is also what noise looks
+    like.</p>
+
+    <h2>What the paper does</h2>
+
+    <p>The widget uses a deliberately crude detector &mdash; compare recent prediction errors against
+    slightly older ones, reset when the ratio jumps &mdash; because it runs in your browser while you
+    drag a slider. The real problem is harder in two ways the toy version skips.</p>
+
+    <p>First, preferences do not live in two dimensions. They live in a high-dimensional space with a
+    <strong>low-rank</strong> structure, and it is that structure, not a single direction, that moves.
+    Low rank is what makes the problem learnable at all &mdash; it keeps the number of things you have
+    to estimate small enough to estimate quickly, which is exactly what you need when you keep having
+    to start over.</p>
+
+    <p>Second, you never observe the reward of the item you did not show. You get one scalar per round,
+    for the one thing you served. <a href="../papers/catching-a-moving-subspace.html">Catching a Moving
+    Subspace</a> works out how to identify a rotating low-rank subspace from those scalars alone, using
+    priced probes to keep the estimate identifiable, and a two-window spectral detector &mdash; the
+    principled version of the one above &mdash; to decide when the subspace has moved and the estimate
+    should be reset rather than extended.</p>
+
+    <p class="paper-links">
+      <a href="../papers/catching-a-moving-subspace.html">Catching a Moving Subspace</a>
+      <a href="https://github.com/HamedKhosravi99/spsc-supplement-code">Code</a>
+      <a href="../notes/why-you-cant-look-twice.html">Previous note</a>
+    </p>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+(function () {
+  var T = 600, K = 12, SIG = 0.35, WARM = 25, RUNS = 18, LAM = 0.5;
+
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function nrm(r){var u=1-r(),v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+  // solve (A'A + lam I) b = A'y  for 2x2
+  function fit(X, Y) {
+    var a=LAM,b=0,c=LAM,p=0,q=0;
+    for (var i=0;i<X.length;i++){var x0=X[i][0],x1=X[i][1],y=Y[i];
+      a+=x0*x0; b+=x0*x1; c+=x1*x1; p+=x0*y; q+=x1*y;}
+    var det=a*c-b*b; if (Math.abs(det)<1e-9) return null;
+    return [(c*p-b*q)/det, (a*q-b*p)/det];
+  }
+
+  function sim(period, seed) {
+    var r = mulberry(seed);
+    var ang = r()*2*Math.PI, th = [Math.cos(ang), Math.sin(ang)];
+    var reg=[0,0,0], X=[[],[],[]], Y=[[],[],[]], est=[null,null,null], resid=[];
+    var curve=[new Float64Array(T), new Float64Array(T), new Float64Array(T)];
+    for (var t=0;t<T;t++) {
+      if (period && t>0 && t%period===0) {
+        ang += (r()<0.5?-1:1) * (Math.PI/3 + r()*Math.PI/3);
+        th = [Math.cos(ang), Math.sin(ang)];
+      }
+      var items=[];
+      for (var k=0;k<K;k++){var u=nrm(r),v=nrm(r),n=Math.hypot(u,v)||1;items.push([u/n,v/n]);}
+      for (var j=0;j<3;j++) {
+        var pick;
+        if (est[j]===null || t<WARM) pick = (r()*K)|0;
+        else { var best=-1e9; pick=0;
+          for (var m=0;m<K;m++){var s=items[m][0]*est[j][0]+items[m][1]*est[j][1];
+            if(s>best){best=s;pick=m;}} }
+        var x=items[pick], tru=th[0]*x[0]+th[1]*x[1], rew=tru+SIG*nrm(r);
+        reg[j]+=1-tru; curve[j][t]=reg[j];
+        if (!(j===0 && t>=WARM)) { X[j].push(x); Y[j].push(rew); }
+        if (j===2 && est[2]) {                        // two-window shift detector
+          resid.push(Math.abs(rew-(est[2][0]*x[0]+est[2][1]*x[1])));
+          if (resid.length>=24) {
+            var A=0,B=0,L=resid.length;
+            for (var i=L-24;i<L-12;i++) A+=resid[i];
+            for (i=L-12;i<L;i++) B+=resid[i];
+            if (B/12 > 1.9*(A/12) + 0.25) { X[2]=X[2].slice(-8); Y[2]=Y[2].slice(-8); resid=[]; }
+          }
+        }
+        if (X[j].length>=6 && (t%3===0 || t===WARM)) { var e=fit(X[j],Y[j]); if(e) est[j]=e; }
+      }
+    }
+    return curve;
+  }
+
+  var PERIODS=[0,400,300,200,150,100,75,50];
+  var slider=document.getElementById('shift'), out=document.getElementById('shiftOut'),
+      chart=document.getElementById('rchart'), cap=document.getElementById('rcap'),
+      sFix=document.getElementById('sFix'), sAvg=document.getElementById('sAvg'), sRes=document.getElementById('sRes'),
+      seed0=11;
+
+  var X0=62,X1=676,Y0=24,Y1=214;
+
+  function draw() {
+    var period=PERIODS[+slider.value];
+    out.textContent = period? ('every '+period+' rounds') : 'never';
+
+    var acc=[new Float64Array(T),new Float64Array(T),new Float64Array(T)];
+    for (var s=0;s<RUNS;s++){var c=sim(period,seed0+s*7919);
+      for(var j=0;j<3;j++)for(var t=0;t<T;t++)acc[j][t]+=c[j][t]/RUNS;}
+
+    var fin=[acc[0][T-1],acc[1][T-1],acc[2][T-1]];
+    sFix.textContent=Math.round(fin[0]); sAvg.textContent=Math.round(fin[1]); sRes.textContent=Math.round(fin[2]);
+
+    var ymax=Math.max(fin[0],fin[1],fin[2])*1.08 || 1;
+    function px(t){return X0+(X1-X0)*t/(T-1);} function py(v){return Y1-v/ymax*(Y1-Y0);}
+    function path(j){var d='',st=Math.max(1,Math.round(T/160));
+      for(var t=0;t<T;t+=st)d+=(t?'L':'M')+px(t).toFixed(1)+','+py(acc[j][t]).toFixed(1);
+      return d+'L'+px(T-1).toFixed(1)+','+py(acc[j][T-1]).toFixed(1);}
+
+    var g=[];
+    if (period) for (var cp=period;cp<T;cp+=period)
+      g.push('<line x1="'+px(cp)+'" y1="'+Y0+'" x2="'+px(cp)+'" y2="'+Y1+'" stroke="var(--rule)" stroke-width="1" stroke-dasharray="2 4"/>');
+    g.push('<line x1="'+X0+'" y1="'+Y1+'" x2="'+X1+'" y2="'+Y1+'" stroke="var(--rule)"/>');
+    g.push('<path d="'+path(0)+'" fill="none" stroke="var(--bad)" stroke-width="2.1" stroke-linejoin="round"/>');
+    g.push('<path d="'+path(1)+'" fill="none" stroke="var(--faint)" stroke-width="2.1" stroke-linejoin="round" stroke-dasharray="5 3"/>');
+    g.push('<path d="'+path(2)+'" fill="none" stroke="var(--ok)" stroke-width="2.4" stroke-linejoin="round"/>');
+    g.push('<text x="'+X0+'" y="'+(Y1+20)+'" font-size="11" fill="var(--faint)">0</text>');
+    g.push('<text x="'+X1+'" y="'+(Y1+20)+'" font-size="11" fill="var(--faint)" text-anchor="end">'+T+'</text>');
+    g.push('<text x="'+((X0+X1)/2)+'" y="'+(Y1+38)+'" font-size="12.5" fill="var(--muted)" text-anchor="middle">rounds of recommendations &#8594;</text>');
+    g.push('<text x="'+(X0-6)+'" y="'+(Y0+8)+'" font-size="11" fill="var(--faint)" text-anchor="end">regret</text>');
+    if (period) g.push('<text x="'+px(period)+'" y="'+(Y0-6)+'" font-size="11" fill="var(--faint)" text-anchor="middle">tastes turn</text>');
+    chart.innerHTML=g.join('');
+
+    cap.textContent = period
+      ? 'Tastes turn every ' + period + ' rounds. Detect-and-reset finishes with '
+        + Math.round(fin[2]) + ' regret against ' + Math.round(fin[1]) + ' for averaging everything and '
+        + Math.round(fin[0]) + ' for never updating — ' + (fin[1]/fin[2]).toFixed(1) + '× better than the cautious option.'
+      : 'Tastes never move. All three land within a few points of each other: when there is nothing to detect, detecting costs nothing.';
+  }
+
+  slider.addEventListener('input', draw);
+  document.getElementById('rroll').addEventListener('click', function(){ seed0=(seed0*7919+13)|0; draw(); });
+  draw();
+})();
+</script>
+</body>
+</html>
