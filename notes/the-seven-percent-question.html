@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 7% question — Hamed Khosravi</title>
+<meta name="description" content="Threadline spends 7% of a nine-day campaign on exploration. Whether that budget buys anything is decided by the merchandising plan, not the statistics.">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The 7% question — Hamed Khosravi">
+<meta property="og:description" content="Threadline spends 7% of a nine-day campaign on exploration. Whether that budget buys anything is decided by the merchandising plan, not the statistics.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/notes/the-seven-percent-question.html">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/social/note-threadline.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261028a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../notes.html" class="active">Notes</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper note-post">
+    <a class="backlink" href="../notes.html">&larr; Notes &amp; tools</a>
+    <p class="note-kicker">Recommendation &middot; <time datetime="2026-10-28">28 October 2026</time></p>
+    <h1 class="paper-title">The 7% question</h1>
+    <p class="note-lede">Threadline gives up 7% of a nine-day campaign to find out what its shoppers
+    want. Whether that traffic buys anything is settled before the campaign starts &mdash; and not by
+    anyone who thinks of themselves as doing statistics.</p>
+
+    <p>Threadline is a fashion retailer running its Autumn Edit. The recommender scores items on
+    twenty product attributes &mdash; price position, brand group, style group, merchandising family
+    &mdash; and the campaign runs for nine days. Traffic arrives in slices of ten thousand impressions,
+    which matters: a single impression is a click or no click, and you cannot estimate a variance from
+    a coin flip. Batch it and the click rate of a slice is approximately Gaussian around the baseline
+    of <strong>34.7 bp</strong>, with a known noise level of <strong>5.88 bp</strong>. That is not a
+    modelling convenience; it is how the decision is actually taken. You commit a configuration to a
+    slice of traffic, never to one shopper.</p>
+
+    <p>Seven percent of those slices are given to probes: deliberately randomised slates that serve
+    something other than the current best guess. That is real money. The question the campaign exists
+    to answer is whether it comes back.</p>
+
+    <p>Each line below is one attribute. Its length is how precisely nine days of traffic has pinned
+    down that attribute&rsquo;s effect on click-through &mdash; short is confident, and the dashed
+    line at the top is what knowing nothing looks like. Watch the campaign run.</p>
+
+    <div class="widget">
+      <div class="ctl">
+        <label for="lockN">The merchandising plan fixes</label>
+        <input type="range" id="lockN" min="0" max="12" value="5" step="1">
+        <output id="lockOut">5 of 20 attributes</output>
+        <button id="pause" type="button">Pause</button>
+      </div>
+
+      <div class="campstrip">
+        <span class="daynow" id="dayNow">Day 1</span>
+        <span class="campfact"><strong id="measN">15 of 20</strong> attributes the campaign can measure</span>
+        <span class="campfact"><strong>7%</strong> of traffic on probes</span>
+        <span class="campfact"><strong id="neverN">5</strong> it will never learn</span>
+      </div>
+
+      <svg id="attrs" viewBox="0 0 700 352" role="img"
+           aria-label="Confidence interval width for each of twenty product attributes across a nine-day campaign. Free attributes narrow and then widen again when the latent factors shift on day five; contracted attributes never narrow at all."></svg>
+      <p class="note" id="tcap"></p>
+    </div>
+
+
+    <p>With nothing contracted, every line shortens as evidence lands. Then day five arrives and they
+    all jump back out. The latent factors behind shopper preference moved &mdash; a competitor&rsquo;s
+    drop, a cold snap, who knows &mdash; and nothing announced it. The campaign has no event to
+    react to. It simply discovers that what it had learned is now about a world that no longer exists,
+    and starts again with four days left.</p>
+
+    <h2>What the plan already decided</h2>
+
+    <p>Now push the slider. Those attributes stop moving.</p>
+
+    <p>A merchandising plan fixes the price mix and the contracted placements before a campaign opens.
+    Entry-price inventory is a set share of the slate. The promo slot is sold. Those are commercial
+    commitments, made months earlier, by people who were not asked a question about identifiability.</p>
+
+    <p>But a probe can only teach you about a direction it is able to move along. If the plan holds the
+    price mix fixed, then no slate the campaign is allowed to serve varies the price mix &mdash; and
+    the effect of price position is not estimated badly, it is <strong>not estimated at all</strong>.
+    Its interval sits exactly where it started on day one and stays there through all nine days and
+    every probe. More traffic does nothing. A longer campaign does nothing.</p>
+
+    <p>This is the difference between a noisy estimate and no estimate, and it is invisible in the
+    usual reporting. The campaign still returns a number for price position. The number is the prior.</p>
+
+    <h2>The part that is genuinely counter-intuitive</h2>
+
+    <p>Watch the <em>free</em> attributes as you contract more. They get <strong>sharper</strong>.</p>
+
+    <p>Of course they do: the same probe budget is spread over fewer directions, so each one gets more
+    of it. Contracting half the catalogue makes your measurements of the other half look excellent.
+    A dashboard reporting average interval width across what it measured would show the plan
+    <em>improving</em> as it removes things from the campaign&rsquo;s reach.</p>
+
+    <p>That is the trap the case is built around. The exploration budget is not wasted in a way that
+    shows up as noise. It is wasted in a way that shows up as confidence.</p>
+
+    <h2>Where the method comes in</h2>
+
+    <p>Two things make this tractable rather than hopeless. Preferences are not twenty independent
+    dials: they are driven by a handful of latent factors, so if the structure really is low-rank you
+    relearn three numbers after a shift rather than twenty, and every interval narrows by
+    &radic;(d/r). That is the whole prize, and the widget above already assumes you have it.</p>
+
+    <p>Earning it is the hard part, because you never see the reward of the item you did not show.
+    <a href="../papers/catching-a-moving-subspace.html">Catching a Moving Subspace</a> works out when a
+    rotating low-rank subspace can be recovered from single-play rewards at all: it needs a known noise
+    variance, bounded rewards, and probe support that spans the space. The first two Threadline gets
+    for free by batching traffic into slices. The third is the one the merchandising plan takes away.</p>
+
+    <p class="paper-links">
+      <a href="https://hamedkhosravi99.github.io/threadline-console/">The full teaching console</a>
+      <a href="../papers/catching-a-moving-subspace.html">Catching a Moving Subspace</a>
+      <a href="../notes/why-you-cant-look-twice.html">Previous note</a>
+    </p>
+    <p class="legend">Threadline is fictional. The catalogue structure, attribute families and
+    click-through levels derive from a public production recommendation log (Open Bandit Dataset,
+    ZOZO Research); the campaign and its regime shift are simulated and disclosed. The widget computes
+    interval widths from the design matrix the simulated traffic actually produces.</p>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>(function () {
+  var D = 20, R = 3, SIG = 5.88, LAM = 1.0, DAYS = 9, SLICES = 40, SHIFT = 5, PROBE = 0.07;
+  var ATTRS = ['entry price','mid price','premium price','promo depth','clearance slot',
+               'house brand','designer','sportswear','basics','new-in',
+               'carryover','tailored','casual','outerwear','knitwear',
+               'denim','occasion','colour depth','size breadth','season fit'];
+  var LOCK_ORDER = [0,1,2,3,4,5,6,9,10,7,8,11];
+
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function nrm(r){var u=1-r(),v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+
+  function invDiag(A) {                       // diagonal of A^-1, Gauss-Jordan on [A|I]
+    var n = D, M = [];
+    for (var i=0;i<n;i++){M[i]=new Float64Array(2*n);
+      for(var j=0;j<n;j++)M[i][j]=A[i][j]; M[i][n+i]=1;}
+    for (i=0;i<n;i++){
+      var p=i; for(var k=i+1;k<n;k++) if(Math.abs(M[k][i])>Math.abs(M[p][i])) p=k;
+      var tmp=M[i]; M[i]=M[p]; M[p]=tmp;
+      var d=M[i][i]||1e-12;
+      for(j=i;j<2*n;j++) M[i][j]/=d;
+      for(k=0;k<n;k++){ if(k===i) continue; var f=M[k][i]; if(!f) continue;
+        for(j=i;j<2*n;j++) M[k][j]-=f*M[i][j]; }
+    }
+    var out=new Float64Array(n); for(i=0;i<n;i++) out[i]=M[i][n+i]; return out;
+  }
+
+  function campaign(nlock, seed) {
+    var r = mulberry(seed), lock = {}, i, j, k;
+    for (i=0;i<nlock;i++) lock[LOCK_ORDER[i]] = 1;
+    var keep = []; for (i=0;i<D;i++) keep.push(lock[i] ? 0 : 1);
+    var hot = []; for (i=0;i<4;i++){ var h=[],s=0;
+      for(j=0;j<D;j++){h.push(nrm(r)); s+=h[j]*h[j];} s=Math.sqrt(s);
+      for(j=0;j<D;j++) h[j]/=s; hot.push(h); }
+    var A = []; for(i=0;i<D;i++){A.push(new Float64Array(D)); A[i][i]=LAM;}
+    var days = [];
+    for (var day=1; day<=DAYS; day++) {
+      if (day === SHIFT) { A=[]; for(i=0;i<D;i++){A.push(new Float64Array(D)); A[i][i]=LAM;} }
+      for (var s2=0; s2<SLICES; s2++) {
+        var x=new Float64Array(D), probe = r() < PROBE, hh = hot[(r()*4)|0];
+        for (j=0;j<D;j++) x[j] = (probe ? nrm(r) : hh[j] + 0.10*nrm(r)) * keep[j];
+        var n2=0; for(j=0;j<D;j++) n2+=x[j]*x[j]; n2=Math.sqrt(n2);
+        if (n2 < 1e-9) continue;
+        for (j=0;j<D;j++) x[j]/=n2;
+        for (j=0;j<D;j++) for (k=j;k<D;k++) { var v=x[j]*x[k]; A[j][k]+=v; if(k!==j) A[k][j]+=v; }
+      }
+      var di = invDiag(A), w = new Float64Array(D), sc = Math.sqrt(R/D);
+      for (j=0;j<D;j++) w[j] = SIG*Math.sqrt(Math.max(di[j],0))*sc;
+      days.push(w);
+    }
+    return {days: days, lock: lock};
+  }
+
+  var slider=document.getElementById('lockN'), out=document.getElementById('lockOut'),
+      svg=document.getElementById('attrs'), cap=document.getElementById('tcap'),
+      dayEl=document.getElementById('dayNow'), measEl=document.getElementById('measN'),
+      neverEl=document.getElementById('neverN'), pauseBtn=document.getElementById('pause');
+  var sim=null, tDay=1, raf=null, running=true, last=0;
+
+  var X0=140, CX=404, SCALE=78, ROW=15, TOP=40;
+  var PRIOR = SIG*Math.sqrt(R/D);
+
+  function build() {
+    sim = campaign(+slider.value, 5);
+    var nl=+slider.value;
+    out.textContent = nl === 0 ? 'nothing contracted' : nl + ' of 20 attributes';
+    measEl.textContent = (D-nl) + ' of 20';
+    neverEl.textContent = nl;
+    tDay = 1; last = 0;
+  }
+
+  function draw() {
+    var d0=Math.min(DAYS-1,Math.floor(tDay-1)), d1=Math.min(DAYS-1,d0+1), f=tDay-1-d0;
+    var w0=sim.days[d0], w1=sim.days[d1];
+    var g=['<line x1="'+CX+'" y1="'+(TOP-10)+'" x2="'+CX+'" y2="'+(TOP+D*ROW-2)+'" stroke="var(--rule)" stroke-width="1"/>'];
+    for (var i=0;i<D;i++) {
+      var w=w0[i]+(w1[i]-w0[i])*f, half=Math.min(w*SCALE, CX-X0-6), y=TOP+i*ROW;
+      var locked=!!sim.lock[i], col=locked?'var(--faint)':'var(--ok)';
+      g.push('<text x="'+(X0-10)+'" y="'+(y+3.5)+'" text-anchor="end" font-size="11.5" fill="'+
+             (locked?'var(--faint)':'var(--muted)')+'">'+ATTRS[i]+(locked?' · fixed':'')+'</text>');
+      g.push('<line x1="'+(CX-half)+'" y1="'+y+'" x2="'+(CX+half)+'" y2="'+y+'" stroke="'+col+
+             '" stroke-width="'+(locked?2:2.6)+'" stroke-linecap="round" opacity="'+(locked?0.5:1)+'"/>');
+      if (!locked) g.push('<circle cx="'+CX+'" cy="'+y+'" r="1.7" fill="var(--ok)"/>');
+    }
+    var pw=PRIOR*SCALE;
+    g.push('<line x1="'+(CX-pw)+'" y1="'+(TOP-14)+'" x2="'+(CX+pw)+'" y2="'+(TOP-14)+
+           '" stroke="var(--rule)" stroke-width="1" stroke-dasharray="3 3"/>');
+    g.push('<text x="'+(CX+pw+8)+'" y="'+(TOP-11)+'" font-size="10" fill="var(--faint)">knowing nothing</text>');
+    svg.innerHTML=g.join('');
+    dayEl.textContent='Day '+Math.min(DAYS,Math.floor(tDay));
+    var showShift = tDay>=SHIFT && tDay<SHIFT+1.6;
+    cap.innerHTML = showShift
+      ? '<strong class="shiftmsg">Day 5 — the latent factors moved. Nobody sent a memo; the campaign only sees its intervals widen again.</strong>'
+      : (+slider.value === 0
+         ? 'Every attribute is free to vary, so every interval narrows as traffic accumulates.'
+         : 'The ' + (+slider.value) + ' contracted attributes sit exactly where they started. No amount of traffic moves them — that is not a noisy estimate, it is no estimate.');
+  }
+
+  function tick(ts) {
+    if (!last) last = ts;
+    var dt=(ts-last)/1000; last=ts;
+    if (running) { tDay += dt*1.15; if (tDay > DAYS+1.4) tDay = 1; }
+    draw(); raf=requestAnimationFrame(tick);
+  }
+
+  slider.addEventListener('input', function(){ build(); draw(); });
+  pauseBtn.addEventListener('click', function(){
+    running=!running; pauseBtn.textContent = running ? 'Pause' : 'Play'; last=0; });
+  build(); raf=requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
