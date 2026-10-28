@@ -74,30 +74,40 @@
         <span class="daynow" id="angNow">&mdash;</span>
         <span class="campfact">between the true taste and the estimate</span>
         <span class="campfact"><strong id="probesN">0</strong> probes</span>
-        <span class="campfact"><strong id="costNow">0%</strong> of traffic</span>
+        <span class="campfact">noise floor <strong id="floorNow">&mdash;</strong></span>
       </div>
 
-      <svg id="spsc" viewBox="0 0 700 312" role="img"
+      <svg id="spsc" viewBox="0 0 700 320" role="img"
            aria-label="A taste direction that drifts and jumps at unannounced change points, the recommender's estimate turning toward it after each probe, and a two-window spectral detector that fires and rebuilds the estimate when the subspace moves."></svg>
       <p class="note" id="spcap"></p>
     </div>
 
 
-    <p>The teal line is what the shopper actually likes. The dashed line is what the recommender
-    believes. Every tall red tick on the timeline is a probe: an impression deliberately spent on
-    something other than the best guess, because serving the best guess teaches you almost nothing
-    about the rest of the space.</p>
+    <p>The filled blue plane is the space the shopper&rsquo;s taste actually lives in, with the dark
+    red arrow wandering inside it &mdash; that is their preference moving around within a structure
+    that is, for now, holding still. The green dashed outline is the plane the recommender has
+    identified and is ranking the catalogue in. Every tall red tick on the timeline is a probe: an
+    impression deliberately spent on something other than the best guess, because serving the best
+    guess teaches you almost nothing about the rest of the space.</p>
 
     <p>Each probe returns one scalar. On its own that is almost no information &mdash; but squared, it
-    is a rank-one measurement of the space, and enough of them stacked up identify it. The angle closes
-    like 1/&radic;m in the number of probes, which is why the estimate snaps toward the truth quickly at
-    first and then crawls. Turn the noise up and watch the crawl get worse.</p>
+    is a rank-one measurement of the plane, and enough of them stacked up identify it. The angle closes
+    like 1/&radic;m in the number of probes, which is why the green outline swings onto the blue quickly
+    at first and then crawls the last few degrees.</p>
 
-    <p>Then the green dashed line marks a change point, and everything the recommender knows becomes
-    evidence about a world that is gone. Its errors grow; the detector &mdash; a running comparison of
-    the recent estimate against the older one &mdash; climbs; and when it crosses <em>b</em> the
-    estimate is thrown away rather than updated. That is the red dot. Rebuilding costs probes, which is
-    why you cannot simply reset constantly, and why the detector has to be right.</p>
+    <p>The two sliders are the two things you actually control, and they do different jobs. Spending a
+    larger share of impressions on probes fills the timeline with red and gets you there sooner &mdash;
+    it buys <em>speed</em>. Noise does something you cannot buy your way out of: it sets a
+    <strong>floor</strong> on how close the estimate can ever get, shown in the readout above. Push the
+    noise to 0.80 and the floor goes past 20&deg;; no probe budget closes that gap, because the
+    information is not in the data to begin with.</p>
+
+    <p>Then a blue dashed line crosses the timeline. The plane has turned, and everything the
+    recommender knows is now evidence about a world that is gone &mdash; you can watch the green
+    outline sitting at the old angle while the blue plane has moved out from under it. Its errors grow;
+    the detector climbs; and when it crosses <em>b</em> the estimate is thrown away rather than updated.
+    That is the green dot. Rebuilding costs probes all over again, which is why you cannot simply reset
+    constantly, and why the detector has to fire on real turns rather than on noise.</p>
 
     <h2>Try your own catalogue</h2>
 
@@ -150,126 +160,160 @@
 </footer>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <script>(function () {
-  // ---- the paper's loop, animated: probe -> identify -> exploit, with a detector ----
-  var CX=168, CY=148, R=98;          // the taste dial
-  var TL_X0=330, TL_X1=676, TL_Y=96;  // probe / exploit timeline
-  var DET_Y0=150, DET_Y1=232;         // detector trace
-  var SPAN=170;                       // rounds visible on the timeline
+  // Two planes in 3-space, drawn the way the paper draws them: the true reward subspace
+  // (solid, filled) and the recommender's estimate (dashed). Probes turn one onto the other.
+  var PCX=196, PCY=168, S=1.0;            // plane panel centre
+  var TL0=372, TL1=676, TLY=104;          // probe / exploit ticks
+  var DY0=176, DY1=252;                   // detector trace
+  var SPAN=150;
 
   var svg=document.getElementById('spsc'), cap=document.getElementById('spcap');
-  var sProbe=document.getElementById('pRate'), oProbe=document.getElementById('pRateOut');
-  var sNoise=document.getElementById('nz'),    oNoise=document.getElementById('nzOut');
-  var pauseBtn=document.getElementById('spause');
-  var angleEl=document.getElementById('angNow'), probesEl=document.getElementById('probesN'),
-      costEl=document.getElementById('costNow');
+  var sP=document.getElementById('pRate'), oP=document.getElementById('pRateOut');
+  var sN=document.getElementById('nz'),    oN=document.getElementById('nzOut');
+  var btn=document.getElementById('spause');
+  var angEl=document.getElementById('angNow'), prEl=document.getElementById('probesN'),
+      flEl=document.getElementById('floorNow');
 
-  var t=0, trueAng=0.6, estAng=2.4, hist=[], det=[], probes=0, cost=0, running=true, raf=null, lastTs=0;
-  var nextChange=58, since=0, detVal=0, alarm=-99;
+  function nz(){var u=1-Math.random(),v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+  function norm(a){var n=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/n,a[1]/n,a[2]/n];}
+  function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+  function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+  function add(a,b,k){return [a[0]+b[0]*k,a[1]+b[1]*k,a[2]+b[2]*k];}
+  // oblique camera: enough depth to read as a plane in space
+  function proj(p){ return [PCX + S*(78*p[0] - 44*p[2]), PCY - S*(78*p[1] - 26*p[2])]; }
 
-  function rnd(){ return Math.random(); }
-  function nrm(){ var u=1-rnd(),v=rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+  function basis(n){                       // an orthonormal pair spanning the plane normal to n
+    var t = Math.abs(n[0])<0.9 ? [1,0,0] : [0,1,0];
+    var u1 = norm(cross(n,t)), u2 = norm(cross(n,u1));
+    return [u1,u2];
+  }
+  function para(n, a, b){                  // the parallelogram the paper draws
+    var uv=basis(n), u1=uv[0], u2=uv[1], pts=[];
+    [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(function(s){
+      pts.push(proj(add(add([0,0,0],u1,s[0]*a), u2, s[1]*b)));
+    });
+    return 'M'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' L')+' Z';
+  }
 
-  function step() {
-    var pRate=+sProbe.value/100, sig=+sNoise.value/100;
-    t++; since++;
-    if (since >= nextChange) {                      // an unannounced change point
-      trueAng += (rnd()<0.5?-1:1)*(0.7+rnd()*0.9);
-      since=0; nextChange=46+Math.floor(rnd()*40);
-      hist.push({t:t, kind:'change'});
+  var nTrue=norm([0.35,0.78,0.52]), nEst=norm([-0.6,0.5,0.62]);
+  var t=0, hist=[], det=[], detV=0, probes=0, sinceChange=0, nextChange=52,
+      lastAlarm=-99, probesSinceReset=0, running=true, raf=null, lastTs=0, flash=0;
+
+  function rotToward(a, b, k){             // move normal a a fraction k of the way to b
+    var c=[a[0]+(b[0]-a[0])*k, a[1]+(b[1]-a[1])*k, a[2]+(b[2]-a[2])*k];
+    return norm(c);
+  }
+  function angDeg(){ return Math.acos(Math.min(1,Math.abs(dot(nTrue,nEst))))*180/Math.PI; }
+
+  function step(){
+    var pShare=+sP.value/100, sig=+sN.value/100;
+    t++; sinceChange++;
+    if (sinceChange>=nextChange){          // an unannounced change point
+      nTrue=norm([nTrue[0]+1.5*nz(), nTrue[1]+1.5*nz(), nTrue[2]+1.5*nz()]);
+      sinceChange=0; nextChange=44+Math.floor(Math.random()*34);
+      hist.push({t:t,k:'change'});
     }
-    trueAng += 0.004*nrm();                          // theta_t drifts inside the subspace
-    var probing = rnd() < pRate;
-    if (probing) {
-      probes++; cost += 1;
-      // each probe lifts one scalar into a rank-one measurement; the estimate turns toward the truth
-      var m = Math.max(1, probes - alarm > 0 ? probes - Math.max(0,alarmProbes) : probes);
-      var pull = 0.42/Math.sqrt(m) + 0.02;
-      var d2 = Math.atan2(Math.sin(trueAng-estAng), Math.cos(trueAng-estAng));
-      estAng += pull*d2 + sig*0.5*nrm()/Math.sqrt(m);
+    nTrue=norm([nTrue[0]+0.006*nz(), nTrue[1]+0.006*nz(), nTrue[2]+0.006*nz()]);
+
+    var probing = Math.random() < pShare;
+    if (probing){
+      probes++; probesSinceReset++; flash=6;
+      // identification improves like 1/sqrt(m); noise sets the angle it can never beat
+      var pull = Math.min(0.55, 0.9/Math.sqrt(probesSinceReset+1));
+      nEst = rotToward(nEst, nTrue, pull);
+      nEst = norm([nEst[0]+sig*0.09*nz(), nEst[1]+sig*0.09*nz(), nEst[2]+sig*0.09*nz()]);
     }
-    hist.push({t:t, kind: probing?'probe':'exploit'});
+    hist.push({t:t,k:probing?'probe':'exploit'});
     while (hist.length && hist[0].t < t-SPAN) hist.shift();
 
-    // two-window spectral detector on rolling rank-r projectors
-    var gap = Math.abs(Math.atan2(Math.sin(trueAng-estAng), Math.cos(trueAng-estAng)));
-    detVal = 0.86*detVal + 0.14*(Math.abs(Math.sin(gap)) + 0.10*sig*Math.abs(nrm()));
-    det.push(detVal); if (det.length > SPAN) det.shift();
-    if (detVal > 0.42 && t-alarm > 26) {             // ||P_recent - P_past||_op > b  -> reset U
-      alarm=t; alarmProbes=probes; estAng=trueAng+0.55*nrm(); detVal=0.12;
-      hist.push({t:t, kind:'reset'});
+    var gap = angDeg()/90;
+    detV = 0.88*detV + 0.12*(gap + 0.08*sig*Math.abs(nz()));
+    det.push(detV); if (det.length>SPAN) det.shift();
+    if (detV>0.40 && t-lastAlarm>24){      // ||P_recent - P_past||_op > b  ->  rebuild
+      lastAlarm=t; probesSinceReset=0; detV=0.10;
+      nEst=norm([nTrue[0]+0.9*nz(), nTrue[1]+0.9*nz(), nTrue[2]+0.9*nz()]);
+      hist.push({t:t,k:'reset'});
     }
-    return gap;
-  }
-  var alarmProbes=0;
-
-  function wedge(cx,cy,r,a,spread) {
-    var p=[];
-    for (var k=-1;k<=1;k+=2) p.push([cx+r*Math.cos(a+k*spread), cy-r*Math.sin(a+k*spread)]);
-    return 'M'+cx+','+cy+' L'+p[0][0].toFixed(1)+','+p[0][1].toFixed(1)+
-           ' A'+r+','+r+' 0 0 0 '+p[1][0].toFixed(1)+','+p[1][1].toFixed(1)+' Z';
+    if (flash>0) flash--;
   }
 
-  function draw(gap) {
-    var g=[];
-    g.push('<text x="'+CX+'" y="20" text-anchor="middle" font-size="12" fill="var(--faint)">what the shopper actually likes</text>');
-    g.push('<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="var(--rule)"/>');
-    g.push('<path d="'+wedge(CX,CY,R,trueAng,0.19)+'" fill="var(--okbg)" stroke="none" opacity=".85"/>');
-    g.push('<line x1="'+CX+'" y1="'+CY+'" x2="'+(CX+R*Math.cos(trueAng)).toFixed(1)+'" y2="'+(CY-R*Math.sin(trueAng)).toFixed(1)+
-           '" stroke="var(--ok)" stroke-width="3" stroke-linecap="round"/>');
-    g.push('<line x1="'+CX+'" y1="'+CY+'" x2="'+(CX+R*0.92*Math.cos(estAng)).toFixed(1)+'" y2="'+(CY-R*0.92*Math.sin(estAng)).toFixed(1)+
-           '" stroke="var(--bad)" stroke-width="2.4" stroke-dasharray="6 4" stroke-linecap="round"/>');
-    g.push('<circle cx="'+CX+'" cy="'+CY+'" r="3" fill="var(--muted)"/>');
-    g.push('<text x="'+CX+'" y="'+(CY+R+24)+'" text-anchor="middle" font-size="12" fill="var(--ok)">true taste direction</text>');
-    g.push('<text x="'+CX+'" y="'+(CY+R+40)+'" text-anchor="middle" font-size="12" fill="var(--bad)">what the recommender believes</text>');
+  function draw(){
+    var sig=+sN.value/100, g=[];
+    var a=angDeg();
+    // ---- panel: the two planes ----
+    g.push('<text x="'+PCX+'" y="22" text-anchor="middle" font-size="12.5" fill="var(--fg-faint)">the space the catalogue is ranked in</text>');
+    g.push('<path d="'+para(nTrue,1.0,0.72)+'" fill="var(--sub-fill)" stroke="var(--sub)" stroke-width="2"/>');
+    // theta_t wandering inside the true plane
+    var uv=basis(nTrue), th=[];
+    for (var s2=0;s2<=16;s2++){
+      var ph=s2/16, x=-0.62+1.24*ph, y=0.34*Math.sin(ph*3.1+t*0.035);
+      th.push(proj(add(add([0,0,0],uv[0],x),uv[1],y)));
+    }
+    g.push('<path d="M'+th.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' L')+
+           '" fill="none" stroke="var(--theta)" stroke-width="2.6" stroke-linecap="round" marker-end="url(#ah)"/>');
+    // outline only: an opaque estimate would hide the true plane it is converging onto
+    g.push('<path d="'+para(nEst,1.06,0.78)+'" fill="none" stroke="var(--est)" stroke-width="2.4" stroke-dasharray="7 5" stroke-linejoin="round"/>');
+    if (flash>0){
+      // the probe enters from the lower left, as in panel (b) of the figure -- a fixed
+      // anchor, so it never lands on top of the captions
+      var o=(flash/6).toFixed(2);
+      g.push('<line x1="'+(PCX-124)+'" y1="'+(PCY+86)+'" x2="'+(PCX-34)+'" y2="'+(PCY+22)+
+             '" stroke="var(--probe)" stroke-width="3" marker-end="url(#ap)" opacity="'+o+'"/>');
+      g.push('<text x="'+(PCX-130)+'" y="'+(PCY+100)+'" font-size="11.5" fill="var(--probe)" opacity="'+o+'">probe u</text>');
+    }
+    g.push('<text x="'+PCX+'" y="'+(PCY+118)+'" text-anchor="middle" font-size="12.5" fill="var(--sub)">true subspace</text>');
+    g.push('<text x="'+PCX+'" y="'+(PCY+136)+'" text-anchor="middle" font-size="12.5" fill="var(--est)">what the recommender has identified</text>');
 
-    // timeline of probes and exploit rounds
-    g.push('<text x="'+TL_X0+'" y="68" font-size="12" fill="var(--faint)">every impression: probe or exploit</text>');
-    hist.forEach(function (h) {
-      var x=TL_X0+(TL_X1-TL_X0)*(h.t-(t-SPAN))/SPAN;
-      if (x<TL_X0-2) return;
-      if (h.kind==='exploit') g.push('<line x1="'+x.toFixed(1)+'" y1="'+(TL_Y-5)+'" x2="'+x.toFixed(1)+'" y2="'+(TL_Y+5)+'" stroke="var(--rule)" stroke-width="1.3"/>');
-      else if (h.kind==='probe') g.push('<line x1="'+x.toFixed(1)+'" y1="'+(TL_Y-11)+'" x2="'+x.toFixed(1)+'" y2="'+(TL_Y+11)+'" stroke="var(--bad)" stroke-width="1.8"/>');
-      else if (h.kind==='change') g.push('<line x1="'+x.toFixed(1)+'" y1="'+(TL_Y-24)+'" x2="'+x.toFixed(1)+'" y2="'+DET_Y1+'" stroke="var(--ok)" stroke-width="1.2" stroke-dasharray="3 3" opacity=".75"/>');
-      else g.push('<circle cx="'+x.toFixed(1)+'" cy="'+(DET_Y1+10)+'" r="3.4" fill="var(--bad)"/>');
+    // ---- ticks ----
+    g.push('<text x="'+TL0+'" y="76" font-size="12.5" fill="var(--fg-faint)">each impression: probe or exploit</text>');
+    hist.forEach(function(h){
+      var x=TL0+(TL1-TL0)*(h.t-(t-SPAN))/SPAN; if(x<TL0-2) return; x=+x.toFixed(1);
+      if(h.k==='exploit') g.push('<line x1="'+x+'" y1="'+(TLY-5)+'" x2="'+x+'" y2="'+(TLY+5)+'" stroke="var(--tick)" stroke-width="1.3"/>');
+      else if(h.k==='probe') g.push('<line x1="'+x+'" y1="'+(TLY-12)+'" x2="'+x+'" y2="'+(TLY+12)+'" stroke="var(--probe)" stroke-width="2"/>');
+      else if(h.k==='change') g.push('<line x1="'+x+'" y1="'+(TLY-26)+'" x2="'+x+'" y2="'+DY1+'" stroke="var(--sub)" stroke-width="1.4" stroke-dasharray="4 3" opacity=".8"/>');
+      else g.push('<circle cx="'+x+'" cy="'+(DY1+12)+'" r="4" fill="var(--est)"/>');
     });
-    g.push('<text x="'+TL_X1+'" y="'+(TL_Y+30)+'" text-anchor="end" font-size="11" fill="var(--bad)">tall tick = probe</text>');
+    g.push('<text x="'+TL0+'" y="'+(TLY+30)+'" font-size="11" fill="var(--probe)">tall = probe</text>');
+    g.push('<text x="'+TL1+'" y="'+(TLY+30)+'" text-anchor="end" font-size="11" fill="var(--sub)">dashed = the subspace turned</text>');
 
-    // detector trace
-    g.push('<text x="'+TL_X0+'" y="'+(DET_Y0-8)+'" font-size="12" fill="var(--faint)">two-window spectral detector</text>');
-    var thrY=DET_Y1-(0.42/0.9)*(DET_Y1-DET_Y0);
-    g.push('<line x1="'+TL_X0+'" y1="'+thrY.toFixed(1)+'" x2="'+TL_X1+'" y2="'+thrY.toFixed(1)+'" stroke="var(--ink,var(--text))" stroke-width="1" stroke-dasharray="5 3"/>');
-    g.push('<text x="'+(TL_X1+4)+'" y="'+(thrY+4).toFixed(1)+'" font-size="10.5" fill="var(--muted)">b</text>');
-    var dpath='';
-    det.forEach(function (v,i) {
-      var x=TL_X0+(TL_X1-TL_X0)*i/Math.max(1,SPAN-1);
-      var y=DET_Y1-Math.min(v,0.9)/0.9*(DET_Y1-DET_Y0);
-      dpath+=(i?'L':'M')+x.toFixed(1)+','+y.toFixed(1);
-    });
-    g.push('<path d="'+dpath+'" fill="none" stroke="var(--ok)" stroke-width="2" stroke-linejoin="round"/>');
-    g.push('<line x1="'+TL_X0+'" y1="'+DET_Y1+'" x2="'+TL_X1+'" y2="'+DET_Y1+'" stroke="var(--rule)"/>');
-    g.push('<text x="'+TL_X0+'" y="'+(DET_Y1+26)+'" font-size="11" fill="var(--faint)">dot = the estimate is thrown away and rebuilt</text>');
+    // ---- detector ----
+    g.push('<text x="'+TL0+'" y="'+(DY0-10)+'" font-size="12.5" fill="var(--fg-faint)">two-window spectral detector</text>');
+    var thr=DY1-(0.40/0.9)*(DY1-DY0);
+    g.push('<line x1="'+TL0+'" y1="'+thr.toFixed(1)+'" x2="'+TL1+'" y2="'+thr.toFixed(1)+'" stroke="var(--fg)" stroke-width="1" stroke-dasharray="5 3"/>');
+    g.push('<text x="'+(TL1+5)+'" y="'+(thr+4).toFixed(1)+'" font-size="11" fill="var(--fg-muted)">b</text>');
+    var dp='';
+    det.forEach(function(v,i){ var x=TL0+(TL1-TL0)*i/Math.max(1,SPAN-1),
+      y=DY1-Math.min(v,0.9)/0.9*(DY1-DY0); dp+=(i?'L':'M')+x.toFixed(1)+','+y.toFixed(1); });
+    g.push('<path d="'+dp+'" fill="none" stroke="var(--est)" stroke-width="2.2" stroke-linejoin="round"/>');
+    g.push('<line x1="'+TL0+'" y1="'+DY1+'" x2="'+TL1+'" y2="'+DY1+'" stroke="var(--tick)"/>');
+    g.push('<text x="'+TL0+'" y="'+(DY1+30)+'" font-size="11" fill="var(--est)">dot = estimate rebuilt from scratch</text>');
 
-    svg.innerHTML=g.join('');
-    var deg=gap*180/Math.PI;
-    angleEl.textContent=deg.toFixed(0)+'°';
-    probesEl.textContent=probes;
-    costEl.textContent=(100*probes/Math.max(1,t)).toFixed(0)+'%';
-    cap.textContent = deg<14
-      ? 'The estimate has caught the subspace: items can be projected into it and ranked in r dimensions instead of d.'
-      : (deg>60 ? 'The subspace has moved and the recommender is still serving the old taste. The detector has not fired yet.'
-                : 'Probes are turning the estimate toward the truth — each scalar reward lifts to a rank-one measurement.');
+    svg.innerHTML =
+      '<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">'+
+      '<path d="M0,0 L10,5 L0,10 z" fill="var(--theta)"/></marker>'+
+      '<marker id="ap" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">'+
+      '<path d="M0,0 L10,5 L0,10 z" fill="var(--probe)"/></marker></defs>'+g.join('');
+
+    angEl.textContent=a.toFixed(0)+'°';
+    prEl.textContent=probes;
+    var floor=(sig*26).toFixed(0);
+    flEl.textContent=floor+'°';
+    cap.textContent = a < +floor+7
+      ? 'Identified: the catalogue can be projected into this plane and ranked in r dimensions instead of d.'
+      : (a > 48 ? 'The subspace has turned. The recommender is still ranking in the old plane — the detector has not crossed b yet.'
+                : 'Probes are turning the estimate onto the truth. Each scalar reward lifts to a rank-one measurement of the plane.');
   }
 
-  function loop(ts) {
-    if (!lastTs) lastTs=ts;
-    if (running && ts-lastTs > 55) { lastTs=ts; draw(step()); }
+  function loop(ts){
+    if(!lastTs) lastTs=ts;
+    if(running && ts-lastTs>125){ lastTs=ts; step(); draw(); }
     raf=requestAnimationFrame(loop);
   }
-  sProbe.addEventListener('input', function(){ oProbe.textContent=sProbe.value+'%'; });
-  sNoise.addEventListener('input', function(){ oNoise.textContent=(+sNoise.value/100).toFixed(2); });
-  pauseBtn.addEventListener('click', function(){ running=!running; pauseBtn.textContent=running?'Pause':'Play'; lastTs=0; });
-  oProbe.textContent=sProbe.value+'%'; oNoise.textContent=(+sNoise.value/100).toFixed(2);
-  draw(0.9); raf=requestAnimationFrame(loop);
+  sP.addEventListener('input',function(){ oP.textContent=sP.value+'%'; draw(); });
+  sN.addEventListener('input',function(){ oN.textContent=(+sN.value/100).toFixed(2); draw(); });
+  btn.addEventListener('click',function(){ running=!running; btn.textContent=running?'Pause':'Play'; lastTs=0; });
+  oP.textContent=sP.value+'%'; oN.textContent=(+sN.value/100).toFixed(2);
+  draw(); raf=requestAnimationFrame(loop);
 })();
 
 // ---------- the planner: plug in your own catalogue ----------

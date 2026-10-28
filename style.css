@@ -17,6 +17,17 @@
   /* Display face for the name and headings only; body stays sans.
      System serifs so nothing is downloaded. */
   /* figure palette: teal = the method that holds, rust = the one that fails */
+  /* the paper figure's palette: blue subspace, green estimate, red probes */
+  --sub:       #3B4ED8;
+  --sub-fill:  #e3e6fb;
+  --est:       #15964F;
+  --est-fill:  #ddf2e5;
+  --probe:     #D33B2C;
+  --theta:     #8E1B33;
+  --tick:      #d7dae0;
+  --fg:        #23262b;
+  --fg-muted:  #6b7280;
+  --fg-faint:  #8d94a0;
   --ok:        #1A6E6A;
   --okbg:      #e4f0ef;
   --bad:       #B2561F;
@@ -35,6 +46,16 @@
     --rule:      #2c3037;
     --accent:    #d79a6e;
     --accent-bg: #2a221c;
+    --sub:       #8c99f0;
+    --sub-fill:  #23263c;
+    --est:       #52c98a;
+    --est-fill:  #1a2c22;
+    --probe:     #f07a6a;
+    --theta:     #e8899e;
+    --tick:      #353a43;
+    --fg:        #dfe2e6;
+    --fg-muted:  #9aa1ab;
+    --fg-faint:  #7c8491;
     --ok:        #63BDB7;
     --okbg:      #1c2b2a;
     --bad:       #E0956A;
