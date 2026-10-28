@@ -45,8 +45,86 @@
     </p>
 
   <figure class="paper-figure">
-    <img class="paper-fig" src="../assets/papers/prime.jpg" alt="Two panels over the information ladder: false authorization falls to zero under PRIME while supported utility rises">
-    <figcaption>The information ladder on 480 public-record tasks at a 20-call budget. Top: false authorization &mdash; conclusions an agent reported that its own check results did not justify. Bottom: supported utility &mdash; the value of the conclusions its evidence actually established.</figcaption>
+    <svg class="fig-anim" viewBox="0 0 760 316" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Evidence routes are fixed before the agent sees the case. As checks resolve, an agent left to itself reports the conclusion even after a required check has failed, while PRIME refuses it, points at the route that can still succeed, and authorizes the conclusion only once that route completes.">
+      <style>
+        .fig-anim { --ok:#1A6E6A; --okbg:#e4f0ef; --bad:#B2561F; --badbg:#f7e8de;
+                     --ink:#23262b; --mut:#6b7280; --fnt:#9aa1ab; --rul:#e3e5e8;
+                     --neubg:#f2f3f4; --neu:#9aa1ab; }
+        @media (prefers-color-scheme: dark) {
+          .fig-anim { --ok:#63BDB7; --okbg:#1c2b2a; --bad:#E0956A; --badbg:#2f241d;
+                       --ink:#dfe2e6; --mut:#9aa1ab; --fnt:#757d88; --rul:#2c3037;
+                       --neubg:#23262b; --neu:#757d88; }
+        }
+        .fig-anim text { font-family:"Iowan Old Style",Palatino,Charter,Georgia,serif; }
+        .hd   { font-size:12px; fill:var(--fnt); letter-spacing:.06em; text-transform:uppercase; }
+        .chip { font-size:13px; }
+        .who  { font-size:13px; fill:var(--mut); }
+        .say  { font-size:13.5px; }
+        .rt   { font-size:12.5px; fill:var(--mut); }
+        @keyframes k0 { 0%,10%{opacity:0} 16%,100%{opacity:1} }
+        @keyframes k1 { 0%,24%{opacity:0} 30%,100%{opacity:1} }
+        @keyframes k2 { 0%,38%{opacity:0} 44%,100%{opacity:1} }
+        @keyframes k3 { 0%,52%{opacity:0} 58%,100%{opacity:1} }
+        @keyframes k4 { 0%,66%{opacity:0} 72%,100%{opacity:1} }
+        @keyframes k5 { 0%,80%{opacity:0} 86%,100%{opacity:1} }
+        @keyframes k3x { 0%,52%{opacity:0} 58%,80%{opacity:1} 86%,100%{opacity:0} }
+        @keyframes k2x { 0%,38%{opacity:0} 44%,80%{opacity:1} 86%,100%{opacity:0} }
+        .b0 { animation:k0 15s linear infinite; }
+        .b1 { animation:k1 15s linear infinite; }
+        .b2 { animation:k2 15s linear infinite; }
+        .b3 { animation:k3 15s linear infinite; }
+        .b4 { animation:k4 15s linear infinite; }
+        .b5 { animation:k5 15s linear infinite; }
+        .fade3 { animation:k3x 15s linear infinite; }
+        .fade2 { animation:k2x 15s linear infinite; }
+        .b0,.b1,.b2,.b3,.b4,.b5,.fade3,.fade2 { opacity:0; }
+        @media (prefers-reduced-motion:reduce) {
+          .b0,.b1,.b2,.b3,.b4,.b5 { animation:none; opacity:1; }
+          .fade3,.fade2 { animation:none; opacity:0; }
+        }
+      </style>
+    
+      <!-- routes, fixed before the agent sees anything -->
+      <text class="hd" x="26" y="22">Evidence routes &#8212; fixed before the agent sees the case</text>
+      <rect x="24" y="32" width="712" height="66" rx="5" fill="none" stroke="var(--rul)" stroke-width="1"/>
+      <text class="rt" x="40" y="58">Route A</text>
+      <text class="chip" x="104" y="58" fill="var(--ink)">severity rating</text>
+      <text class="rt"   x="212" y="58">+</text>
+      <text class="chip" x="228" y="58" fill="var(--ink)">curator-reviewed advisory</text>
+      <text class="rt" x="40" y="84">Route B</text>
+      <text class="chip" x="104" y="84" fill="var(--ink)">published advisory link</text>
+      <text class="rt" x="470" y="58">&#8594; ready for investigation</text>
+      <text class="rt" x="470" y="84">&#8594; ready for investigation</text>
+    
+      <!-- checks resolving, one at a time -->
+      <text class="hd" x="26" y="130">Checks, as they resolve</text>
+      <g class="b0"><rect x="24" y="140" width="152" height="26" rx="4" fill="var(--okbg)" stroke="var(--ok)" stroke-width="1"/><text class="chip" x="37" y="157" fill="var(--ok)">&#10003;</text><text class="chip" x="52" y="157" fill="var(--ink)">severity rating</text></g>
+      <g class="b1"><rect x="188" y="140" width="214" height="26" rx="4" fill="var(--badbg)" stroke="var(--bad)" stroke-width="1"/><text class="chip" x="201" y="157" fill="var(--bad)">&#10007;</text><text class="chip" x="216" y="157" fill="var(--ink)">curator advisory</text></g>
+      <g class="b5"><rect x="414" y="140" width="196" height="26" rx="4" fill="var(--okbg)" stroke="var(--ok)" stroke-width="1"/><text class="chip" x="427" y="157" fill="var(--ok)">&#10003;</text><text class="chip" x="442" y="157" fill="var(--ink)">advisory link</text></g>
+    
+      <line x1="24" y1="192" x2="736" y2="192" stroke="var(--rul)" stroke-width="1"/>
+    
+      <!-- what each party reports at this moment -->
+      <text class="who" x="26" y="226">Agent alone</text>
+      <g class="b2">
+        <rect x="152" y="208" width="306" height="26" rx="4" fill="var(--badbg)" stroke="var(--bad)" stroke-width="1"/>
+        <text class="say" x="165" y="226" fill="var(--bad)">&#8220;ready for investigation&#8221;</text>
+        <text class="rt" x="470" y="226" fill="var(--bad)">Route A failed &#8212; not justified</text>
+      </g>
+    
+      <text class="who" x="26" y="274">PRIME</text>
+      <g class="fade3">
+        <rect x="152" y="256" width="306" height="26" rx="4" fill="var(--neubg)" stroke="var(--neu)" stroke-width="1"/>
+        <text class="say" x="165" y="274" fill="var(--mut)">refuses &#8212; try the advisory link</text>
+      </g>
+      <g class="b5">
+        <rect x="152" y="256" width="306" height="26" rx="4" fill="var(--okbg)" stroke="var(--ok)" stroke-width="1"/>
+        <text class="say" x="165" y="274" fill="var(--ok)">&#8220;ready for investigation&#8221;</text>
+        <text class="rt" x="470" y="274" fill="var(--ok)">Route B complete &#8212; authorized</text>
+      </g>
+    </svg>
+    <figcaption>The routes are fixed before the agent sees the case. As checks resolve, an agent left to itself reports the conclusion even though the route it was on has failed. PRIME refuses it, points at the route that can still succeed, and authorizes the conclusion only once that route completes.</figcaption>
   </figure>
 
     <h2>The problem</h2>
@@ -70,6 +148,11 @@
     100. The tasks come from <a href="https://github.com/HamedKhosravi99/SUFFICE">SUFFICE</a>, a
     benchmark of evidence-based review tasks built from real public records with a deterministic
     scorer.</p>
+
+  <figure class="paper-figure">
+    <img class="paper-fig" src="../assets/papers/prime.jpg" alt="Two panels over the information ladder: false authorization falls to zero under PRIME while supported utility rises">
+    <figcaption>The information ladder on 480 public-record tasks at a twenty-call budget. Top: false authorization &mdash; conclusions an agent reported that its own check results did not justify. Bottom: supported utility &mdash; the value of the conclusions its evidence actually established.</figcaption>
+  </figure>
 
     <h2>Cite</h2>
     <div class="bibwrap">
