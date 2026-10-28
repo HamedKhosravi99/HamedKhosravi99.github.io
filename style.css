@@ -992,3 +992,15 @@ table.calc tr.no td { color: var(--faint); }
 }
 .campfact strong { color: var(--text); font-variant-numeric: tabular-nums; }
 .shiftmsg { color: var(--bad); }
+
+/* "plug in your own numbers" input row */
+.planner { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 1.1rem 1.2rem; }
+.planrow { display: flex; flex-wrap: wrap; gap: 0.8rem 1.4rem; margin-bottom: 1rem; }
+.planrow label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.84rem; color: var(--muted); }
+.planrow label em { color: var(--accent); font-style: italic; }
+.planrow input {
+  width: 6.2rem; font: inherit; font-size: 0.9rem; padding: 0.3rem 0.45rem;
+  border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.planrow input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }

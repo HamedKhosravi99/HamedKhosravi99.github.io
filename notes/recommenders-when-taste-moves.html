@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recommender systems when taste moves — Hamed Khosravi</title>
+<meta name="description" content="A recommender sees one number per impression and has to recover a low-dimensional taste structure that keeps moving. The probe, identify, exploit loop, animated.">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Recommender systems when taste moves — Hamed Khosravi">
+<meta property="og:description" content="A recommender sees one number per impression and has to recover a low-dimensional taste structure that keeps moving. The probe, identify, exploit loop, animated.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/notes/recommenders-when-taste-moves.html">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/social/note-taste.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261028a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../notes.html" class="active">Notes</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper note-post">
+    <a class="backlink" href="../notes.html">&larr; Notes &amp; tools</a>
+    <p class="note-kicker">Recommender systems &middot; <time datetime="2026-10-28">28 October 2026</time></p>
+    <h1 class="paper-title">Recommender systems when taste moves</h1>
+    <p class="note-lede">A recommender gets one number back per impression: clicked, or did not. From
+    that it has to work out the shape of what someone likes &mdash; while the shape is changing.</p>
+
+    <p>A catalogue has far too many dimensions to learn one at a time. The reason recommenders work at
+    all is that taste is not spread across all of them: it is driven by a handful of latent factors, and
+    everything a shopper responds to lives in the low-dimensional space those factors span. Find that
+    space and you are estimating four or five numbers instead of sixty. Miss it and you are estimating
+    sixty.</p>
+
+    <p>Two things make finding it hard. The space <strong>moves</strong> &mdash; it drifts, and
+    occasionally turns sharply, at moments nobody announces. And you never observe it directly. You put
+    one item in front of one shopper and get back a single scalar, which is the projection of their
+    whole taste onto that one item, plus noise.</p>
+
+    <p>So the recommender runs a loop: <strong>probe</strong> to generate information it cannot get from
+    serving its best guess, <strong>identify</strong> the space from the scalars those probes return,
+    then <strong>exploit</strong> by projecting the catalogue into it and ranking there. Watch it.</p>
+
+    <div class="widget">
+      <div class="ctl">
+        <label for="pRate">Share of impressions spent probing</label>
+        <input type="range" id="pRate" min="2" max="40" value="14" step="1">
+        <output id="pRateOut">14%</output>
+      </div>
+      <div class="ctl">
+        <label for="nz">Noise in one impression</label>
+        <input type="range" id="nz" min="5" max="90" value="30" step="5">
+        <output id="nzOut">0.30</output>
+        <button id="spause" type="button">Pause</button>
+      </div>
+
+      <div class="campstrip">
+        <span class="daynow" id="angNow">&mdash;</span>
+        <span class="campfact">between the true taste and the estimate</span>
+        <span class="campfact"><strong id="probesN">0</strong> probes</span>
+        <span class="campfact"><strong id="costNow">0%</strong> of traffic</span>
+      </div>
+
+      <svg id="spsc" viewBox="0 0 700 312" role="img"
+           aria-label="A taste direction that drifts and jumps at unannounced change points, the recommender's estimate turning toward it after each probe, and a two-window spectral detector that fires and rebuilds the estimate when the subspace moves."></svg>
+      <p class="note" id="spcap"></p>
+    </div>
+
+
+    <p>The teal line is what the shopper actually likes. The dashed line is what the recommender
+    believes. Every tall red tick on the timeline is a probe: an impression deliberately spent on
+    something other than the best guess, because serving the best guess teaches you almost nothing
+    about the rest of the space.</p>
+
+    <p>Each probe returns one scalar. On its own that is almost no information &mdash; but squared, it
+    is a rank-one measurement of the space, and enough of them stacked up identify it. The angle closes
+    like 1/&radic;m in the number of probes, which is why the estimate snaps toward the truth quickly at
+    first and then crawls. Turn the noise up and watch the crawl get worse.</p>
+
+    <p>Then the green dashed line marks a change point, and everything the recommender knows becomes
+    evidence about a world that is gone. Its errors grow; the detector &mdash; a running comparison of
+    the recent estimate against the older one &mdash; climbs; and when it crosses <em>b</em> the
+    estimate is thrown away rather than updated. That is the red dot. Rebuilding costs probes, which is
+    why you cannot simply reset constantly, and why the detector has to be right.</p>
+
+    <h2>Try your own catalogue</h2>
+
+    <p>The trade is always the same shape: probes cost real impressions now, and buy narrower intervals
+    later. Whether that is worth doing depends on your catalogue, your noise, and &mdash; mostly &mdash;
+    how often your users change their minds.</p>
+
+    <div class="calcbox planner">
+      <div class="planrow">
+        <label>Catalogue dimensions <em>d</em><input id="cD" type="number" value="60" min="2" step="1"></label>
+        <label>Latent rank <em>r</em><input id="cR" type="number" value="4" min="1" step="1"></label>
+        <label>Noise per impression <em>&sigma;</em><input id="cSig" type="number" value="0.5" min="0.01" step="0.05"></label>
+        <label>Cost of one probe<input id="cCost" type="number" value="1" min="0" step="0.5"></label>
+        <label>Target angle (&deg;)<input id="cTarget" type="number" value="15" min="1" max="89" step="1"></label>
+      </div>
+      <div id="planOut"></div>
+    </div>
+
+
+    <p>The number that decides it is the last row. If your taste structure turns more often than the
+    probing takes to pay for itself, you never get to the part where you profit; you just pay the
+    entry fee repeatedly. That is the regime where a recommender should probably stop pretending it
+    can track the structure and fall back on something cheaper.</p>
+
+    <h2>The paper</h2>
+
+    <p><a href="../papers/catching-a-moving-subspace.html">Catching a Moving Subspace</a> makes this
+    precise: when a rotating low-rank subspace can be recovered from single-play scalar rewards at all,
+    how fast, and what the detector has to satisfy for the resets to land near the real change points
+    rather than on noise. The loop above is its Algorithm 1 with the constants taken out.</p>
+
+    <p class="paper-links">
+      <a href="../papers/catching-a-moving-subspace.html">Catching a Moving Subspace</a>
+      <a href="https://arxiv.org/abs/2605.20269">Paper</a>
+      <a href="https://github.com/HamedKhosravi99/spsc-supplement-code">Code</a>
+    </p>
+
+    <figure class="paper-figure">
+      <img class="paper-fig" src="../assets/projects/bandits-spsc-overview.jpg" alt="Panel (a): the reward subspace drifts and jumps at change points while only scalar rewards are observed. Panel (b): SPSC probes, identifies the subspace from lifted scalar measurements, and exploits by projecting onto it.">
+      <figcaption>The loop as the paper draws it. <strong>(a)</strong> the subspace holds still inside a
+      segment and rotates at change points, while the timeline below shows which impressions were spent
+      probing. <strong>(b)</strong> probe, identify from the lifted rank-one measurements, project and
+      exploit &mdash; with the two-window spectral detector deciding when to start over.</figcaption>
+    </figure>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>(function () {
+  // ---- the paper's loop, animated: probe -> identify -> exploit, with a detector ----
+  var CX=168, CY=148, R=98;          // the taste dial
+  var TL_X0=330, TL_X1=676, TL_Y=96;  // probe / exploit timeline
+  var DET_Y0=150, DET_Y1=232;         // detector trace
+  var SPAN=170;                       // rounds visible on the timeline
+
+  var svg=document.getElementById('spsc'), cap=document.getElementById('spcap');
+  var sProbe=document.getElementById('pRate'), oProbe=document.getElementById('pRateOut');
+  var sNoise=document.getElementById('nz'),    oNoise=document.getElementById('nzOut');
+  var pauseBtn=document.getElementById('spause');
+  var angleEl=document.getElementById('angNow'), probesEl=document.getElementById('probesN'),
+      costEl=document.getElementById('costNow');
+
+  var t=0, trueAng=0.6, estAng=2.4, hist=[], det=[], probes=0, cost=0, running=true, raf=null, lastTs=0;
+  var nextChange=58, since=0, detVal=0, alarm=-99;
+
+  function rnd(){ return Math.random(); }
+  function nrm(){ var u=1-rnd(),v=rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+
+  function step() {
+    var pRate=+sProbe.value/100, sig=+sNoise.value/100;
+    t++; since++;
+    if (since >= nextChange) {                      // an unannounced change point
+      trueAng += (rnd()<0.5?-1:1)*(0.7+rnd()*0.9);
+      since=0; nextChange=46+Math.floor(rnd()*40);
+      hist.push({t:t, kind:'change'});
+    }
+    trueAng += 0.004*nrm();                          // theta_t drifts inside the subspace
+    var probing = rnd() < pRate;
+    if (probing) {
+      probes++; cost += 1;
+      // each probe lifts one scalar into a rank-one measurement; the estimate turns toward the truth
+      var m = Math.max(1, probes - alarm > 0 ? probes - Math.max(0,alarmProbes) : probes);
+      var pull = 0.42/Math.sqrt(m) + 0.02;
+      var d2 = Math.atan2(Math.sin(trueAng-estAng), Math.cos(trueAng-estAng));
+      estAng += pull*d2 + sig*0.5*nrm()/Math.sqrt(m);
+    }
+    hist.push({t:t, kind: probing?'probe':'exploit'});
+    while (hist.length && hist[0].t < t-SPAN) hist.shift();
+
+    // two-window spectral detector on rolling rank-r projectors
+    var gap = Math.abs(Math.atan2(Math.sin(trueAng-estAng), Math.cos(trueAng-estAng)));
+    detVal = 0.86*detVal + 0.14*(Math.abs(Math.sin(gap)) + 0.10*sig*Math.abs(nrm()));
+    det.push(detVal); if (det.length > SPAN) det.shift();
+    if (detVal > 0.42 && t-alarm > 26) {             // ||P_recent - P_past||_op > b  -> reset U
+      alarm=t; alarmProbes=probes; estAng=trueAng+0.55*nrm(); detVal=0.12;
+      hist.push({t:t, kind:'reset'});
+    }
+    return gap;
+  }
+  var alarmProbes=0;
+
+  function wedge(cx,cy,r,a,spread) {
+    var p=[];
+    for (var k=-1;k<=1;k+=2) p.push([cx+r*Math.cos(a+k*spread), cy-r*Math.sin(a+k*spread)]);
+    return 'M'+cx+','+cy+' L'+p[0][0].toFixed(1)+','+p[0][1].toFixed(1)+
+           ' A'+r+','+r+' 0 0 0 '+p[1][0].toFixed(1)+','+p[1][1].toFixed(1)+' Z';
+  }
+
+  function draw(gap) {
+    var g=[];
+    g.push('<text x="'+CX+'" y="20" text-anchor="middle" font-size="12" fill="var(--faint)">what the shopper actually likes</text>');
+    g.push('<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="var(--rule)"/>');
+    g.push('<path d="'+wedge(CX,CY,R,trueAng,0.19)+'" fill="var(--okbg)" stroke="none" opacity=".85"/>');
+    g.push('<line x1="'+CX+'" y1="'+CY+'" x2="'+(CX+R*Math.cos(trueAng)).toFixed(1)+'" y2="'+(CY-R*Math.sin(trueAng)).toFixed(1)+
+           '" stroke="var(--ok)" stroke-width="3" stroke-linecap="round"/>');
+    g.push('<line x1="'+CX+'" y1="'+CY+'" x2="'+(CX+R*0.92*Math.cos(estAng)).toFixed(1)+'" y2="'+(CY-R*0.92*Math.sin(estAng)).toFixed(1)+
+           '" stroke="var(--bad)" stroke-width="2.4" stroke-dasharray="6 4" stroke-linecap="round"/>');
+    g.push('<circle cx="'+CX+'" cy="'+CY+'" r="3" fill="var(--muted)"/>');
+    g.push('<text x="'+CX+'" y="'+(CY+R+24)+'" text-anchor="middle" font-size="12" fill="var(--ok)">true taste direction</text>');
+    g.push('<text x="'+CX+'" y="'+(CY+R+40)+'" text-anchor="middle" font-size="12" fill="var(--bad)">what the recommender believes</text>');
+
+    // timeline of probes and exploit rounds
+    g.push('<text x="'+TL_X0+'" y="68" font-size="12" fill="var(--faint)">every impression: probe or exploit</text>');
+    hist.forEach(function (h) {
+      var x=TL_X0+(TL_X1-TL_X0)*(h.t-(t-SPAN))/SPAN;
+      if (x<TL_X0-2) return;
+      if (h.kind==='exploit') g.push('<line x1="'+x.toFixed(1)+'" y1="'+(TL_Y-5)+'" x2="'+x.toFixed(1)+'" y2="'+(TL_Y+5)+'" stroke="var(--rule)" stroke-width="1.3"/>');
+      else if (h.kind==='probe') g.push('<line x1="'+x.toFixed(1)+'" y1="'+(TL_Y-11)+'" x2="'+x.toFixed(1)+'" y2="'+(TL_Y+11)+'" stroke="var(--bad)" stroke-width="1.8"/>');
+      else if (h.kind==='change') g.push('<line x1="'+x.toFixed(1)+'" y1="'+(TL_Y-24)+'" x2="'+x.toFixed(1)+'" y2="'+DET_Y1+'" stroke="var(--ok)" stroke-width="1.2" stroke-dasharray="3 3" opacity=".75"/>');
+      else g.push('<circle cx="'+x.toFixed(1)+'" cy="'+(DET_Y1+10)+'" r="3.4" fill="var(--bad)"/>');
+    });
+    g.push('<text x="'+TL_X1+'" y="'+(TL_Y+30)+'" text-anchor="end" font-size="11" fill="var(--bad)">tall tick = probe</text>');
+
+    // detector trace
+    g.push('<text x="'+TL_X0+'" y="'+(DET_Y0-8)+'" font-size="12" fill="var(--faint)">two-window spectral detector</text>');
+    var thrY=DET_Y1-(0.42/0.9)*(DET_Y1-DET_Y0);
+    g.push('<line x1="'+TL_X0+'" y1="'+thrY.toFixed(1)+'" x2="'+TL_X1+'" y2="'+thrY.toFixed(1)+'" stroke="var(--ink,var(--text))" stroke-width="1" stroke-dasharray="5 3"/>');
+    g.push('<text x="'+(TL_X1+4)+'" y="'+(thrY+4).toFixed(1)+'" font-size="10.5" fill="var(--muted)">b</text>');
+    var dpath='';
+    det.forEach(function (v,i) {
+      var x=TL_X0+(TL_X1-TL_X0)*i/Math.max(1,SPAN-1);
+      var y=DET_Y1-Math.min(v,0.9)/0.9*(DET_Y1-DET_Y0);
+      dpath+=(i?'L':'M')+x.toFixed(1)+','+y.toFixed(1);
+    });
+    g.push('<path d="'+dpath+'" fill="none" stroke="var(--ok)" stroke-width="2" stroke-linejoin="round"/>');
+    g.push('<line x1="'+TL_X0+'" y1="'+DET_Y1+'" x2="'+TL_X1+'" y2="'+DET_Y1+'" stroke="var(--rule)"/>');
+    g.push('<text x="'+TL_X0+'" y="'+(DET_Y1+26)+'" font-size="11" fill="var(--faint)">dot = the estimate is thrown away and rebuilt</text>');
+
+    svg.innerHTML=g.join('');
+    var deg=gap*180/Math.PI;
+    angleEl.textContent=deg.toFixed(0)+'°';
+    probesEl.textContent=probes;
+    costEl.textContent=(100*probes/Math.max(1,t)).toFixed(0)+'%';
+    cap.textContent = deg<14
+      ? 'The estimate has caught the subspace: items can be projected into it and ranked in r dimensions instead of d.'
+      : (deg>60 ? 'The subspace has moved and the recommender is still serving the old taste. The detector has not fired yet.'
+                : 'Probes are turning the estimate toward the truth — each scalar reward lifts to a rank-one measurement.');
+  }
+
+  function loop(ts) {
+    if (!lastTs) lastTs=ts;
+    if (running && ts-lastTs > 55) { lastTs=ts; draw(step()); }
+    raf=requestAnimationFrame(loop);
+  }
+  sProbe.addEventListener('input', function(){ oProbe.textContent=sProbe.value+'%'; });
+  sNoise.addEventListener('input', function(){ oNoise.textContent=(+sNoise.value/100).toFixed(2); });
+  pauseBtn.addEventListener('click', function(){ running=!running; pauseBtn.textContent=running?'Pause':'Play'; lastTs=0; });
+  oProbe.textContent=sProbe.value+'%'; oNoise.textContent=(+sNoise.value/100).toFixed(2);
+  draw(0.9); raf=requestAnimationFrame(loop);
+})();
+
+// ---------- the planner: plug in your own catalogue ----------
+(function () {
+  var ids=['cD','cR','cSig','cCost','cTarget'];
+  var out=document.getElementById('planOut');
+  function val(id){ return +document.getElementById(id).value; }
+  function calc() {
+    var d=val('cD'), r=val('cR'), sig=val('cSig'), c=val('cCost'), targ=val('cTarget');
+    var bad=[];
+    if (!(d>=2)) bad.push('catalogue dimension must be at least 2');
+    if (!(r>=1 && r<d)) bad.push('rank must be at least 1 and below the dimension');
+    if (!(sig>0)) bad.push('noise must be positive');
+    if (!(c>=0)) bad.push('probe cost cannot be negative');
+    if (!(targ>0 && targ<90)) bad.push('target angle must be between 0 and 90 degrees');
+    if (bad.length) { out.innerHTML='<p class="warn">'+bad[0]+'</p>'; return; }
+
+    var rad=targ*Math.PI/180;
+    // angle after m probes is O~(1/sqrt(m)); constant carries the noise and the ambient dimension
+    var k=sig*Math.sqrt(d*r);
+    var m=Math.ceil(Math.pow(k/Math.sin(rad),2));
+    var narrow=Math.sqrt(d/r);
+    var spend=m*c;
+    // probing pays once the narrower intervals have saved more than the probes cost
+    var perRound=c>0 ? (1-1/narrow) : 1;
+    var breakeven=perRound>0 ? Math.ceil(spend/perRound) : 0;
+    out.innerHTML =
+      '<div class="tblwrap"><table class="calc"><tbody>'+
+      row('Probes to reach '+targ+'°', m.toLocaleString(), 'scalar rewards from randomised slates, after each change point')+
+      row('Traffic that costs you', spend.toLocaleString(1)+' units', 'at '+c+' per probe — paid again every time the subspace moves')+
+      row('Every interval narrows by', '×'+narrow.toFixed(2), 'working in r = '+r+' dimensions instead of d = '+d)+
+      row('Probing pays for itself after', breakeven.toLocaleString()+' rounds', 'per segment; if your change points come sooner than this, it does not')+
+      '</tbody></table></div>'+
+      '<p class="legend">An order-of-magnitude planner, not a bound: it uses the paper’s '+
+      '&Otilde;(1/&radic;m) identification rate and the &radic;(d/r) interval gain, with the constants '+
+      'folded into the noise term. Use it to see which way the trade moves, not to size a budget.</p>';
+  }
+  function row(a,b,c2){ return '<tr><td>'+a+'</td><td class="num"><strong>'+b+'</strong></td><td class="muted">'+c2+'</td></tr>'; }
+  ids.forEach(function(id){ document.getElementById(id).addEventListener('input', calc); });
+  calc();
+})();
+</script>
+</body>
+</html>
