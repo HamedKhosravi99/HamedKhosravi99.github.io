@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conformal Selective Acting — Hamed Khosravi</title>
+<meta name="description" content="A language model trained with verifiable rewards keeps producing answers of uneven quality, and the inputs it meets in deployment are not the ones it was tuned on. A single confide">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Conformal Selective Acting — Hamed Khosravi">
+<meta property="og:description" content="A language model trained with verifiable rewards keeps producing answers of uneven quality, and the inputs it meets in deployment are not the ones it was tuned on. A single confide">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/papers/conformal-selective-acting.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261027a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" class="active">Publications</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper">
+    <a class="backlink" href="../publications.html">&larr; All publications</a>
+    <h1 class="paper-title">Conformal Selective Acting: Anytime-Valid Risk Control for RLVR-Trained LLMs</h1>
+    <p class="paper-authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</p>
+    <p class="paper-venue"><span class="accepted">NeurIPS 2026</span> (main track)</p>
+    <p class="paper-links">
+      <a href="https://arxiv.org/abs/2605.20270">Paper</a>
+      <a href="https://github.com/HamedKhosravi99/CSA-RLVR">Code</a>
+    </p>
+
+  <figure class="paper-figure">
+    <svg class="fig-anim" viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="Risk of the answers the model chose to act on, over time. A fixed threshold drifts above the target once the input distribution shifts; the recalibrated threshold stays below it, with an anytime-valid upper bound that narrows.">
+      <style>
+        .fig-anim { --ok:#1A6E6A; --okbg:#e4f0ef; --bad:#B2561F; --badbg:#f7e8de;
+                     --ink:#23262b; --mut:#6b7280; --fnt:#9aa1ab; --rul:#e3e5e8; }
+        @media (prefers-color-scheme: dark) {
+          .fig-anim { --ok:#63BDB7; --okbg:#1c2b2a; --bad:#E0956A; --badbg:#2f241d;
+                       --ink:#dfe2e6; --mut:#9aa1ab; --fnt:#757d88; --rul:#2c3037; }
+        }
+        .fig-anim text { font-family:"Iowan Old Style",Palatino,Charter,Georgia,serif; }
+        .lbl { font-size:13px; fill:var(--mut); } .tick { font-size:11.5px; fill:var(--fnt); }
+        .key { font-size:13px; fill:var(--ink); }
+        .sweep { animation:sweep 12s cubic-bezier(.33,0,.25,1) infinite; }
+        .head  { animation:head  12s cubic-bezier(.33,0,.25,1) infinite; }
+        .callout { opacity:0; animation:pop 12s linear infinite; }
+        @keyframes sweep { 0%,6%{width:0} 82%,100%{width:628px} }
+        @keyframes head  { 0%{transform:translateX(0);opacity:0} 6%{transform:translateX(0);opacity:1}
+                            82%{transform:translateX(618px);opacity:1} 90%,100%{opacity:0} }
+        @keyframes pop   { 0%,46%{opacity:0} 52%,88%{opacity:1} 96%,100%{opacity:0} }
+        @media (prefers-reduced-motion:reduce) {
+          .sweep,.head,.callout { animation:none; }
+          .sweep { width:628px; } .head { opacity:0; } .callout { opacity:1; }
+        }
+      </style>
+      <defs><clipPath id="rev2"><rect class="sweep" x="71" y="0" width="0" height="300"/></clipPath></defs>
+      <line x1="76.0" y1="153.3" x2="694.0" y2="153.3" stroke="var(--ink)" stroke-width="1.1" stroke-dasharray="5 3"/>
+      <text class="lbl" x="698" y="157">target</text>
+      <text class="tick" x="67" y="157" text-anchor="end">10%</text>
+      <text class="tick" x="67" y="250" text-anchor="end">0</text>
+      <g clip-path="url(#rev2)">
+        <path d="M76.0,128.6 L91.8,135.2 L107.7,131.5 L123.5,136.7 L139.4,140.9 L155.2,145.9 L171.1,156.7 L186.9,150.9 L202.8,152.6 L218.6,153.6 L234.5,156.5 L250.3,166.0 L266.2,158.2 L282.0,160.4 L297.8,156.4 L313.7,156.7 L329.5,154.8 L345.4,155.7 L361.2,163.7 L377.1,161.2 L392.9,154.3 L408.8,168.6 L424.6,160.0 L440.5,165.4 L456.3,157.0 L472.2,163.2 L488.0,170.1 L503.8,170.9 L519.7,179.4 L535.5,162.6 L551.4,157.7 L567.2,172.9 L583.1,168.1 L598.9,169.9 L614.8,177.1 L630.6,164.5 L646.5,171.5 L662.3,171.6 L678.2,166.5 L694.0,169.2 L694.0,187.6 L678.2,185.1 L662.3,190.5 L646.5,190.6 L630.6,183.8 L614.8,196.6 L598.9,189.6 L583.1,188.1 L567.2,193.1 L551.4,178.2 L535.5,183.4 L519.7,200.5 L503.8,192.3 L488.0,191.8 L472.2,185.3 L456.3,179.4 L440.5,188.2 L424.6,183.2 L408.8,192.2 L392.9,178.3 L377.1,185.7 L361.2,188.7 L345.4,181.2 L329.5,180.8 L313.7,183.4 L297.8,183.6 L282.0,188.3 L266.2,186.9 L250.3,195.5 L234.5,186.8 L218.6,184.8 L202.8,184.9 L186.9,184.3 L171.1,191.3 L155.2,182.0 L139.4,178.6 L123.5,176.3 L107.7,173.1 L91.8,179.3 L76.0,175.8 Z" fill="var(--okbg)"/>
+        <path d="M76.0,186.0 L91.8,193.8 L107.7,182.4 L123.5,177.8 L139.4,177.0 L155.2,179.1 L171.1,181.9 L186.9,182.7 L202.8,180.4 L218.6,177.2 L234.5,184.4 L250.3,179.3 L266.2,172.1 L282.0,177.2 L297.8,180.7 L313.7,191.2 L329.5,173.6 L345.4,171.0 L361.2,173.8 L377.1,182.6 L392.9,182.9 L408.8,153.3 L424.6,145.9 L440.5,151.7 L456.3,156.4 L472.2,141.2 L488.0,147.7 L503.8,128.3 L519.7,118.7 L535.5,131.3 L551.4,114.5 L567.2,109.9 L583.1,106.1 L598.9,108.2 L614.8,98.5 L630.6,86.5 L646.5,95.9 L662.3,84.0 L678.2,69.1 L694.0,66.1" fill="none" stroke="var(--bad)" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M76.0,175.8 L91.8,179.3 L107.7,173.1 L123.5,176.3 L139.4,178.6 L155.2,182.0 L171.1,191.3 L186.9,184.3 L202.8,184.9 L218.6,184.8 L234.5,186.8 L250.3,195.5 L266.2,186.9 L282.0,188.3 L297.8,183.6 L313.7,183.4 L329.5,180.8 L345.4,181.2 L361.2,188.7 L377.1,185.7 L392.9,178.3 L408.8,192.2 L424.6,183.2 L440.5,188.2 L456.3,179.4 L472.2,185.3 L488.0,191.8 L503.8,192.3 L519.7,200.5 L535.5,183.4 L551.4,178.2 L567.2,193.1 L583.1,188.1 L598.9,189.6 L614.8,196.6 L630.6,183.8 L646.5,190.6 L662.3,190.5 L678.2,185.1 L694.0,187.6" fill="none" stroke="var(--ok)" stroke-width="2" stroke-linejoin="round"/>
+      </g>
+      <g class="callout">
+        <circle cx="409" cy="153" r="3.5" fill="var(--bad)"/>
+        <line x1="409" y1="153" x2="393" y2="109" stroke="var(--bad)" stroke-width="1"/>
+        <rect x="223" y="91" width="172" height="25" rx="4" fill="var(--badbg)" stroke="var(--bad)" stroke-width=".8"/>
+        <text class="key" x="231" y="108" fill="var(--bad)">target quietly exceeded</text>
+      </g>
+      <line x1="361" y1="38" x2="361" y2="246" stroke="var(--fnt)" stroke-width="1" stroke-dasharray="2 3"/>
+      <text class="tick" x="366" y="46">inputs shift</text>
+      <line class="head" x1="76.0" y1="36" x2="76.0" y2="254" stroke="var(--ok)" stroke-width="1" opacity=".4"/>
+      <line x1="76.0" y1="246" x2="694.0" y2="246" stroke="var(--rul)" stroke-width="1"/>
+      <text class="lbl" x="385" y="272" text-anchor="middle">rounds of verifier feedback &#8594;</text>
+      <g transform="translate(76.0,16)">
+        <line x1="4" y1="-4" x2="26" y2="-4" stroke="var(--ok)" stroke-width="2"/>
+        <text class="key" x="31" y="0">certified threshold &#8212; risk held under target throughout</text>
+        <line x1="4" y1="14" x2="26" y2="14" stroke="var(--bad)" stroke-width="2"/>
+        <text class="key" x="31" y="18">one threshold, fixed up front</text>
+      </g>
+    </svg>
+    <figcaption>Risk on the answers the model chose to act on. One threshold fixed up front looks fine until the inputs shift, after which it quietly carries more risk than the target allows. The certified threshold is re-derived from verifier feedback as it arrives, and the guarantee holds at every round rather than at one planned sample size.</figcaption>
+  </figure>
+
+    <h2>The problem</h2>
+    <p>A language model trained with verifiable rewards keeps producing answers of uneven quality, and the inputs it meets in deployment are not the ones it was tuned on. A single confidence threshold picked in advance stops being the right threshold, and nothing announces when that happened.</p>
+
+    <h2>What we do</h2>
+    <p>Verifier feedback on each output updates an anytime-valid test that certifies a confidence threshold. The model acts when its score clears the threshold and abstains otherwise.</p>
+
+    <h2>What it buys you</h2>
+    <p>Risk stays bounded at every time step, not only at a sample size fixed in advance &mdash; so the system can be watched continuously, and stopped or shipped at any moment, without the guarantee quietly expiring.</p>
+
+    <h2>Cite</h2>
+    <div class="bibwrap">
+      <button class="bibcopy" type="button">Copy</button>
+      <pre class="bibtex">@inproceedings{khosravi2026conformal,
+  title     = {Conformal Selective Acting: Anytime-Valid Risk Control for {RLVR}-Trained {LLM}s},
+  author    = {Khosravi, Hamed and Huo, Xiaoming},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2026}
+}</pre>
+    </div>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.querySelectorAll('.bibcopy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var t = b.parentElement.querySelector('.bibtex').textContent;
+    navigator.clipboard.writeText(t).then(function () {
+      b.textContent = 'Copied';
+      setTimeout(function () { b.textContent = 'Copy'; }, 1600);
+    });
+  });
+});
+</script>
+</body>
+</html>

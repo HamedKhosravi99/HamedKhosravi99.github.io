@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which LLM for Which Work? — Hamed Khosravi</title>
+<meta name="description" content="An organisation has several models and several kinds of work, and a budget. Picking an assignment is easy once the quality table is known. The table is not known: it has to be esti">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Which LLM for Which Work? — Hamed Khosravi">
+<meta property="og:description" content="An organisation has several models and several kinds of work, and a budget. Picking an assignment is easy once the quality table is known. The table is not known: it has to be esti">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/papers/which-llm-for-which-work.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261027a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" class="active">Publications</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper">
+    <a class="backlink" href="../publications.html">&larr; All publications</a>
+    <h1 class="paper-title">Which LLM for Which Work? Budgeted Model Allocation under Uncertain Evaluation</h1>
+    <p class="paper-authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</p>
+    <p class="paper-venue">Can We Trust AI Evaluation? Workshop (TAE), <span class="accepted">NeurIPS 2026</span></p>
+    <p class="paper-links">
+      <a href="https://arxiv.org/abs/2608.29560">Paper</a>
+      <a href="https://github.com/HamedKhosravi99/logged-llm-comparison-audit">Code</a>
+    </p>
+
+  <figure class="paper-figure">
+    <img class="paper-fig" src="../assets/projects/llm-allocation-table.jpg" alt="The observed quality table for three models across four workloads. Outlined cells are the assignment that maximises weighted quality within a $10,000 ">
+    <figcaption>The observed quality table for three models across four workloads. Outlined cells are the assignment that maximises weighted quality within a $10,000 budget &mdash; but the table itself is what has to be estimated, and that estimate is where the loss is.</figcaption>
+  </figure>
+
+    <h2>The problem</h2>
+    <p>An organisation has several models and several kinds of work, and a budget. Picking an assignment is easy once the quality table is known. The table is not known: it has to be estimated from evaluation data that is limited, and often logged rather than collected on purpose.</p>
+
+    <h2>What we do</h2>
+    <p>Decision-targeted evaluation: direct the testing budget at the comparisons that could actually change the assignment, rather than spreading it evenly over cells whose value is already settled.</p>
+
+    <h2>What it buys you</h2>
+    <p>The evaluation budget buys decisions rather than numbers &mdash; effort goes to the handful of pairs where more data would move the answer, and the pairs that cannot change it are left alone.</p>
+
+    <h2>Cite</h2>
+    <div class="bibwrap">
+      <button class="bibcopy" type="button">Copy</button>
+      <pre class="bibtex">@inproceedings{khosravi2026which,
+  title     = {Which {LLM} for Which Work? Budgeted Model Allocation under Uncertain Evaluation},
+  author    = {Khosravi, Hamed and Huo, Xiaoming},
+  booktitle = {NeurIPS Workshop on Can We Trust AI Evaluation? (TAE)},
+  year      = {2026}
+}</pre>
+    </div>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.querySelectorAll('.bibcopy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var t = b.parentElement.querySelector('.bibtex').textContent;
+    navigator.clipboard.writeText(t).then(function () {
+      b.textContent = 'Copied';
+      setTimeout(function () { b.textContent = 'Copy'; }, 1600);
+    });
+  });
+});
+</script>
+</body>
+</html>

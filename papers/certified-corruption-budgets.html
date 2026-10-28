@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certified Corruption Budgets — Hamed Khosravi</title>
+<meta name="description" content="Because every standing on a public leaderboard is visible, an adversary can watch each claim as it is published and rig the votes behind it — forging ballots, withholding private v">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Certified Corruption Budgets — Hamed Khosravi">
+<meta property="og:description" content="Because every standing on a public leaderboard is visible, an adversary can watch each claim as it is published and rig the votes behind it — forging ballots, withholding private v">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/papers/certified-corruption-budgets.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261027a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html" class="active">Publications</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper">
+    <a class="backlink" href="../publications.html">&larr; All publications</a>
+    <h1 class="paper-title">Certified Corruption Budgets: Anytime-Valid Leaderboard Claims under Adaptive Rigging</h1>
+    <p class="paper-authors"><strong>Hamed Khosravi</strong>, Xiaoming Huo</p>
+    <p class="paper-venue">Under review at <em>AISTATS 2027</em> &middot; arXiv:2610.10597</p>
+    <p class="paper-links">
+      <a href="https://arxiv.org/abs/2610.10597">Paper</a>
+      <a href="https://github.com/HamedKhosravi99/corruption-tolerance">Code</a>
+    </p>
+
+  <figure class="paper-figure">
+    <img class="paper-fig" src="../assets/projects/leaderboards-arena-matrix.jpg" alt="Certified corruption tolerance on real Chatbot Arena data: for each ordered pair, how many corrupted records the claim "the row model has had an edge ">
+    <figcaption>Certified corruption tolerance on real Chatbot Arena data: for each ordered pair, how many corrupted records the claim &ldquo;the row model has had an edge over the column model&rdquo; can withstand &mdash; simultaneously over all 16,512 ordered pairs of 129 models. Flipping votes already cast costs an attacker roughly half as many records as forging new ones. Empty cells are not certified; dots mark pairs with no battles.</figcaption>
+  </figure>
+
+    <h2>The problem</h2>
+    <p>Because every standing on a public leaderboard is visible, an adversary can watch each claim as it is published and rig the votes behind it &mdash; forging ballots, withholding private variants, or contaminating the benchmark. A guarantee that assumes the data were collected before anyone looked does not survive that.</p>
+
+    <h2>What we do</h2>
+    <p>Each claim is published together with a certified corruption budget: a tolerance such that the claim is correct unless more records than that were corrupted. The certificate holds against attackers who see every certificate and are not themselves held to a budget.</p>
+
+    <h2>What it buys you</h2>
+    <p>A reader gets a number attached to each claim saying how much tampering it would take to overturn it &mdash; which is a far more useful thing to know about a public leaderboard than a p-value computed as if nobody were watching.</p>
+
+    <h2>Cite</h2>
+    <div class="bibwrap">
+      <button class="bibcopy" type="button">Copy</button>
+      <pre class="bibtex">@article{khosravi2026certified,
+  title   = {Certified Corruption Budgets: Anytime-Valid Leaderboard Claims under Adaptive Rigging},
+  author  = {Khosravi, Hamed and Huo, Xiaoming},
+  journal = {arXiv preprint arXiv:2610.10597},
+  year    = {2026}
+}</pre>
+    </div>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+document.querySelectorAll('.bibcopy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var t = b.parentElement.querySelector('.bibtex').textContent;
+    navigator.clipboard.writeText(t).then(function () {
+      b.textContent = 'Copied';
+      setTimeout(function () { b.textContent = 'Copy'; }, 1600);
+    });
+  });
+});
+</script>
+</body>
+</html>
