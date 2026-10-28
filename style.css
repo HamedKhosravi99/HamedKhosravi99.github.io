@@ -16,6 +16,11 @@
   --colw:      58rem;   /* wide enough to fill a laptop screen; ~100 characters per line */
   /* Display face for the name and headings only; body stays sans.
      System serifs so nothing is downloaded. */
+  /* figure palette: teal = the method that holds, rust = the one that fails */
+  --ok:        #1A6E6A;
+  --okbg:      #e4f0ef;
+  --bad:       #B2561F;
+  --badbg:     #f7e8de;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter,
            Georgia, "Times New Roman", serif;
 }
@@ -30,6 +35,10 @@
     --rule:      #2c3037;
     --accent:    #d79a6e;
     --accent-bg: #2a221c;
+    --ok:        #63BDB7;
+    --okbg:      #1c2b2a;
+    --bad:       #E0956A;
+    --badbg:     #2f241d;
   }
 }
 
@@ -857,4 +866,110 @@ footer p { margin: 0; }
 @media (max-width: 560px) {
   .paper-title { font-size: 1.32rem; }
   .bibtex { font-size: 0.72rem; }
+}
+
+
+/* ------------------------------------------------------------
+   Notes & tools
+   ------------------------------------------------------------ */
+
+.notelist { list-style: none; margin: 0.4rem 0 2.2rem; padding: 0; }
+
+.notelist li {
+  display: grid;
+  grid-template-columns: 1fr 136px;
+  grid-template-areas: "date thumb" "title thumb" "blurb thumb";
+  column-gap: 1.15rem;
+  padding-bottom: 1.4rem;
+  margin-bottom: 1.4rem;
+  border-bottom: 1px solid var(--rule);
+}
+.notelist li:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
+
+.note-date  { grid-area: date; font-size: 0.8rem; color: var(--faint); }
+.note-title { grid-area: title; font-size: 1.08rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.2rem; }
+.note-title a { color: inherit; }
+.note-title a:hover { color: var(--accent); }
+.note-blurb { grid-area: blurb; font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+
+.note-thumb {
+  grid-area: thumb;
+  display: block;
+  width: 136px; height: 94px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--surface);
+  line-height: 0;
+  align-self: start;
+}
+.note-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.note-thumb:hover { border-color: var(--accent); }
+
+.note-kicker {
+  font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--faint); margin: 0 0 0.5rem;
+}
+.note-lede { color: var(--muted); font-size: 1.04rem; margin: 0 0 1.8rem; }
+.note-post p { margin: 0 0 1.05rem; }
+
+/* --- the explorable widget --- */
+.widget {
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--surface);
+  padding: 1.3rem 1.4rem 1.5rem; margin: 0 0 1.4rem;
+}
+.ctl { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+.ctl label { font-size: 0.9rem; color: var(--muted); flex: none; }
+.ctl output { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent); min-width: 2.2rem; }
+.widget input[type=range] { flex: 1 1 15rem; accent-color: var(--accent); height: 1.4rem; }
+
+.widget button, .calcctl button {
+  font: inherit; font-size: 0.82rem; padding: 0.2rem 0.7rem;
+  border: 1px solid var(--rule); border-radius: 4px;
+  background: var(--bg); color: var(--muted); cursor: pointer;
+}
+.widget button:hover, .calcctl button:hover { color: var(--accent); border-color: var(--accent); }
+
+.readout { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1.2rem; }
+.stat { padding: 0.75rem 0.9rem; border-radius: 5px; border: 1px solid; }
+.stat.bad { background: var(--badbg); border-color: var(--bad); }
+.stat.ok  { background: var(--okbg); border-color: var(--ok); }
+.stat .n { font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.stat.bad .n { color: var(--bad); } .stat.ok .n { color: var(--ok); }
+.stat .w { font-size: 0.8rem; line-height: 1.4; color: var(--muted); margin-top: 0.25rem; }
+.widget svg { width: 100%; height: auto; display: block; }
+
+/* --- the calculator --- */
+.calcbox { margin-bottom: 1.3rem; }
+.calcbox textarea {
+  width: 100%; font: 0.82rem/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding: 0.8rem 0.9rem; border: 1px solid var(--rule); border-radius: 5px;
+  background: var(--surface); color: var(--text); resize: vertical;
+}
+.calcbox textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.calcctl { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.6rem; font-size: 0.86rem; color: var(--muted); }
+.calcctl label { display: flex; align-items: center; gap: 0.35rem; }
+.calcctl input[type=checkbox] { accent-color: var(--accent); }
+.warn { color: var(--bad); font-size: 0.82rem; }
+
+.summary { font-size: 0.95rem; margin: 0 0 0.7rem; }
+.tblwrap { overflow-x: auto; }
+table.calc { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+table.calc th {
+  text-align: left; font-weight: 600; font-size: 0.74rem; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--faint); padding: 0 0.6rem 0.4rem 0;
+  border-bottom: 1px solid var(--rule); white-space: nowrap;
+}
+table.calc td { padding: 0.45rem 0.6rem 0.45rem 0; border-bottom: 1px solid var(--rule); }
+table.calc .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.calc tr.no td { color: var(--faint); }
+.tag-yes { color: var(--ok); font-weight: 600; font-size: 0.8rem; }
+.tag-no  { color: var(--faint); font-size: 0.8rem; }
+.legend { font-size: 0.85rem; color: var(--faint); line-height: 1.6; margin-top: 0.9rem; }
+.muted { color: var(--muted); }
+
+@media (max-width: 560px) {
+  .notelist li { grid-template-columns: 1fr; grid-template-areas: "thumb" "date" "title" "blurb"; }
+  .note-thumb { width: 100%; height: 104px; margin-bottom: 0.6rem; }
+  .readout { grid-template-columns: 1fr; }
 }

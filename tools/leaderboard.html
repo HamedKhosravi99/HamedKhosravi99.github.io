@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leaderboard calculator — Hamed Khosravi</title>
+<meta name="description" content="Paste pairwise win counts and get anytime-valid confidence bounds and certified corruption budgets for every claim.">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leaderboard calculator — Hamed Khosravi">
+<meta property="og:description" content="Paste pairwise win counts and get anytime-valid confidence bounds and certified corruption budgets for every claim.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/tools/leaderboard.html">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/social/rank-confidence-sequences.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261028a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../notes.html" class="active">Notes</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper">
+    <a class="backlink" href="../notes.html">&larr; Notes &amp; tools</a>
+    <h1 class="paper-title">Leaderboard calculator</h1>
+    <p class="paper-venue">Anytime-valid bounds and corruption budgets for your own pairwise results</p>
+
+    <p>Paste one comparison per line &mdash; <code>model A, model B, wins for A, wins for B</code>.
+    Everything is computed in your browser; nothing is uploaded.</p>
+
+    <div class="calcbox">
+      <textarea id="inp" spellcheck="false" rows="8" aria-label="Pairwise win counts"></textarea>
+      <div class="calcctl">
+        <button id="ex" type="button">Load an example</button>
+        <label><input type="checkbox" id="bonf" checked> hold all claims at once</label>
+        <span class="warn" id="warn"></span>
+      </div>
+    </div>
+
+    <div id="out"></div>
+
+    <h2>What it is doing</h2>
+    <p>Each claim gets a <strong>confidence sequence</strong> rather than a confidence interval: a bound that is
+    valid at every sample size simultaneously, so you may look at it as often as you like, stop when you
+    like, and keep the guarantee. Here that is a sub-Gaussian normal-mixture sequence on the leader&rsquo;s
+    win rate. With <em>hold all claims at once</em> ticked, the level is split across the pairs, so the whole
+    table is right together rather than each row being right on its own.</p>
+    <p>The budgets answer a different question: not &ldquo;is this claim significant&rdquo; but
+    <strong>how much tampering would it take to overturn it</strong>. Flipping a vote that was already cast
+    moves the count twice as far as injecting a fresh one, which is why the flip budget is consistently
+    about half the forge budget.</p>
+    <p class="legend">This is a demonstration of the methods from the two papers below, not the papers&rsquo;
+    own experiment code &mdash; it takes the simplest version of each so it can run live in a browser. For the
+    full treatment, including rankings over all pairs at once and adversaries who adapt to what they see,
+    read the papers.</p>
+    <p class="paper-links">
+      <a href="../papers/rank-confidence-sequences.html">Rank Confidence Sequences</a>
+      <a href="../papers/certified-corruption-budgets.html">Certified Corruption Budgets</a>
+      <a href="../notes/why-you-cant-look-twice.html">The note behind it</a>
+    </p>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+(function () {
+  var ALPHA = 0.05, RHO2 = 1/50, SIG2 = 0.25;   // [0,1]-bounded => sub-Gaussian with sigma = 1/2
+
+  function half(n, alpha) {
+    return Math.sqrt((2*SIG2*(n*RHO2 + 1)/(n*n*RHO2)) * Math.log(Math.sqrt(n*RHO2 + 1)/alpha));
+  }
+  // largest k such that the claim still stands after k records are corrupted
+  function flipBudget(w, n, alpha) {            // flip votes already cast
+    var k = 0; while (k <= w && (w - k)/n - half(n, alpha) > 0.5) k++;
+    return k - 1;
+  }
+  function forgeBudget(w, n, alpha) {           // insert fresh losing votes
+    var k = 0, cap = 50*n + 1000;
+    while (k < cap && w/(n + k) - half(n + k, alpha) > 0.5) k++;
+    return k - 1;
+  }
+
+  function parse(txt) {
+    var rows = [], errs = [];
+    txt.split(/\n+/).forEach(function (line, i) {
+      var t = line.trim();
+      if (!t || t.charAt(0) === '#') return;
+      var f = t.split(/\s*[,\t]\s*/);
+      if (f.length < 4) { errs.push('line ' + (i+1) + ': need 4 fields'); return; }
+      var a = f[0], b = f[1], wa = +f[2], wb = +f[3];
+      if (!a || !b) { errs.push('line ' + (i+1) + ': missing a model name'); return; }
+      if (!isFinite(wa) || !isFinite(wb) || wa < 0 || wb < 0) { errs.push('line ' + (i+1) + ': win counts must be non-negative numbers'); return; }
+      if (wa + wb === 0) { errs.push('line ' + (i+1) + ': no battles'); return; }
+      rows.push({a:a, b:b, wa:Math.round(wa), wb:Math.round(wb)});
+    });
+    return {rows: rows, errs: errs};
+  }
+
+  function render() {
+    var out = document.getElementById('out'), warn = document.getElementById('warn');
+    var p = parse(document.getElementById('inp').value);
+    warn.textContent = p.errs.length ? p.errs.slice(0,4).join(' · ') : '';
+    if (!p.rows.length) { out.innerHTML = '<p class="muted">Nothing to compute yet.</p>'; return; }
+
+    var m = p.rows.length;
+    var corrected = document.getElementById('bonf').checked;
+    var alpha = corrected ? ALPHA/m : ALPHA;
+
+    var body = p.rows.map(function (r) {
+      var n = r.wa + r.wb, hi = r.wa >= r.wb;
+      var w = hi ? r.wa : r.wb, lead = hi ? r.a : r.b, trail = hi ? r.b : r.a;
+      var ph = w/n, h = half(n, alpha), lo = ph - h;
+      var cert = lo > 0.5;
+      var fl = cert ? flipBudget(w, n, alpha) : null;
+      var fo = cert ? forgeBudget(w, n, alpha) : null;
+      return {lead:lead, trail:trail, n:n, ph:ph, lo:lo, cert:cert, fl:fl, fo:fo};
+    }).sort(function (x, y) { return (y.cert - x.cert) || (y.lo - x.lo); });
+
+    var nCert = body.filter(function (r) { return r.cert; }).length;
+    var h = ['<p class="summary"><strong>' + nCert + ' of ' + m + '</strong> claims are certified at the 95% level' +
+             (corrected ? ', simultaneously over all ' + m + ' pairs' : ', each on its own') + '.</p>'];
+    h.push('<div class="tblwrap"><table class="calc"><thead><tr>' +
+           '<th>Claim</th><th class="num">battles</th><th class="num">win rate</th>' +
+           '<th class="num">lower bound</th><th>verdict</th>' +
+           '<th class="num">flip</th><th class="num">forge</th></tr></thead><tbody>');
+    body.forEach(function (r) {
+      h.push('<tr class="' + (r.cert ? 'yes' : 'no') + '">' +
+        '<td><strong>' + esc(r.lead) + '</strong> <span class="muted">over</span> ' + esc(r.trail) + '</td>' +
+        '<td class="num">' + r.n.toLocaleString() + '</td>' +
+        '<td class="num">' + (r.ph*100).toFixed(1) + '%</td>' +
+        '<td class="num">' + (r.lo*100).toFixed(1) + '%</td>' +
+        '<td>' + (r.cert ? '<span class="tag-yes">certified</span>' : '<span class="tag-no">not yet</span>') + '</td>' +
+        '<td class="num">' + (r.cert ? r.fl.toLocaleString() : '—') + '</td>' +
+        '<td class="num">' + (r.cert ? r.fo.toLocaleString() : '—') + '</td></tr>');
+    });
+    h.push('</tbody></table></div>');
+    h.push('<p class="legend"><strong>lower bound</strong> is the anytime-valid lower confidence bound on the ' +
+           'leader&rsquo;s win rate; the claim is certified when it clears 50%. ' +
+           '<strong>flip</strong> and <strong>forge</strong> are the certified corruption budgets: how many ' +
+           'recorded votes an adversary would have to flip, or fresh losing votes they would have to inject, ' +
+           'before the claim stops holding.</p>');
+    out.innerHTML = h.join('');
+  }
+
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  var EX = ['# model A, model B, wins for A, wins for B',
+            'gpt-4o, claude-3.5-sonnet, 612, 548',
+            'gpt-4o, gemini-1.5-pro, 701, 455',
+            'claude-3.5-sonnet, gemini-1.5-pro, absent, absent'.replace(/absent/, '488').replace(/absent/, '431'),
+            'llama-3.1-405b, gpt-4o, 318, 402',
+            'llama-3.1-405b, gemini-1.5-pro, 266, 254',
+            'mistral-large, llama-3.1-405b, 97, 103'].join('\n');
+
+  document.getElementById('inp').addEventListener('input', render);
+  document.getElementById('bonf').addEventListener('change', render);
+  document.getElementById('ex').addEventListener('click', function () {
+    document.getElementById('inp').value = EX; render();
+  });
+  document.getElementById('inp').value = EX;
+  render();
+})();
+</script>
+</body>
+</html>

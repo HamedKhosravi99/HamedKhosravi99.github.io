@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes &amp; tools — Hamed Khosravi</title>
+<meta name="description" content="Short explorable notes on anytime-valid inference and AI evaluation, and interactive tools built from the papers.">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes &amp; tools — Hamed Khosravi">
+<meta property="og:description" content="Short explorable notes on anytime-valid inference and AI evaluation, and interactive tools built from the papers.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/notes.html">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/profile.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="style.css?v=20261028a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="publications.html">Publications</a>
+      <a href="notes.html" class="active">Notes</a>
+      <a href="news.html">News</a>
+      <a href="presentations.html">Presentations</a>
+      <a href="awards.html">Awards &amp; Service</a>
+      <a href="assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <h1 class="page-title">Notes &amp; tools</h1>
+  <p class="note">Short pieces on the ideas behind the papers, written so they can be understood without
+  reading the papers &mdash; and a few things you can run on your own numbers.</p>
+
+  <section>
+    <h2>Notes</h2>
+    <ul class="notelist">
+      <li>
+        <a class="note-thumb" href="notes/why-you-cant-look-twice.html" tabindex="-1" aria-hidden="true"><img src="assets/papers/rank-cs.jpg" loading="lazy" alt="Probability of a wrong reported ranking against the number of looks at a leaderboard"></a>
+        <span class="note-date"><time datetime="2026-10-28">28 Oct 2026</time></span>
+        <span class="note-title"><a href="notes/why-you-cant-look-twice.html">Why you can&rsquo;t look at a leaderboard twice</a></span>
+        <span class="note-blurb">A confidence interval is a promise about one look, and nobody reads a
+        leaderboard once. An interactive note: drag a slider and watch the error rate climb from 5% to
+        one in three.</span>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Tools</h2>
+    <ul class="notelist">
+      <li>
+        <a class="note-thumb" href="tools/leaderboard.html" tabindex="-1" aria-hidden="true"><img src="assets/papers/corruption.jpg" loading="lazy" alt="Certified corruption tolerance for every ordered pair of models"></a>
+        <span class="note-title"><a href="tools/leaderboard.html">Leaderboard calculator</a></span>
+        <span class="note-blurb">Paste your own pairwise win counts. Get an anytime-valid bound on every
+        claim, held over all pairs at once, and the number of votes an adversary would have to flip or
+        forge before each claim stops holding. Runs entirely in your browser.</span>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

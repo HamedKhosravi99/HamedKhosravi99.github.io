@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why you can&rsquo;t look at a leaderboard twice — Hamed Khosravi</title>
+<meta name="description" content="A confidence interval is a promise about one look. A leaderboard is never read once. An interactive note on peeking and anytime-valid inference.">
+<meta name="author" content="Hamed Khosravi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why you can&rsquo;t look at a leaderboard twice — Hamed Khosravi">
+<meta property="og:description" content="A confidence interval is a promise about one look. A leaderboard is never read once. An interactive note on peeking and anytime-valid inference.">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://hamedkhosravi99.github.io/notes/why-you-cant-look-twice.html">
+<meta property="og:image" content="https://hamedkhosravi99.github.io/assets/social/note-peeking.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>H</text></svg>">
+<link rel="stylesheet" href="../style.css?v=20261028a">
+</head>
+<body>
+
+<!-- The top bar is repeated verbatim in every page; edit all of them together. -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">Hamed Khosravi</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../notes.html" class="active">Notes</a>
+      <a href="../news.html">News</a>
+      <a href="../presentations.html">Presentations</a>
+      <a href="../awards.html">Awards &amp; Service</a>
+      <a href="../assets/Hamed_Khosravi_CV.pdf">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <article class="paper note-post">
+    <a class="backlink" href="../notes.html">&larr; Notes &amp; tools</a>
+    <p class="note-kicker">Sequential testing &middot; <time datetime="2026-10-28">28 October 2026</time></p>
+    <h1 class="paper-title">Why you can&rsquo;t look at a leaderboard twice</h1>
+    <p class="note-lede">Two models are exactly as good as each other. Watch what happens to the claim
+    &ldquo;A beats B&rdquo; as you keep checking.</p>
+
+    <p>A confidence interval is a promise about <em>one</em> look. Read it once, at a sample size you
+    fixed before you started, and it is wrong 5% of the time. That is the whole deal, and it is a good one.</p>
+
+    <p>A leaderboard breaks it immediately. Nobody reads a leaderboard once. It is read every time someone
+    refreshes the page, and it is recomputed every time a new vote lands. Each of those readings is another
+    chance for noise to look like a result, and the 5% was only ever priced for one. Drag the slider.</p>
+
+<div class="widget">
+  <div class="ctl">
+    <label for="looks">Times you check the board</label>
+    <input type="range" id="looks" min="1" max="60" value="1" step="1">
+    <output id="looksOut">1</output>
+    <button id="reroll" type="button">New sample</button>
+  </div>
+
+  <div class="readout">
+    <div class="stat bad">
+      <div class="n" id="fixN">&mdash;</div>
+      <div class="w">of boards report a winner between two tied models &mdash;
+      <strong>fixed-sample interval</strong>, re-read at every check</div>
+    </div>
+    <div class="stat ok">
+      <div class="n" id="csN">&mdash;</div>
+      <div class="w">of boards do &mdash; <strong>anytime-valid confidence sequence</strong>,
+      valid at every check at once</div>
+    </div>
+  </div>
+
+  <svg id="chart" viewBox="0 0 700 260" role="img"
+       aria-label="False-winner rate against number of checks: the fixed-sample curve climbs steeply while the anytime-valid curve stays flat near zero."></svg>
+  <p class="note" id="cap"></p>
+</div>
+
+    <p>At a single look the interval does what it promised: about one board in twenty names a winner
+    between two models that are genuinely tied. By forty looks it is closer to one in three. Nothing
+    about the models changed and no new bias crept in &mdash; the only thing that changed is how often
+    somebody looked.</p>
+
+    <p>This is not a subtle effect and it is not a hypothetical one. Public model leaderboards are read
+    continuously, by exactly the people deciding which model to ship.</p>
+
+    <h2>What to use instead</h2>
+
+    <p>The fix is to stop buying a promise about one look and buy one about <em>all</em> looks. A
+    <strong>confidence sequence</strong> is an interval at every sample size at once, built so that the
+    probability it is <em>ever</em> wrong &mdash; across the whole infinite sequence of looks &mdash; stays
+    under 5%. You may check it as often as you like, stop when you like, and decide to keep going because
+    of what you just saw. The guarantee does not care.</p>
+
+    <p>That is the teal line above, and it is wider than the dashed one. That width is the price, and it
+    is the right thing to pay: a bound that is honest about having been read a hundred times is more
+    useful than a tight one that quietly stopped being true after the second look.</p>
+
+    <h2>Try it on your own numbers</h2>
+
+    <p>If you have pairwise results of your own, the <a href="../tools/leaderboard.html">leaderboard
+    calculator</a> will put an anytime-valid bound on every claim in them, and tell you how many votes an
+    adversary would have to corrupt before each claim fell over.</p>
+
+    <p class="paper-links">
+      <a href="../tools/leaderboard.html">Open the calculator</a>
+      <a href="../papers/rank-confidence-sequences.html">Rank Confidence Sequences</a>
+      <a href="../papers/certified-corruption-budgets.html">Certified Corruption Budgets</a>
+    </p>
+  </article>
+</main>
+
+<footer class="foot">
+  <p>&copy; <span id="year">2026</span> Hamed Khosravi &middot; Atlanta, GA</p>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>(function () {
+  var N_SIM = 2000, N_MAX = 600, ALPHA = 0.05, RHO2 = 1/50;
+
+  function gauss(rng) {           // Box–Muller
+    var u = 1 - rng(), v = rng();
+    return Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+  }
+  function mulberry(a) { return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    var t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  function csHalf(n) {            // normal-mixture confidence sequence half-width
+    return Math.sqrt((2*(n*RHO2 + 1)/(n*n*RHO2)) * Math.log(Math.sqrt(n*RHO2 + 1)/ALPHA));
+  }
+  var fixHalf = function (n) { return 1.96/Math.sqrt(n); };
+
+  // error rate as a function of how many times the board is read
+  function run(maxLooks, seed) {
+    var rng = mulberry(seed), fixErr = 0, csErr = 0;
+    for (var s = 0; s < N_SIM; s++) {
+      var sum = 0, prev = 0, badFix = false, badCs = false;
+      for (var k = 1; k <= maxLooks; k++) {
+        var n = Math.max(2, Math.round(N_MAX * k / maxLooks));
+        for (var j = prev; j < n; j++) sum += gauss(rng);   // each vote is a coin flip: true gap 0
+        prev = n;
+        var m = Math.abs(sum / n);
+        if (!badFix && m > fixHalf(n)) badFix = true;
+        if (!badCs  && m > csHalf(n))  badCs  = true;
+        if (badFix && badCs) break;
+      }
+      if (badFix) fixErr++;
+      if (badCs)  csErr++;
+    }
+    return [fixErr/N_SIM, csErr/N_SIM];
+  }
+
+  var LOOKS = [1,2,3,4,6,8,10,13,16,20,25,30,36,42,50,60];
+  var looks = document.getElementById('looks'),
+      out   = document.getElementById('looksOut'),
+      fixN  = document.getElementById('fixN'),
+      csN   = document.getElementById('csN'),
+      chart = document.getElementById('chart'),
+      cap   = document.getElementById('cap'),
+      seed  = 7;
+
+  var X0 = 58, X1 = 672, Y0 = 26, Y1 = 212;
+  function px(i) { return X0 + (X1 - X0) * i/(LOOKS.length - 1); }
+  function py(v) { return Y1 - v/0.5 * (Y1 - Y0); }           // y axis 0 .. 50%
+
+  function draw() {
+    var cur = +looks.value;
+    out.textContent = cur;
+
+    var curve = LOOKS.map(function (L, i) { return run(L, seed + i*101); });
+    var here  = run(cur, seed + 9001);
+    fixN.textContent = (here[0]*100).toFixed(1) + '%';
+    csN.textContent  = (here[1]*100).toFixed(1) + '%';
+
+    function path(j) {
+      return curve.map(function (c, i) { return (i ? 'L' : 'M') + px(i).toFixed(1) + ',' + py(c[j]).toFixed(1); }).join(' ');
+    }
+    var g = [];
+    [0.1,0.2,0.3,0.4,0.5].forEach(function (v) {
+      g.push('<line x1="'+X0+'" y1="'+py(v)+'" x2="'+X1+'" y2="'+py(v)+'" stroke="var(--rule)" stroke-width="1"/>');
+      g.push('<text x="'+(X0-8)+'" y="'+(py(v)+4)+'" text-anchor="end" font-size="11" fill="var(--faint)">'+(v*100)+'%</text>');
+    });
+    g.push('<line x1="'+X0+'" y1="'+py(0.05)+'" x2="'+X1+'" y2="'+py(0.05)+'" stroke="var(--text)" stroke-width="1" stroke-dasharray="5 3"/>');
+    g.push('<text x="'+(X0+8)+'" y="'+(py(0.05)-6)+'" font-size="11" fill="var(--muted)">the 5% that was promised</text>');
+    g.push('<path d="'+path(0)+'" fill="none" stroke="var(--bad)" stroke-width="2.2" stroke-linejoin="round"/>');
+    g.push('<path d="'+path(1)+'" fill="none" stroke="var(--ok)"  stroke-width="2.2" stroke-linejoin="round"/>');
+
+    var idx = 0, best = 1e9;
+    LOOKS.forEach(function (L, i) { if (Math.abs(L - cur) < best) { best = Math.abs(L - cur); idx = i; } });
+    g.push('<line x1="'+px(idx)+'" y1="'+Y0+'" x2="'+px(idx)+'" y2="'+Y1+'" stroke="var(--accent)" stroke-width="1" opacity=".45"/>');
+    g.push('<circle cx="'+px(idx)+'" cy="'+py(curve[idx][0])+'" r="4" fill="var(--bad)"/>');
+    g.push('<circle cx="'+px(idx)+'" cy="'+py(curve[idx][1])+'" r="4" fill="var(--ok)"/>');
+
+    g.push('<line x1="'+X0+'" y1="'+Y1+'" x2="'+X1+'" y2="'+Y1+'" stroke="var(--rule)"/>');
+    [0,4,8,11,15].forEach(function (i) {
+      g.push('<text x="'+px(i)+'" y="'+(Y1+18)+'" text-anchor="middle" font-size="11" fill="var(--faint)">'+LOOKS[i]+'</text>');
+    });
+    g.push('<text x="'+((X0+X1)/2)+'" y="'+(Y1+40)+'" text-anchor="middle" font-size="12.5" fill="var(--muted)">times the board is checked &#8594;</text>');
+    chart.innerHTML = g.join('');
+
+    cap.textContent = 'At ' + cur + (cur === 1 ? ' check' : ' checks') +
+      ', the fixed-sample interval names a winner between two tied models on ' +
+      (here[0]*100).toFixed(1) + '% of boards. The confidence sequence: ' + (here[1]*100).toFixed(1) + '%.';
+  }
+
+  looks.addEventListener('input', draw);
+  document.getElementById('reroll').addEventListener('click', function () { seed = (seed*7919 + 13)|0; draw(); });
+  draw();
+})();</script>
+</body>
+</html>
